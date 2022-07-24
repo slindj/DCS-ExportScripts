@@ -825,14 +825,14 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
 	lUFC_Display = lUFC_Left_Position..string.rep(" ", lRep)..lUFC_Right_Position
 
 	if ExportScript.Config.Debug then
-		ExportScript.Tools.WriteToLog("lUFC_Chnl1: "..string.format("%s", lUFC_Chnl1)) -- string with max 2 charachters
-		ExportScript.Tools.WriteToLog("lUFC_Chnl2: "..string.format("%s", lUFC_Chnl2)) -- string with max 2 charachters
+		ExportScript.Tools.WriteToLog("lUFC_Chnl1: "..string.format("%s", lUFC_Chnl1:gsub(':', ''))) -- string with max 2 charachters
+		ExportScript.Tools.WriteToLog("lUFC_Chnl2: "..string.format("%s", lUFC_Chnl2:gsub(':', ''))) -- string with max 2 charachters
 		ExportScript.Tools.WriteToLog("lUFC_Left_Position: "..string.format("%s", lUFC_Left_Position))
 		ExportScript.Tools.WriteToLog("lUFC_Right_Position: "..string.format("%s", lUFC_Right_Position))
 		ExportScript.Tools.WriteToLog("lUFC_Display: "..string.format("%s", lUFC_Display)) -- string with max 8 charachters
 	end
-	ExportScript.Tools.SendData(2023, string.format("%s", lUFC_Chnl1)) -- string with max 2 charachters
-	ExportScript.Tools.SendData(2024, string.format("%s", lUFC_Chnl2)) -- string with max 2 charachters
+	ExportScript.Tools.SendData(2023, string.format("%s", lUFC_Chnl1:gsub(':', ''))) -- string with max 2 charachters
+	ExportScript.Tools.SendData(2024, string.format("%s", lUFC_Chnl2:gsub(':', ''))) -- string with max 2 charachters
 	ExportScript.Tools.SendData(2025, string.format("%s", lUFC_Display)) -- string with max 8 charachters
 
 	-- ODU Display
