@@ -137,9 +137,48 @@ ExportScript.ConfigEveryFrameArguments =
 	
 	[338] = "%.4f",		--	M24 (rear left) Radio Channel Indicator
 	[390] = "%.4f",		--	Far Left Panel Light 2
-	[391] = "%.4f",		--	Far Left Panel Light 3
-	[393] = "%.4f",		--	Far Left Panel Light 4
-	-- more far left lights up to 410
+
+	-- Fuel Valve Lights
+	[391] = "%.4f",		-- LH Tank valve closed
+	[393] = "%.4f",		-- RH Tank valve closed	
+	[395] = "%.4f",		-- LH Eng valve closed
+	[398] = "%.4f",		-- RH Eng valve closed
+	[401] = "%.4f",		-- isolating valve closed
+	[403] = "%.4f",		-- Pump N4 on
+	[405] = "%.4f",		-- Pump N5 on
+	[407] = "%.4f",		-- Pump N1 on
+	[409] = "%.4f",		-- Pump N2 on
+
+	[413] = "%.4f",		-- fuel transfer?
+	[412] = "%.4f",		-- cutoff fuel transfer
+	-- Electrical panel lights
+	[178] = "%.4f",		-- Generators Parallelled
+	
+	-- APU Lights
+	[317] = "%.4f",		-- automatic start
+	[316] = "%.4f",		-- starter
+	[310] = "%.4f",		-- automatic tub
+	[306] = "%.4f",		-- oil pressure normal
+	[288] = "%.4f",		-- rpm normal
+	[309] = "%.4f",		-- rpm high
+
+	-- Fire warning
+	[470] = "%.4f",		-- fire left eng
+	[473] = "%.4f",		-- fire right eng
+	[476] = "%.4f",		-- fire apu
+	[479] = "%.4f",		-- fire reducer gearbox
+
+	[471] = "%.4f",		-- pyro 1_1
+	[474] = "%.4f",		-- pyro 1_2
+	[477] = "%.4f",		-- pyro 1_3
+	[480] = "%.4f",		-- pyro 1_4
+	[472] = "%.4f",		-- pyro 2_1
+	[475] = "%.4f",		-- pyro 2_2
+	[478] = "%.4f",		-- pyro 2_3
+	[481] = "%.4f",		-- pyro 2_4
+
+	[483] = "%.4f",		-- fire det test
+
 	
 	-- [470] to [481] are all left side wall lights
 	
@@ -991,21 +1030,7 @@ ExportScript.ConfigArguments =
 	[671] = "%.4f",		--	Autopilot Trimmer for yourself 	CONTROL-TRIMMER-OP-PTR
 	[670] = "%.4f",		--	Autopilot Trimmer for yourself Switch Cover	CONTROL-TRIMMER-OP-COVER-PTR
 	
-	-- Fuel Valve Lights
-	[391] = "%.4f",
-	[393] = "%.4f",
-	[395] = "%.4f",
-	[398] = "%.4f",
-	[401] = "%.4f",
-	[403] = "%.4f",
-	[405] = "%.4f",
-	[407] = "%.4f",
-	[409] = "%.4f",
-	
-	-- APU Lights
-	[317] = "%.4f",
-	[306] = "%.4f",
-	[288] = "%.4f",
+
 	--[[
 	]]--
 }
