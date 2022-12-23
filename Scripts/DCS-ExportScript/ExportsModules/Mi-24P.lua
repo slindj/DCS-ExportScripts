@@ -990,6 +990,22 @@ ExportScript.ConfigArguments =
 	[974] = "%.4f",		--	Hide Stick toggle	PTR-STICK-HIDE-974
 	[671] = "%.4f",		--	Autopilot Trimmer for yourself 	CONTROL-TRIMMER-OP-PTR
 	[670] = "%.4f",		--	Autopilot Trimmer for yourself Switch Cover	CONTROL-TRIMMER-OP-COVER-PTR
+	
+	-- Fuel Valve Lights
+	[391] = "%.4f",
+	[393] = "%.4f",
+	[395] = "%.4f",
+	[398] = "%.4f",
+	[401] = "%.4f",
+	[403] = "%.4f",
+	[405] = "%.4f",
+	[407] = "%.4f",
+	[409] = "%.4f",
+	
+	-- APU Lights
+	[317] = "%.4f",
+	[306] = "%.4f",
+	[288] = "%.4f",
 	--[[
 	]]--
 }
@@ -1510,7 +1526,9 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
 	ExportScript.Tools.SendData("ExportID", "Format")
 	ExportScript.Tools.SendData(2000, string.format("%7.3f", lUHFRadio:get_frequency()/1000000)) -- <- special function for get frequency data
 	ExportScript.Tools.SendData(2000, ExportScript.Tools.RoundFreqeuncy((UHF_RADIO:get_frequency()/1000000))) -- ExportScript.Tools.RoundFreqeuncy(frequency (MHz|KHz), format ("7.3"), PrefixZeros (false), LeastValue (0.025))
+	
 ]]
+	ExportScript.LampFloat2Ints(mainPanelDevice)
 	
 	
 end
@@ -1556,7 +1574,17 @@ end
 --     Custom functions    --
 -----------------------------
 --TODO: Relocate functions to here
-
+function ExportScript.LampFloat2Ints(mainPanelDevice)
+	ExportScript.Tools.SendData(3391, math.ceil(mainPanelDevice:get_argument_value(391)))
+	ExportScript.Tools.SendData(3393, math.ceil(mainPanelDevice:get_argument_value(393)))
+	ExportScript.Tools.SendData(3395, math.ceil(mainPanelDevice:get_argument_value(395)))
+	ExportScript.Tools.SendData(3398, math.ceil(mainPanelDevice:get_argument_value(398)))
+	ExportScript.Tools.SendData(3401, math.ceil(mainPanelDevice:get_argument_value(401)))
+	ExportScript.Tools.SendData(3403, math.ceil(mainPanelDevice:get_argument_value(403)))
+	ExportScript.Tools.SendData(3405, math.ceil(mainPanelDevice:get_argument_value(405)))
+	ExportScript.Tools.SendData(3407, math.ceil(mainPanelDevice:get_argument_value(407)))
+	ExportScript.Tools.SendData(3409, math.ceil(mainPanelDevice:get_argument_value(409)))
+end
 function ExportScript.RadioFreqs(mainPanelDevice)
 -- free flight
 -- device 49 returns "127500088" R-863
