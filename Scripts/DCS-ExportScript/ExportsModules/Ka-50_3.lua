@@ -298,6 +298,309 @@ ExportScript.ConfigArguments =
     [1010] = "%0.4f", -- HMD_PrismsRotPhase
     [1015] = "%0.4f", -- lamp_MasterWarning_brightness
     [1016] = "%0.4f", -- lamp_RotorRPM_brightness
+	
+	[110] = "%.1f",        -- TEST-IKP-PTR (ADI Test Button) {0.0,1.0}
+	-- HSI
+	---------------------------------------------------
+	[113] = "%.1f",        -- TEST-PNP-PTR03 (HSI test Button) 
+	[54]  = "%1d",         -- ZPU-ZK-PTR (HSI Desired track angle - Desired heading, Auto - Manual) {0,1}
+	--laser ranger
+	---------------------------------------------------
+	[56]  = "%1d",         -- LDP-LD-PTR (Laser rangefinder / designator - mode switch) 
+	[57]  = "%1d",         -- LD-LDP-COVER-PTR (Laser rangefinder Cover) 
+	[55]  = "%.1f",        -- CHOP-LDP-PTR (Laser designator reset) 
+	-- RADIOALTIMETER
+	---------------------------------------------------
+	[96]  = "%.1f",        -- TEST-RADIO-HIGHT-PTR (Radar altimeter test) 
+	-- CPT MECH
+	---------------------------------------------------
+	[572] = "%.1f",        -- G--PTR (Accelerometer reset)
+	-- SYSTEM CONTROLLER
+	---------------------------------------------------
+	[45]  = "%.1f",        -- CONTROL-ALARM-PTR (Lamps test) 
+	-- STANDBY ADI (AGR-81)
+	---------------------------------------------------
+	[230] = "%1d",         -- RES-AG-PTR (Standby Attitude Indicator power switch)
+	-- Engines Start-Up Control Panel
+	---------------------------------------------------
+	[131] = "%.1f",        -- CONTROL-TEMP-WORK-PTR (Running engines exhaust gas temperature indicator test button)
+	[132] = "%.1f",        -- CONTROL-TEMP-NOTWORK-PTR (Stopped engines exhaust gas temperature indicator test button)
+	-- FUEL SYSTEM
+	---------------------------------------------------
+	[616] = "%.1f",        -- CONTROL-OIL-PTR (Fuel quantity indicator self test button) 
+	-- ABRIS Display
+	---------------------------------------------------
+	[512] = "%.1f",        -- PTR_BTN-ABRIS-01 (ABRIS Pushbutton 1) {start value 0.01 the same index for -2,-3,-4,-5,-6,-7,-8,-9,-RCL,-ENTR with increment 0.01}
+	[513] = "%.1f",        -- PTR_BTN-ABRIS-02 (ABRIS Pushbutton 2) 
+	[514] = "%.1f",        -- PTR_BTN-ABRIS-03 (ABRIS Pushbutton 3) 
+	[515] = "%.1f",        -- PTR_BTN-ABRIS-04 (ABRIS Pushbutton 4) 
+	[516] = "%.1f",        -- PTR_BTN-ABRIS-05 (ABRIS Pushbutton 5) 
+	[518] = "%.1f",        -- ABRIS_SHUNT_PTR (ABRIS Cursor Control (rotary)){0.0,1.0} (0.04) 
+	[523] = "%.1f",        -- ABRIS_SHUNT_PTR (ABRIS Cursor Control (push))
+	[517] = "%.3f",        -- ABRIS_BRIGHTNESS_PTR (ABRIS Brightness) {0.0,1.0} (0.05) 
+	[130] = "%0.1f",       -- ABRIS-POWER_PTR (ABRIS Power)
+	-- HUD
+	---------------------------------------------------
+	[8]   = "%.3f",        -- PTR_HUD-BRIGHTNESS (HUD Brightness)
+	[9]   = "%1d",         -- PTR_HUD-TMB-SETKA02 (HUD Modes Reticle/Night/Day)
+	[7]   = "%.1f",        -- PTR-HUD-TEST (HUD Test)
+	[510] = "%0.1f",       -- PTR_HUD-FILTER (HUD Filter)
+	-- PUI-800 Weapons Control Panel
+	---------------------------------------------------
+	[387] = "%1d",         -- MASTER-ARM-PTR (Master Arm)
+	[402] = "%.1f",        -- UI800-AVARCHOP-PTR (External stores jettison)
+	[396] = "%1d",         -- MASTER-EXPLODE-PTR (Jettison arm mode - arm fuse/disarm fuse)
+	[403] = "%1d",         -- PUI800-AUTO-PTR (Manual/Auto weapon system control switch) 
+	[399] = "%1d",         -- PUI800-OFBR-PTR (Cannon round selector switch HE/AP)
+	[400] = "%.1f",       -- SR-PTR (Weapon mode switch - Burst Length) {0.0,0.1,0.2}
+	[398] = "%1d",         -- MT-PTR (Cannon rate of fire setting)
+	[397] = "%.1f",        -- MASTER-UNLOAD-PTR (Expedite emergency ATGM launch)
+	-- PUR Weapons Aux Panel
+    -- SHKVAL
+	---------------------------------------------------
+	[404] = "%1d",         -- PUR-BACKGROUND-PTR (IT-23 Black-White indication switch)
+	[406] = "%.3f",        -- PUR-LIGHTIT-PTR (IT-23 display brightness)
+	[407] = "%.3f",        -- PUR-CONTRAST-PTR (IT-23 display contrast)
+    -- SHKVAL windscreen wiper
+	[224] = "%.1f",        -- WIPER-PTR (SHKVAL windscreen wiper)
+	-- HELMET
+	[405] = "%.3f",        -- PUR-LIGHTNVU-PTR (Helmet device brightness)
+	-- WEAPON SYSTEM
+	[408] = "%0.1f",       -- PUR-LIT-PTR (Laser code selector)
+	[409] = "%1d",         -- PUR-OGR-INF-PTR (HUD/TV declutter switch)
+	-- Outside illumination
+	---------------------------------------------------
+	[382] = "%0.1f",       -- LANDING LIGHTS-DIR-LIGHT-PTR (Light landing-search. On/Retraction/Off)
+	[383] = "%1d",         -- LANDING LIGHTS-BASE-RESERV-PTR (Lights landing-search change. Main/Reserved)
+	-- ALMAZ system
+	---------------------------------------------------
+	[384] = "%.1f",        -- SPEECH-INFO-OFF-PTR01 (Voice message system messages off)
+	[385] = "%.1f",        -- SPEECH-INFO-RETRY-PTR (Voice message system messages repeat)
+	[386] = "%0.1f",       -- SPEECH-INFO-AVAR-PTR (Voice message system emergency on)
+	[442] = "%.1f",        -- SPEECH-BIT-PTR (Voice message system check)
+	-- CPT MECH
+	---------------------------------------------------
+	[65]  = "%1d",         -- GEAR-PTR (Gear lever)
+	[66]  = "%1d",         -- AVAR-GEAR-PTR (Main/Common hydraulics for emergency gear)
+	[67]  = "%1d",         -- AVAR-GEAR-COVER-PTR (Main/Common hydraulics for emergency gear Cover)
+	-- OVERHEAD PANEL
+	---------------------------------------------------
+	[146] = "%0.1f",       -- ANO-PTR (Navigation Lights 10\% / 30\% / 100\% / Off)
+	[147] = "%0.1f",       -- WINDSCREEN-WIPER-PTR (Windshield wiper switch)
+	[539] = "%1d",         -- PPD-DUAS-PTR (Pitot static port and AoA sensors heat switch)
+	[151] = "%1d",         -- PVD-CLOCK-PTR (Pitot ram air and clock heat switch)
+	[153] = "%1d",         -- POS-ROTORS-PTR (Rotor de-icing system switch)
+	[154] = "%0.1f",       -- POS-ENGINE-PZU-PTR (Engines de-icing / dust-protection systems switch)
+	[156] = "%.1f",        -- KONTR-PVD-PTR (Pitot heat system test)
+	-- Laser Warning System
+	---------------------------------------------------
+	[35]  = "%.1f",        -- L-140-RESET-PTR (LWS Reset button)
+	[583] = "%1d",         -- L140-SWITCH (LWS Power switch)
+	[584] = "%.1f",        -- L140-CNOB (LWS self-test button)
+	-- UV-26 CMD Control Panel
+	---------------------------------------------------
+	[36]  = "%0.1f",       -- UV26-BOARD-PTR (CMD Select Left/Both/Right board flares dispensers)
+	[37]  = "%0.1f",       -- UV26-PROGR-PTR (CMD Amount flares counter/Programming)
+	[38]  = "%.1f",        -- UV26-SERIES-PTR (CMD Num of sequences)
+	[39]  = "%.1f",        -- UV26-BURST-PTR (CMD Num in sequence)
+	[41]  = "%.1f",        -- UV26-INTERVAL-PTR (CMD Dispense interval)
+	[43]  = "%.1f",        -- UV26-START-PTR (CMD Start dispense)
+	[42]  = "%.1f",        -- UV26-CANCELPRG-PTR (CMD Reset to default program)
+	[40]  = "%.1f",        -- UV26-STOP-PTR (CMD Stop dispense)
+	-- UV-26 related (REAR PANEL)
+	[496] = "%1d",         -- UV26-POWER-PTR (CMD Power)
+	[497] = "%1d",         -- UV26-POWER-COVER-PTR (CMD Power Cover)
+	[498] = "%1d",         -- UV26-TEST-PTR (CMD BIT)
+	[499] = "%1d",         -- UV26-TEST-COVER-PTR (CMD BIT Cover)
+	-- PVI NAV Panel
+	---------------------------------------------------
+	[312] = "%0.1f",       -- PVI-0-PTR (NAV '0' Btn)
+	[303] = "%0.1f",       -- PVI-1-PTR (NAV '1' Btn)
+	[304] = "%0.1f",       -- PVI-2-PTR (NAV '2' Btn) 
+	[305] = "%0.1f",       -- PVI-3-PTR (NAV '3' Btn) 
+	[306] = "%0.1f",       -- PVI-4-PTR (NAV '4' Btn) 
+	[307] = "%0.1f",       -- PVI-5-PTR (NAV '5' Btn) 
+	[308] = "%0.1f",       -- PVI-6-PTR (NAV '6' Btn) 
+	[309] = "%0.1f",       -- PVI-7-PTR (NAV '7' Btn) 
+	[310] = "%0.1f",       -- PVI-8-PTR (NAV '8' Btn) 
+	[311] = "%0.1f",       -- PVI-9-PTR (NAV '9' Btn) 
+	[324] = "%0.1f",       -- PVI-SWITCH-PTR (NAV Master modes)
+	[325] = "%1d",         -- PVI_I251V_PTR (NAV INU fixtaking method)
+	[326] = "%1d",         -- PVI_VCU_PTR (NAV Datalink power)
+	[327] = "%.3f",        -- PVI-BRIGHTNESS-PTR (NAV Brightness)
+	-- DATALINK
+	---------------------------------------------------
+	-- Datalink Mode Controls
+   	[328] = "%0.1f",       -- DTLK-SELF-ID-PTR (Datalink self ID)
+	[329] = "%0.1f",       -- DTLK-MASTER-MODES-PTR (Datalink Master mode)
+	-- PPR - Autopilot Control Panel
+	-- AUTOPILOT
+	---------------------------------------------------
+	[335] = "%0.1f",       -- BAR-RV-PTR (Autopilot BARO/RALT altitude hold mode)
+	-- NAV SYSTEM
+	[336] = "%0.1f",       -- ZK-LZP-PTR (Autopilot Desired heading - Desired track)
+	--ARK-22
+	---------------------------------------------------
+	[381] = "%0.2f",       -- IANDING LIGHTS-DIR-LIGHT-PTR01 (ADF Inner-Auto-Outer NDB switch)
+	[355] = "%.1f",        -- ARK-CONTROL-PTR (ADF Test)
+	[354] = "%1d",         -- TLF-TLG-PTR (TLF-TLG modes)
+	[353] = "%.3f",        -- VARK-VOLUME-PTR (ADF Volume)
+	[356] = "%1d",         -- TLF-TLG-PTR01 (COMPASS-ANTENNA modes)
+	[357] = "%0.1f",       -- VARK-VOLUME-PTR01 (ADF channel switch)
+	--R-828
+	---------------------------------------------------
+	[371] = "%0.1f",       -- CHANNEL-PTR (R-828 (VHF-1) Radio channel selector)
+	[372] = "%.3f",        -- RADIO-VOLUME-PTR (R-828 (VHF-1) Radio Volume)
+	[373] = "%.1f",        -- ASU-PTR (R-828 (VHF-1) Tuner button)
+	[374] = "%1d",         -- RADIO-PSH-SWITCH-PTR (R-828 (VHF-1) Squelch)
+	-- Signal Flares
+	---------------------------------------------------
+	[376] = "%.1f",        -- SIGNAL-FLARE-1-PTR (Signal flare red)
+	[377] = "%.1f",        -- SIGNAL-FLARE-2-PTR (Signal flare green)
+	[378] = "%.1f",        -- SIGNAL-FLARE-3-PTR (Signal flare white)
+	[379] = "%.1f",        -- SIGNAL-FLARE-4-PTR (Signal flare yellow)
+	[380] = "%1d",         -- SIGNAL-FLARE-SWITCH-PTR (Signal flare system power)
+	--R-800
+	---------------------------------------------------
+	[418] = "%.1f",        -- START-PANEL-CONTROL-PTR (R-800 (VHF-2) BIT button)
+	[417] = "%1d",         -- CONTR-RADIO-CHM-AM-PTR (R-800 (VHF-2) AM-FM toggle switch)
+	[421] = "%1d",         -- CONTR-RADIO-AP-PTR (R-800 (VHF-2) Emergency receiver)
+	[422] = "%1d",         -- CONTR-RADIO-ARK-PTR (R-800 (VHF-2) ADF switch)
+	[420] = "%1d",         -- CONTR-RADIO-50-100-PTR01 (R-800 (VHF-2) Data transfer rate switch)
+	[423] = "%1d",         -- CONTR-RADIO-PSH-PTR (R-800 (VHF-2) Squelch)
+	-- PVR
+	---------------------------------------------------
+	-- WEAPONS
+	[432] = "%1d",         -- PVR-DRILL-PTR (Training mode)
+	[431] = "%0.1f",       -- PVR-MODE-PTR (Weapon system mode selector)
+	[436] = "%1d",         -- PVR-AS-PM-PTR (Automatic Tracking / gun sight)
+	-- K041
+	[433] = "%1d",         -- K-041-PTR (K-041 Targeting-navigation system power switch)
+	-- LASERRANGER
+	[435] = "%1d",         -- PVR-IZL-PTR (Laser standby ON/OFF switch) 
+	-- HELMET
+	[434] = "%1d",         -- PVR-OBZ-PTR (Helmet-mounted sight system power switch)
+	-- SHKVAL
+	[301] = "%0.1f",       -- V-SCAN-PTR (Shkval scan rate)
+	-- Engines Start-Up Control Panel
+	---------------------------------------------------
+	[412] = "%.1f",        -- START-PANEL-START-PTR (Start-up selected engine button)
+	[413] = "%.1f",        -- START-PANEL-STOP-START-PTR ("Interrupt start-up button)
+	[414] = "%.1f",        -- START-PANEL-STOP-START-PTR01 (Stop APU button)
+	[415] = "%0.1f",       -- START-PANEL-ROLLING-PTR (Engine Startup/Crank/False Start selector)
+	[416] = "%0.1f",       -- START-ENGINE-SELECTOR-PTR (Engine selector)
+	[554] = "%1d",         -- EMERGENCY-BRAKE ENGINE-LEFT-PTR (Left engine cut-off valve)
+	[555] = "%1d",         -- EMERGENCY-BRAKE ENGINE-RIGHT-PTR (Right engine cut-off valve)
+	[556] = "%1d",         -- BRAKE-ROTOR-LOW-PTR01 (Rotor brake)
+	--Radio switcher
+	---------------------------------------------------
+	[428] = "%0.2f",       -- RADIO-RATE-PTR (SPU-9 Radio communicator selector)
+	-- Right Side Panel
+	---------------------------------------------------
+	-- ELECTRICS POWER
+	[262] = "%1d",         -- ENERG-AER-RIT-PTR (DC ground power)
+	[263] = "%1d",         -- ENERG-COVER-AER-RIT-PTR (DC ground power Cover)
+	[543] = "%1d",         -- ENERG-AKK2-PTR (Battery 2)
+	[544] = "%1d",         -- ENERG-COVER-AKK2-PTR (Battery 2 Cover)
+	[264] = "%1d",         -- ENERG-AKK1-PTR (Battery 1)
+	[265] = "%1d",         -- ENERG-COVER-AKK1-PTR (Battery 1 Cover)
+	[267] = "%1d",         -- RAMP-POWER-PTR (AC ground power)
+	[268] = "%1d",         -- GEN-LEFT-PTR (AC left generator)
+	[269] = "%1d",         -- GEN-RIGHT-PTR (AC right generator)
+	[270] = "%0.1f",       -- CONVERTER-PTR (DC/AC inverter) {0.0, 0.2}
+	-- FUEL SYSTEM
+	[271] = "%1d",         -- FUEL-PUMP-FRONT-PTR (Forward fuel tank pumps)
+	[272] = "%1d",         -- FUEL-PUMP-BACK-PTR (Rear fuel tank pumps)
+	[273] = "%1d",         -- FUEL-PUMP-INNER-PTR (Inner external fuel tanks pumps)
+	[274] = "%1d",         -- FUEL-PUMP-OUTER-PTR (Outer external fuel tanks pumps)
+	[275] = "%1d",         -- FUEL-METER-PTR (Fuelmeter power)
+	[276] = "%1d",         -- PAV-CRANE-ENGINE-LEFT-PTR (Left engine fuel shutoff valve)
+	[277] = "%1d",         -- PAV-CRANE-COVER-ENGINE-LEFT-PTR (Left engine fuel shutoff valve)
+	[278] = "%1d",         -- PAV-CRANE-ENGINE-RIGHT-PTR (Right engine fuel shutoff valve)
+	[279] = "%1d",         -- PAV-CRANE-COVER-ENGINE-RIGHT-PTR (Right engine fuel shutoff valve)
+	[280] = "%1d",         -- PAV-CRANE-VSU-PTR (APU fuel shutoff valve)
+	[281] = "%1d",         -- PAV-CRANE-COVER-VSU-PTR (APU fuel shutoff valve Cover)
+	[282] = "%1d",         -- PAV-CRANE-CYKLIZATION-PTR (Fuel crossfeed valve)
+	[283] = "%1d",         -- PAV-CRANE-COVER-CYKLIZATION-PTR (Fuel crossfeed valve Cover)
+	-- COMMS POWER
+   	[284] = "%1d",         -- COMM-PWR-AVSK-PTR (Intercom) 
+	[285] = "%1d",         -- COMM-PWR-UKV-1-PTR (VHF-1 (R828) power switch)
+	[286] = "%1d",         -- COMM-PWR-UKV-2-PTR (VHF-2 (R-800) power switch)
+	[287] = "%1d",         -- COMM-PWR-TLK-PTR (Radio equipment datalink TLK power switch)
+	[288] = "%1d",         -- COMM-PWR-UKV-TLK-PTR (Radio equipment datalink UHF TLK power switch)
+	[289] = "%1d",         -- COMM-PWR-SA-TLF-PTR (Radio equipment datalink SA-TLF power switch)
+	-- WEAPON SYS
+	[547] = "%1d",         -- SUO-PTR (Weapons Control system)
+	[548] = "%1d",         -- SUO-COVER-PTR (Weapons Control system Cover)
+	-- EJECT SYSTEM
+	[214] = "%1d",         -- RIGHT-EMERG-SW1-PTR (Ejecting system power 1)
+	[215] = "%1d",         -- RIGHT-EMERG-SW2-PTR (Ejecting system power 2)
+	[216] = "%1d",         -- RIGHT-EMERG-SW3-PTR (Ejecting system power 3) 
+	[217] = "%1d",         -- RIGHT-COVER-EMERG-VACATION-PTR (Ejecting system power Cover)
+	[462] = "%0.1f",       -- CONTR-SAPROTATE-PTR (Ejecting system circuit selector)
+	[460] = "%.1f",        -- CONTR-SAP-PTR (Ejecting system circuit test)
+	-- HYDRAULICS
+	[220] = "%1d",         -- HYDRO-PTR (Main hydraulics) 
+	[221] = "%1d",         -- HYDRO-COVER-PTR02 (Main hydraulics Cover)
+	-- IFF
+	[218] = "%1d",         -- SRO-PTR (IFF power) 
+	[219] = "%1d",         -- COVER-SRO-PTR (IFF power Cover)
+	-- NAV SYSTEM
+	[222] = "%1d",         -- PNK-PTR (Navigation system power)
+	[229] = "%0.1f",       -- GYRO-MAG-MAN-HEADING-PTR (Gyro/Mag/Manual heading)
+	-- Outside illumination
+	[228] = "%1d",         -- FLASHER-PTR (Anticollision Light)
+	[296] = "%1d",         -- CONTUR-LIGHT-PTR (Tip Lights) 
+	[297] = "%0.1f",       -- FORMATION-PTR (Formation Lights)
+	-- ENGINES
+	[290] = "%1d",         -- ERD-LEFT-PTR (EEG Left engine Electronic Engine Governor) 
+	[291] = "%1d",         -- ERD-LEFT-COVER-PTR (EEG Left engine Electronic Engine Governor Cover)
+	[292] = "%1d",         -- ERD-RIGHT-PTR (EEG Right engine Electronic Engine Governor)
+	[293] = "%1d",         -- ERD-RIGHT-COVER-PTR (EEG Right engine Electronic Engine Governor Cover)
+	[294] = "%1d",         -- PAV-CRANE-VSU-PTR01 (EEG gas generator test Operate switch)
+	[569] = "%1d",         -- PAV-CRANE-COVER-VSU-PTR01 (EEG gas generator test Operate switch Cover)
+	[295] = "%0.1f",       -- PAV-CRANE-VSU-PTR02 (EEG power turbine channel 1 test Operate EEG power turbine channel 2 test, three-switch contactor)
+	[570] = "%0.1f",       -- PAV-CRANE-COVER-VSU-PTR02 (EEG power turbine channel 1 test Operate EEG power turbine channel 2 test, three-switch contactor Cover)
+	[457] = "%.1f",        -- RT-12-6-LEFT-PTR (Left EGT control threshold governor button)
+	[458] = "%.1f",        -- RT-12-6-RIGHT-PTR (Right EGT control threshold governor button)
+	[459] = "%.1f",        -- RT-12-6-IV-PTR (Engines vibrations monitoring system control button)
+	-- Lighting
+   	[300] = "%1d",         -- DESK-PTR (Lighting cockpit panel switch)
+	[299] = "%1d",         -- DEVICES-PTR (Lighting night vision cockpit switch)
+	[298] = "%1d",         -- AGR-PKP-PTR (Lighting ADI and SAI switch)
+	-- Fire Extinguishers Control Panel
+	[236] = "%.1f",        -- PUI800-AVARCHOP-PTR01 (Left engine extinguisher) 
+	[238] = "%.1f",        -- PUI800-AVARCHOP-PTR02 (APU extinguisher)
+	[240] = "%.1f",        -- PUI800-AVARCHOP-PTR03 (Right engine extinguisher)
+	[242] = "%.1f",        -- PUI800-AVARCHOP-PTR04 (Ventilator extinguisher)
+	[248] = "%0.1f",       -- FIREEXT-PTR (Fire extinguisher Work Off Test switch)
+	[249] = "%0.1f",       -- FIREEXT-COVER-PTR (Fire extinguisher Work Off Test switch Cover)
+	[250] = "%1d",         -- FIREEXT-INDICATION-PTR (Fire signaling)
+	[246] = "%1d",         -- BALOONS-PTR (Fire extinguisher First (Auto) / Second (Manual) selector)
+	[247] = "%1d",         -- BALOONS-COVER-PTR (Fire extinguisher First (Auto) / Second (Manual) selector Cover)
+	-- Misc. systems
+	[258] = "%0.1f",       -- REDUCTOR-PTR (Reducing gear box oil pressure indication selector) 
+	[259] = "%1d",         -- HANGER-PTR (Sling load Auto/Manual)
+	-- Auxiliary panel
+	---------------------------------------------------
+	-- Preflight Set and Check Panel
+	[483] = "%0.1f",       -- PPK-BBTZ-PTR (ATGM Temperature selector)
+	[484] = "%0.1f",       -- PPK-NRAKS-PTR (Unguided rocket and gun pods ballistics data settings selector)
+	[485] = "%1d",         -- PPK-RNP-PTR (Systems BIT selector)
+	[486] = "%1d",         -- KCVM-PTR (Control computers BIT switch)
+	[489] = "%.1f",        -- AKS-PTR (Self test system push-button)
+	[490] = "%1d",         -- VnK-PTR (Emergency INU alignment switch)
+	[491] = "%1d",         -- ROPE-PTR (Stabilisation and indication of hanger cable switch)
+	[492] = "%1d",         -- FKP-PTR (Video Tape Recorder switch)
+	[487] = "%1d",         -- IKV-PTR (INU Power switch)
+	[488] = "%1d",         -- HEAT_IKV-PTR (INU Heater switch)
+	[452] = "%1d",         -- P-CONTR-VMG-HYDRO-PTR (Power plant, hydraulics, EKRAN self-test systems switch)
+	[453] = "%1d",         -- P-CONTR-VMG-HYDRO-COVER-PTR (Power plant, hydraulics, EKRAN self-test systems switch Cover)
+	-- PShK_7 (Latitude Entry Panel)
+	[340] = "%.3f",        -- LATITUDE-PTR (Latitude selection rotaty)
+	[341] = "%1d",         -- N-S-PTR (North/South latitude selection)
+	-- ZMS_3 (Magnetic Variation Entry Panel)
+	[338] = "%.3f"         -- DCLIN-PTR (Magnetic variation selection rotaty)
 }
 
 -----------------------------
