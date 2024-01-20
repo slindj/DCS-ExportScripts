@@ -527,6 +527,7 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
   ExportScript.FuelQuantityIndicator(mainPanelDevice) -- Fuel Quantity Indicator (Dual)
   ExportScript.UhfRadioKnobs(mainPanelDevice) -- AN/ARC-164 UHF
   ExportScript.RWRControlPanel(mainPanelDevice)
+  ExportScript.flapPositionIndicator(mainPanelDevice)
 
   if LoIsObjectExportAllowed() then -- returns true if world objects data is available
     if LoIsOwnshipExportAllowed() then -- returns true if ownship data is available
@@ -1388,6 +1389,19 @@ function getRWRButtonLights(mainPanelDevice, first_id, second_id)
   local second_label = second_on and labels_map[second_id] or " "
 
   return first_label.."\n\n\n"..second_label
+end
+
+function ExportScript.flapPositionIndicator(mainPanelDevice)
+  local flapIndicatorPositions = {
+    [0.1] = "UP",
+    [0.2] = "AUTO",
+    [0.3] = "FIXED",
+    [0.4] = "FULL"
+  }
+  local currentPos = mainPanelDevice:get_argument_value(51)
+  currentPos = math.floor(currentPos * 10) / 10 -- Cut off excess decimal digits
+  local indicatorText = flapIndicatorPositions[currentPos] or "▄▀▄▀\n▄▀▄▀"
+  ExportScript.Tools.SendData(4010, indicatorText)
 end
 
 ----------------------
