@@ -1400,8 +1400,9 @@ function ExportScript.flapPositionIndicator(mainPanelDevice)
   }
   local currentPos = mainPanelDevice:get_argument_value(51)
   currentPos = math.floor(currentPos * 10) / 10 -- Cut off excess decimal digits
-  local indicatorText = flapIndicatorPositions[currentPos] or "▄▀▄▀\n▄▀▄▀"
+  local indicatorText = flapIndicatorPositions[currentPos] or ""
   ExportScript.Tools.SendData(4010, indicatorText)
+  ExportScript.Tools.SendData(4011, string.len(indicatorText)) -- If != 0, flaps in transition
 end
 
 ----------------------
