@@ -1396,7 +1396,7 @@ function ExportScript.flapPositionIndicator(mainPanelDevice)
   local flapIndicatorPositions = {
     [0.1] = "UP",
     [0.2] = "AUTO",
-    [0.3] = "FIXED",
+    [0.3] = "FXD",
     [0.4] = "FULL"
   }
   local currentPos = mainPanelDevice:get_argument_value(51)
