@@ -528,6 +528,7 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
   ExportScript.UhfRadioKnobs(mainPanelDevice) -- AN/ARC-164 UHF
   ExportScript.RWRControlPanel(mainPanelDevice)
   ExportScript.flapPositionIndicator(mainPanelDevice)
+  ExportScript.pitchTrimPosition(mainPanelDevice)
 
   if LoIsObjectExportAllowed() then -- returns true if world objects data is available
     if LoIsOwnshipExportAllowed() then -- returns true if ownship data is available
@@ -1403,6 +1404,12 @@ function ExportScript.flapPositionIndicator(mainPanelDevice)
   local indicatorText = flapIndicatorPositions[currentPos] or ""
   ExportScript.Tools.SendData(4010, indicatorText)
   ExportScript.Tools.SendData(4011, string.len(indicatorText)) -- If != 0, flaps in transition
+end
+
+function ExportScript.pitchTrimPosition(mainPanelDevice)
+  local trimValue = mainPanelDevice:get_argument_value(52)
+  trimValue = math.floor(trimValue * 100) / 10
+  ExportScript.Tools.SendData(4012, string.format("%+.1f", trimValue))
 end
 
 ----------------------
