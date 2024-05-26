@@ -1207,6 +1207,8 @@ export_ids = {
 	WSO_WRCS_ADVANCE	= 10024,
 	WSO_WRCS_RANGE		= 10025,
 	WSO_WRCS_ALTRANGE	= 10026,
+	WSO_GROUNDSPEED		= 10027,
+	WSO_TRUEAIRSPEED	= 10028,
 }
 
 -----------------------------
@@ -1251,6 +1253,8 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
     ExportScript.TACAN_channels(mainPanelDevice)
 	ExportScript.LaserCodeReaout(mainPanelDevice)
 	ExportScript.WSO_WRCS(mainPanelDevice)
+	ExportScript.WSO_speedIndicators(mainPanelDevice)
+	-- ARBCS
     ---------------
     -- Log Dumps --
     ---------------
@@ -1272,6 +1276,34 @@ local function round(num)
     return num + (2^52 + 2^51) - (2^52 + 2^51)
 end
 
+function ExportScript.WSO_speedIndicators(mainPanelDevice)
+	-- WSO True Airspeed
+	local tas_ones = round(mainPanelDevice:get_argument_value(600) * 10)
+	local tas_tens = round(mainPanelDevice:get_argument_value(601) * 10)
+	local tas_hundreds = round(mainPanelDevice:get_argument_value(602) * 10)
+	local tas_thousands = round(mainPanelDevice:get_argument_value(603) * 10) 
+	if tas_ones == 10 then tas_ones = 0 end
+	if tas_tens == 10 then tas_tens = 0 end
+	if tas_hundreds == 10 then tas_hundreds = 0 end
+	if tas_thousands == 10 then tas_thousands = 0 end
+
+	ExportScript.Tools.SendData(export_ids.WSO_TRUEAIRSPEED,
+        string.format(tas_thousands..tas_hundreds..tas_tens..tas_ones))
+
+	-- WSO Ground Speed
+	local gs_ones = round(mainPanelDevice:get_argument_value(604) * 10)
+	local gs_tens = round(mainPanelDevice:get_argument_value(605) * 10)
+	local gs_hundreds = round(mainPanelDevice:get_argument_value(606) * 10)
+	local gs_thousands = round(mainPanelDevice:get_argument_value(607) * 10) 
+	if gs_ones == 10 then gs_ones = 0 end
+	if gs_tens == 10 then gs_tens = 0 end
+	if gs_hundreds == 10 then gs_hundreds = 0 end
+	if gs_thousands == 10 then gs_thousands = 0 end
+
+	ExportScript.Tools.SendData(export_ids.WSO_GROUNDSPEED,
+        string.format(gs_thousands..gs_hundreds..gs_tens..gs_ones))
+end
+
 function ExportScript.WSO_WRCS(mainPanelDevice)
 
 	-- Drag
@@ -1283,7 +1315,7 @@ function ExportScript.WSO_WRCS(mainPanelDevice)
 	if drag_hundreds == 10 then drag_hundreds = 0 end
 
 	ExportScript.Tools.SendData(export_ids.WSO_WRCS_DRAG,
-        string.format(drag_hundreds..drag_tens..drag_ones))		
+        string.format(drag_hundreds..drag_tens..drag_ones))
 
 	-- North/South Distance
 	local NS_hunds = round(mainPanelDevice:get_argument_value(308) * 10)
