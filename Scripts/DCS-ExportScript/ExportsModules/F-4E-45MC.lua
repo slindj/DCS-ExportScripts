@@ -207,8 +207,8 @@ ExportScript.ConfigArguments =
     [269] = "%.1f",  -- Reticle_Depress_10s
     [270] = "%.1f",  -- Reticle_Depress_1s
     [271] = "%.3f",  -- HUD_Mode_Select {-0.1666, 0, 0.9996 Select HUD Mode}
-    [272] = "%.1f",  -- Delivery_Mode_Knob {-0.0833, 0, 0.9996 Select Delivery Mode}
-    [273] = "%.1f",  -- Weapon_Select_Knob {-0.142867143, 0, 1, Select Weapon}
+    [272] = "%.2f",  -- Delivery_Mode_Knob {-0.0833, 0, 0.9996 Select Delivery Mode}
+    [273] = "%.2f",  -- Weapon_Select_Knob {-0.142867143, 0, 1, Select Weapon}
     [274] = "%.1f",  -- Heads_Up_Gun_Light
     [275] = "%.1f",  -- Rounds_Remaining_100s
     [276] = "%.1f",  -- Rounds_Remaining_10s
@@ -241,7 +241,7 @@ ExportScript.ConfigArguments =
     [304] = "%.1f",  -- ENGINES_NOZZLE_POSITION_RIGHT_GAUGE
     [305] = "%.2f",  -- Bomb_Qty_Knob {-0.090919091, 0, 1, Select Quantity}
     [306] = "%.1f",  -- Bomb_Interval_Switch {-1, 0, 1, Select Interval Multiplier (x10)}
-    [307] = "%.1f",  -- Bomb_Interval_Knob {0, 0, 1, Select Interval (s)}
+    [307] = "%.4f",  -- Bomb_Interval_Knob {0, 0, 1, Select Interval (s)}
     [308] = "%.1f",  -- WRCS_North_South_100s
     [309] = "%.1f",  -- WRCS_North_South_10s
     [310] = "%.1f",  -- WRCS_North_South_1s
@@ -254,19 +254,19 @@ ExportScript.ConfigArguments =
     [317] = "%.1f",  -- WRCS_Range_100s
     [318] = "%.1f",  -- WRCS_Range_10s
     [319] = "%.1f",  -- WRCS_Range_1s
-    [320] = "%.1f",  -- WRCS_North_South_Knob {0, 0, 1, Set Target N/S Distance (x100, ft)}
-    [321] = "%.1f",  -- WRCS_East_West_Knob {0, 0, 1, Set Target E/W Distance (x100, ft)}
-    [322] = "%.1f",  -- WRCS_Advance_Knob {0, 0, 1, Set Release Advance (ms)}
-    [323] = "%.1f",  -- WRCS_Range_Knob {0, 0, 1, Set Release Range (x10, ft)}
+    [320] = "%.4f",  -- WRCS_North_South_Knob {0, 0, 1, Set Target N/S Distance (x100, ft)}
+    [321] = "%.4f",  -- WRCS_East_West_Knob {0, 0, 1, Set Target E/W Distance (x100, ft)}
+    [322] = "%.4f",  -- WRCS_Advance_Knob {0, 0, 1, Set Release Advance (ms)}
+    [323] = "%.4f",  -- WRCS_Range_Knob {0, 0, 1, Set Release Range (x10, ft)}
     [324] = "%.1f",  -- WRCS_Alt_Range_100s
     [325] = "%.1f",  -- WRCS_Alt_Range_10s
     [326] = "%.1f",  -- WRCS_Alt_Range_1s
     [327] = "%.1f",  -- WRCS_Drag_100s
     [328] = "%.1f",  -- WRCS_Drag_10s
     [329] = "%.1f",  -- WRCS_Drag_1s
-    [330] = "%.1f",  -- WRCS_Alt_Range_Knob {0, 0, 1, Set Target Altitude/Range (x100, ft}
+    [330] = "%.4f",  -- WRCS_Alt_Range_Knob {0, 0, 1, Set Target Altitude/Range (x100, ft}
     [331] = "%.1f",  -- WRCS_Drag_Knob {0, 0, 1, Set Drag Coefficient}
-    [332] = "%.1f",  -- WRCS_Delivery_Mode_Knob {-0.16681, 0, 0.834 Select BIT Mode}
+    [332] = "%.4f",  -- WRCS_Delivery_Mode_Knob {-0.16681, 0, 0.834 Select BIT Mode}
     [334] = "%.1f",  -- RADAR_Rio_Brightness {0.5, 0, 1, Change Grid Brightness}
     [336] = "%.1f",  -- RADAR_Rio_Power {-0.25, 0, 1, Radar Power Controls}
     [337] = "%.1f",  -- RADAR_Rio_Range {-0.2, 0, 1, Select Radar Range (nm)}
@@ -283,8 +283,8 @@ ExportScript.ConfigArguments =
     [348] = "%.1f",  -- Pilot_Interlock_Switch {-1, 0, 1, Select Interlock Position}
     [349] = "%.1f",  -- Centreline_Tank_Light
     [350] = "%.1f",  -- ARBCS_Pullup_Tone_Switch {-1, 0, 1, LABS Pull-Up Tone}
-    [351] = "%.1f",  -- ARBCS_Low_Angle_Knob {1, 0, 1, Set LABS Low Angle}
-    [352] = "%.1f",  -- ARBCS_High_Angle_Knob {1, 0, 1, Set LABS High Angle}
+    [351] = "%.4f",  -- ARBCS_Low_Angle_Knob {1, 0, 1, Set LABS Low Angle}
+    [352] = "%.4f",  -- ARBCS_High_Angle_Knob {1, 0, 1, Set LABS High Angle}
     [353] = "%.1f",  -- ARBCS_Low_Angle_1s
     [354] = "%.1f",  -- ARBCS_Low_Angle_10s
     [355] = "%.1f",  -- ARBCS_Low_Angle_100s
@@ -301,8 +301,8 @@ ExportScript.ConfigArguments =
     [366] = "%.1f",  -- Pilot_Gyro_Fast_Erect_Switch {-1, 0, 1, Set Gyro Mode}
     [367] = "%.1f",  -- Pilot_Pullup_Light_Visibility
     [368] = "%.1f",  -- Pilot_Pullup_Light_Press {1, 0, 1, LABS Pull-Up Light (push to test rotate to dim)}
-    [369] = "%.1f",  -- ARBCS_Pullup_Timer_Knob {0, 0, 1, Set Bombing Pull-Up Timer (seconds)}
-    [370] = "%.1f",  -- ARBCS_Release_Timer_Knob {0, 0, 1, Set Bombing Release Timer (seconds)}
+    [369] = "%.4f",  -- ARBCS_Pullup_Timer_Knob {0, 0, 1, Set Bombing Pull-Up Timer (seconds)}
+    [370] = "%.4f",  -- ARBCS_Release_Timer_Knob {0, 0, 1, Set Bombing Release Timer (seconds)}
     [371] = "%.1f",  -- RADAR_Rio_Pulse {-1, -1, 1, Select Pulse Length}
     [372] = "%.1f",  -- RADAR_Rio_Track {-1, -1, 1, Select Track Mode}
     [373] = "%.1f",  -- Pilot_InRange_Light_Visibility
@@ -338,7 +338,7 @@ ExportScript.ConfigArguments =
     [607] = "%.1f",  -- GS_thousands
     [610] = "%.1f",  -- Rio_Slip_Ball
     [611] = "%.1f",  -- Rio_Turn_Indicator
-    [612] = "%.1f",  -- ADI_Pitch_Trim_Knob {0.5, 0, 1, Adjust Pitch}
+    [612] = "%.4f",  -- ADI_Pitch_Trim_Knob {0.5, 0, 1, Adjust Pitch}
     [613] = "%.1f",  -- ADI_Heading
     [614] = "%.1f",  -- ADI_Roll
     [615] = "%.1f",  -- ADI_Pitch
@@ -450,7 +450,7 @@ ExportScript.ConfigArguments =
     [806] = "%.1f",  -- STOPWATCH_RIO_HAND_SECONDS
     [807] = "%.1f",  -- STOPWATCH_RIO_HAND_MINUTES
     [808] = "%.1f",  -- STOPWATCH_PILOT_RESET_BUTTON {1, 0, 1, Start/Stop/Reset Stopwatch}
-    [809] = "%.1f",  -- CLOCK_PILOT_KNOB_ROTATION {0.5, 0, 1, Set Time (pull to turn)}
+    [809] = "%.4f",  -- CLOCK_PILOT_KNOB_ROTATION {0.5, 0, 1, Set Time (pull to turn)}
     [810] = "%.1f",  -- STOPWATCH_RIO_RESET_BUTTON {1, 0, 1, Start/Stop/Reset Stopwatch}
     [811] = "%.1f",  -- CLOCK_RIO_KNOB_ROTATION {0.5, 0, 1, Set Time (pull to turn)}
     [812] = "%.1f",  -- CLOCK_PILOT_KNOB_TRANSLATION {1, 0, 1, Set Time (pull to turn)}
@@ -469,26 +469,26 @@ ExportScript.ConfigArguments =
     [911] = "%.1f",  -- NAV_COMP_RIO_MAG_VAR_ONES
     [912] = "%.1f",  -- NAV_COMP_RIO_MAG_VAR_TENS
     [913] = "%.1f",  -- NAV_COMP_RIO_MAG_VAR_HUNDREDS
-    [914] = "%.1f",  -- NAV_COMP_RIO_POS_LATITUDE_KNOB {0,   Set Position (N/S Lat) (push to turn)}
+    [914] = "%.4f",  -- NAV_COMP_RIO_POS_LATITUDE_KNOB {0,   Set Position (N/S Lat) (push to turn)}
     [915] = "%.1f",  -- NAV_COMP_RIO_POS_LATITUDE_ONES
     [916] = "%.1f",  -- NAV_COMP_RIO_POS_LATITUDE_TENS
     [917] = "%.1f",  -- NAV_COMP_RIO_POS_LATITUDE_HUNDREDS
     [918] = "%.1f",  -- NAV_COMP_RIO_POS_LATITUDE_THOUSANDS
     [919] = "%.1f",  -- NAV_COMP_RIO_POS_LATITUDE_FLAG
-    [920] = "%.1f",  -- NAV_COMP_RIO_POS_LONGITUDE_KNOB {0,   Set Position (E/W Long) (push to turn)}
+    [920] = "%.4f",  -- NAV_COMP_RIO_POS_LONGITUDE_KNOB {0,   Set Position (E/W Long) (push to turn)}
     [921] = "%.1f",  -- NAV_COMP_RIO_POS_LONGITUDE_FLAG
     [922] = "%.1f",  -- NAV_COMP_RIO_POS_LONGITUDE_ONES
     [923] = "%.1f",  -- NAV_COMP_RIO_POS_LONGITUDE_TENS
     [924] = "%.1f",  -- NAV_COMP_RIO_POS_LONGITUDE_HUNDREDS
     [925] = "%.1f",  -- NAV_COMP_RIO_POS_LONGITUDE_THOUSANDS
     [926] = "%.1f",  -- NAV_COMP_RIO_POS_LONGITUDE_TENTHOUSANDS
-    [927] = "%.1f",  -- NAV_COMP_RIO_TARGET_LATITUDE_KNOB {0.5, 0, 1, Set Target Position (N/S Lat)}
+    [927] = "%.4f",  -- NAV_COMP_RIO_TARGET_LATITUDE_KNOB {0.5, 0, 1, Set Target Position (N/S Lat)}
     [928] = "%.1f",  -- NAV_COMP_RIO_TARGET_LATITUDE_ONES
     [929] = "%.1f",  -- NAV_COMP_RIO_TARGET_LATITUDE_TENS
     [930] = "%.1f",  -- NAV_COMP_RIO_TARGET_LATITUDE_HUNDREDS
     [931] = "%.1f",  -- NAV_COMP_RIO_TARGET_LATITUDE_THOUSANDS
     [932] = "%.1f",  -- NAV_COMP_RIO_TARGET_LATITUDE_FLAG
-    [933] = "%.1f",  -- NAV_COMP_RIO_TARGET_LONGITUDE_KNOB {0.5, 0, 1, Set Target Position (E/W Long)}
+    [933] = "%.4f",  -- NAV_COMP_RIO_TARGET_LONGITUDE_KNOB {0.5, 0, 1, Set Target Position (E/W Long)}
     [934] = "%.1f",  -- NAV_COMP_RIO_TARGET_LONGITUDE_FLAG
     [935] = "%.1f",  -- NAV_COMP_RIO_TARGET_LONGITUDE_ONES
     [936] = "%.1f",  -- NAV_COMP_RIO_TARGET_LONGITUDE_TENS
@@ -1199,6 +1199,14 @@ export_ids = {
     PILOT_RWR_SHIP      = 10017,
     PILOT_RWR_ACT_PWR   = 10018,
     PILOT_RWR_POWER     = 10019,
+	
+	WSO_LASER_CODE		= 10020,
+	WSO_WRCS_DRAG		= 10021,
+	WSO_WRCS_NS			= 10022,
+	WSO_WRCS_EW			= 10023,
+	WSO_WRCS_ADVANCE	= 10024,
+	WSO_WRCS_RANGE		= 10025,
+	WSO_WRCS_ALTRANGE	= 10026,
 }
 
 -----------------------------
@@ -1241,7 +1249,8 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
     ExportScript.avtr_time_indicator()
     ExportScript.VOR_ILS_frequency(mainPanelDevice)
     ExportScript.TACAN_channels(mainPanelDevice)
-
+	ExportScript.LaserCodeReaout(mainPanelDevice)
+	ExportScript.WSO_WRCS(mainPanelDevice)
     ---------------
     -- Log Dumps --
     ---------------
@@ -1261,6 +1270,95 @@ local function round(num)
     -- Hey look at that funny FPU trick! Basically a round function
     -- https://stackoverflow.com/a/58411671/17325837
     return num + (2^52 + 2^51) - (2^52 + 2^51)
+end
+
+function ExportScript.WSO_WRCS(mainPanelDevice)
+
+	-- Drag
+	local drag_ones = round(mainPanelDevice:get_argument_value(329) * 10)
+	local drag_tens = round(mainPanelDevice:get_argument_value(328) * 10)
+	local drag_hundreds = round(mainPanelDevice:get_argument_value(327) * 10)
+	if drag_ones == 10 then drag_ones = 0 end
+	if drag_tens == 10 then drag_tens = 0 end
+	if drag_hundreds == 10 then drag_hundreds = 0 end
+
+	ExportScript.Tools.SendData(export_ids.WSO_WRCS_DRAG,
+        string.format(drag_hundreds..drag_tens..drag_ones))		
+
+	-- North/South Distance
+	local NS_hunds = round(mainPanelDevice:get_argument_value(308) * 10)
+	local NS_tens = round(mainPanelDevice:get_argument_value(309) * 10)
+	local NS_ones = round(mainPanelDevice:get_argument_value(310) * 10)
+	if NS_hunds == 10 then NS_hunds = 0 end
+	if NS_tens == 10 then NS_tens = 0 end
+	if NS_ones == 10 then NS_ones = 0 end
+	local NS_letter
+	if mainPanelDevice:get_argument_value(345) > 0 then NS_letter = "N" else NS_letter = "S" end
+
+	ExportScript.Tools.SendData(export_ids.WSO_WRCS_NS,
+        string.format(NS_letter..NS_hunds..NS_tens..NS_ones))
+		
+	-- East/West Distance
+	local EW_hunds = round(mainPanelDevice:get_argument_value(311) * 10)
+	local EW_tens = round(mainPanelDevice:get_argument_value(312) * 10)
+	local EW_ones = round(mainPanelDevice:get_argument_value(313) * 10)
+	if EW_hunds == 10 then EW_hunds = 0 end
+	if EW_tens == 10 then EW_tens = 0 end
+	if EW_ones == 10 then EW_ones = 0 end
+	local EW_letter
+	if mainPanelDevice:get_argument_value(346) > 0 then EW_letter = "E" else EW_letter = "W" end
+
+	ExportScript.Tools.SendData(export_ids.WSO_WRCS_EW,
+	string.format(EW_letter..EW_hunds..EW_tens..EW_ones))
+	
+	-- Advance
+	local Advance_hunds = round(mainPanelDevice:get_argument_value(314) * 10)
+	local Advance_tens = round(mainPanelDevice:get_argument_value(315) * 10)
+	local Advance_ones = round(mainPanelDevice:get_argument_value(316) * 10)
+	if Advance_hunds == 10 then Advance_hunds = 0 end
+	if Advance_tens == 10 then Advance_tens = 0 end
+	if Advance_ones == 10 then Advance_ones = 0 end
+
+	ExportScript.Tools.SendData(export_ids.WSO_WRCS_ADVANCE,
+	string.format(Advance_hunds..Advance_tens..Advance_ones))
+	
+	-- Range
+	local Range_hunds = round(mainPanelDevice:get_argument_value(317) * 10)
+	local Range_tens = round(mainPanelDevice:get_argument_value(318) * 10)
+	local Range_ones = round(mainPanelDevice:get_argument_value(319) * 10)
+	if Range_hunds == 10 then Range_hunds = 0 end
+	if Range_tens == 10 then Range_tens = 0 end
+	if Range_ones == 10 then Range_ones = 0 end
+
+	ExportScript.Tools.SendData(export_ids.WSO_WRCS_RANGE,
+	string.format(Range_hunds..Range_tens..Range_ones))
+	
+	-- AltRange
+	local AltRange_hunds = round(mainPanelDevice:get_argument_value(324) * 10)
+	local AltRange_tens = round(mainPanelDevice:get_argument_value(325) * 10)
+	local AltRange_ones = round(mainPanelDevice:get_argument_value(326) * 10)
+	if AltRange_hunds == 10 then AltRange_hunds = 0 end
+	if AltRange_tens == 10 then AltRange_tens = 0 end
+	if AltRange_ones == 10 then AltRange_ones = 0 end
+
+	ExportScript.Tools.SendData(export_ids.WSO_WRCS_ALTRANGE,
+	string.format(AltRange_hunds..AltRange_tens..AltRange_ones))
+	
+end
+
+function ExportScript.LaserCodeReaout(mainPanelDevice)
+	local ones = round(mainPanelDevice:get_argument_value(2020) * 10)
+	local tens = round(mainPanelDevice:get_argument_value(2021) * 10)
+	local hundreds = round(mainPanelDevice:get_argument_value(2022) * 10)
+	local thousands = round(mainPanelDevice:get_argument_value(2023) * 10)
+	
+	if ones == 10 then ones = 0 end
+	if tens == 10 then tens = 0 end
+	if hundreds == 10 then hundreds = 0 end
+	if thousands == 10 then thousands = 0 end
+	
+	ExportScript.Tools.SendData(export_ids.WSO_LASER_CODE,
+        string.format("%.0f%.0f%.0f%.0f",thousands,hundreds,tens,ones))
 end
 
 function ExportScript.TAS_indicator(mainPanelDevice)
