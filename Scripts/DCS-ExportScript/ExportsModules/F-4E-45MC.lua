@@ -1,4 +1,4 @@
--- DCS F-4E Phantom by HEATBLUR
+-- DCS F-4E Phantom II by HEATBLUR
 
 ExportScript.FoundDCSModule = true
 ExportScript.Version.F4E45MC = "1.2.1"
@@ -208,7 +208,7 @@ ExportScript.ConfigArguments =
     [270] = "%.1f",  -- Reticle_Depress_1s
     [271] = "%.4f",  -- HUD_Mode_Select {-0.1666, 0, 0.9996 Select HUD Mode}
     [272] = "%.4f",  -- Delivery_Mode_Knob {-0.0833, 0, 0.9996 Select Delivery Mode}
-    [273] = "%.4f",  -- Weapon_Select_Knob {-0.142867143, 0, 1, Select Weapon}
+    [273] = "%.2f",  -- Weapon_Select_Knob {-0.142867143, 0, 1, Select Weapon}
     [274] = "%.1f",  -- Heads_Up_Gun_Light
     [275] = "%.1f",  -- Rounds_Remaining_100s
     [276] = "%.1f",  -- Rounds_Remaining_10s
@@ -239,9 +239,9 @@ ExportScript.ConfigArguments =
     [302] = "%.1f",  -- ENGINES_EXHAUST_TEMP_RIGHT_GAUGE
     [303] = "%.1f",  -- ENGINES_NOZZLE_POSITION_LEFT_GAUGE
     [304] = "%.1f",  -- ENGINES_NOZZLE_POSITION_RIGHT_GAUGE
-    [305] = "%.4f",  -- Bomb_Qty_Knob {-0.090919091, 0, 1, Select Quantity}
+    [305] = "%.2f",  -- Bomb_Qty_Knob {-0.090919091, 0, 1, Select Quantity}
     [306] = "%.1f",  -- Bomb_Interval_Switch {-1, 0, 1, Select Interval Multiplier (x10)}
-    [307] = "%.4f",  -- Bomb_Interval_Knob {0, 0, 1, Select Interval (s)}
+    [307] = "%.2f",  -- Bomb_Interval_Knob {0, 0, 1, Select Interval (s)}
     [308] = "%.1f",  -- WRCS_North_South_100s
     [309] = "%.1f",  -- WRCS_North_South_10s
     [310] = "%.1f",  -- WRCS_North_South_1s
@@ -588,7 +588,7 @@ ExportScript.ConfigArguments =
     [1211] = "%.1f", -- PILOT_RANGE_INDICATOR_BRIGHTNESS {1, 0, 1, Display Brightness}
     [1212] = "%.1f", -- PILOT_RANGE_INDICATOR_DESIRED_RANGE {0, 0, 1, Desired Release Range}
     [1213] = "%.1f", -- PILOT_RANGE_INDICATOR_DESIRED_RANGE_PUSH
-    [1221] = "%.4f", -- Pilot_Arm_Switch {-0.25001, 0, 0.75 Arm Fuze}
+    [1221] = "%.2f", -- Pilot_Arm_Switch {-0.25001, 0, 0.75 Arm Fuze}
     [1253] = "%.1f", -- PILOT_Jettison_Button {1, 0, 1, Jettison Selection}
     [1254] = "%.4f", -- PILOT_Jettison_Knob {-0.12501, 0, 0.875 Select Stations to Jettison (down for STORES)}
     [1322] = "%.4f", -- Pilot_IFF_Code {-0.3333, 0, 0.9999 Select Mode 4 Function}
@@ -728,11 +728,11 @@ ExportScript.ConfigArguments =
     [1910] = "%.1f", -- Helmet_Pilot_Swap   --RBF on Rim.
     [1913] = "%.1f", -- Helmet_WSO_Swap     --RBF on Rim.
     [1916] = "%.1f", -- Helmet_Pilot_Swap2
-    [2000] = "%.1f", -- Wso_Apx80_Units
-    [2001] = "%.1f", -- Wso_Apx80_Ten
-    [2002] = "%.1f", -- Wso_Apx80_Hundreds
-    [2003] = "%.1f", -- Wso_Apx80_Thounsands
-    [2004] = "%.1f", -- Wso_Apx80_Mode
+    [2000] = "%.2f", -- Wso_Apx80_Units
+    [2001] = "%.2f", -- Wso_Apx80_Ten
+    [2002] = "%.2f", -- Wso_Apx80_Hundreds
+    [2003] = "%.2f", -- Wso_Apx80_Thounsands
+    [2004] = "%.2f", -- Wso_Apx80_Mode
     [2016] = "%.1f", -- CPT_PILOT_HEAD_SWAP
     [2017] = "%.1f", -- CPT_WSO_HEAD_SWAP
     [2020] = "%.1f", -- WSO_LASER_CODE_ONES
@@ -1178,37 +1178,81 @@ ExportScript.ConfigArguments =
 -- Please fill in this table with IDs that you're using so there are no collisions!
 -- Then just use the table entry, for example: ExportScript.Tools.SendData(export_ids.PILOT_GUN_ROUNDS, ...)
 export_ids = {
-    PILOT_TAS_NUMERIC   = 10001,
-    PILOT_TAS_STRING    = 10002,
-    PILOT_GUN_ROUNDS    = 10003,
+    PILOT_TAS_NUMERIC              = 10001,
+    PILOT_TAS_STRING               = 10002,
+    PILOT_GUN_ROUNDS               = 10003,
 
-    PILOT_RADIO_REPEATER = 10004,
-    PILOT_RANGE_INDICATOR = 10005,  -- TGP range thingy left of HUD
-    PILOT_AVTR_TIME_INDICATOR = 10006,
-    PILOT_VOR_ILS_FREQUENCY = 10007,
-    PILOT_TACAN_FREQUENCY = 10008,
-    WSO_TACAN_FREQUENCY = 10009,
+    PILOT_RADIO_REPEATER           = 10004,
+    PILOT_RANGE_INDICATOR          = 10005, -- TGP range thingy left of HUD
+    PILOT_AVTR_TIME_INDICATOR      = 10006,
+    PILOT_VOR_ILS_FREQUENCY        = 10007,
+    PILOT_TACAN_FREQUENCY          = 10008,
+    WSO_TACAN_FREQUENCY            = 10009,
 
-    PILOT_RWR_MODE      = 10010,
-    PILOT_RWR_SEARCH    = 10011,
-    PILOT_RWR_HANDOFF   = 10012,
-    PILOT_RWR_LAUNCH    = 10013,
-    PILOT_RWR_ALTITUDE  = 10014,
-    PILOT_RWR_T         = 10015,
-    PILOT_RWR_SYS_TEST  = 10016,
-    PILOT_RWR_SHIP      = 10017,
-    PILOT_RWR_ACT_PWR   = 10018,
-    PILOT_RWR_POWER     = 10019,
-	
-	WSO_LASER_CODE		= 10020,
-	WSO_WRCS_DRAG		= 10021,
-	WSO_WRCS_NS			= 10022,
-	WSO_WRCS_EW			= 10023,
-	WSO_WRCS_ADVANCE	= 10024,
-	WSO_WRCS_RANGE		= 10025,
-	WSO_WRCS_ALTRANGE	= 10026,
-	WSO_GROUNDSPEED		= 10027,
-	WSO_TRUEAIRSPEED	= 10028,
+    -- Pilot RWR
+    PILOT_RWR_MODE                 = 10010,
+    PILOT_RWR_SEARCH               = 10011,
+    PILOT_RWR_HANDOFF              = 10012,
+    PILOT_RWR_LAUNCH               = 10013,
+    PILOT_RWR_ALTITUDE             = 10014,
+    PILOT_RWR_T                    = 10015,
+    PILOT_RWR_SYS_TEST             = 10016,
+    PILOT_RWR_SHIP                 = 10017,
+    PILOT_RWR_ACT_PWR              = 10018,
+    PILOT_RWR_POWER                = 10019,
+
+    -- WSO Rollers
+    WSO_LASER_CODE                 = 10020,
+    WSO_WRCS_DRAG                  = 10021,
+    WSO_WRCS_NS                    = 10022,
+    WSO_WRCS_EW                    = 10023,
+    WSO_WRCS_ADVANCE               = 10024,
+    WSO_WRCS_RANGE                 = 10025,
+    WSO_WRCS_ALTRANGE              = 10026,
+    WSO_GROUNDSPEED                = 10027,
+    WSO_TRUEAIRSPEED               = 10028,
+
+    -- TODO add the rest of the roller for the WSO here, please
+    -- Navigation Computer
+    WSO_NAVCOMP_VARIATION          = 10029, --WIP
+    WSO_NAVCOMP_VARIATION_FULL     = 10030, --WIP
+    WSO_NAVCOMP_WIND_DEG           = 10031, --WIP
+    WSO_NAVCOMP_WIND_KNOTS         = 10032, --WIP
+    WSO_NAVCOMP_POSITION_LAT       = 10033, --WIP
+    WSO_NAVCOMP_POSITION_LAT_FULL  = 10034, --WIP
+    WSO_NAVCOMP_POSITION_LONG      = 10035, --WIP
+    WSO_NAVCOMP_POSITION_LONG_FULL = 10036, --WIP
+    WSO_NAVCOMP_TARGET_LAT         = 10037, --WIP
+    WSO_NAVCOMP_TARGET_LAT_FULL    = 10038, --WIP
+    WSO_NAVCOMP_TARGET_LONG        = 10039, --WIP
+    WSO_NAVCOMP_TARGET_LONG_FULL   = 10040, --WIP
+
+    -- UHF Radios
+    PILOT_UHF_FREQ                 = 10041, --WIP
+    PILOT_UHF_CHANNEL              = 10042, --WIP
+    WSO_UHF_FREQ                   = 10043, --WIP
+    WSO_UHF_CHANNEL                = 10044, --WIP
+
+    -- HSIs
+    PILOT_HSI_COURSE_WINDOW        = 10045,
+    PILOT_HSI_MILES                = 10046,
+    WSO_HSI_COURSE_WINDOW          = 10047,
+    WSO_HSI_MILES_VERT             = 10048,
+    WSO_HSI_MILES_HORZ             = 10049,
+    WSO_ARBCS_LOW_ANGLE            = 10050,
+    WSO_ARBCS_HIGH_ANGLE           = 10051,
+    WSO_ARBCS_PULLUP               = 10052,
+    WSO_ARBCS_RELEASE              = 10053,
+
+    -- Countermeasures
+    WSO_CHAFF                      = 10054,
+    WSO_FLARE                      = 10055,
+
+    -- IFF
+    PILOT_IFF_M1                   = 10056,
+    PILOT_IFF_M3                   = 10057,
+    WSO_APX80A                     = 10058,
+    WSO_APX80A_FULL                = 10059, --WIP
 }
 
 -----------------------------
@@ -1251,10 +1295,16 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
     ExportScript.avtr_time_indicator()
     ExportScript.VOR_ILS_frequency(mainPanelDevice)
     ExportScript.TACAN_channels(mainPanelDevice)
-	ExportScript.LaserCodeReaout(mainPanelDevice)
-	ExportScript.WSO_WRCS(mainPanelDevice)
-	ExportScript.WSO_speedIndicators(mainPanelDevice)
-	-- ARBCS
+    ExportScript.LaserCodeReaout(mainPanelDevice)
+    ExportScript.WSO_WRCS(mainPanelDevice)
+    ExportScript.WSO_speedIndicators(mainPanelDevice)
+    ExportScript.ARBCS(mainPanelDevice)
+    ExportScript.UHF_radios(mainPanelDevice) -- WIP
+    ExportScript.HSI(mainPanelDevice)
+    ExportScript.Chaff_Flare(mainPanelDevice)
+    ExportScript.IFF(mainPanelDevice)
+    ExportScript.NAVCOMP(mainPanelDevice) -- WIP
+
     ---------------
     -- Log Dumps --
     ---------------
@@ -1273,124 +1323,597 @@ end
 local function round(num)
     -- Hey look at that funny FPU trick! Basically a round function
     -- https://stackoverflow.com/a/58411671/17325837
-    return num + (2^52 + 2^51) - (2^52 + 2^51)
+    return num + (2 ^ 52 + 2 ^ 51) - (2 ^ 52 + 2 ^ 51)
+end
+
+function ExportScript.NAVCOMP(mainPanelDevice)
+    --[[
+    [902] = "%.1f",  -- NAV_COMP_RIO_WIND_MAG_ONES
+    [903] = "%.1f",  -- NAV_COMP_RIO_WIND_MAG_TENS
+    [904] = "%.1f",  -- NAV_COMP_RIO_WIND_MAG_HUNDREDS -- only goes up to 1
+
+
+
+    [906] = "%.1f",  -- NAV_COMP_RIO_WIND_DIR_ONES
+    [907] = "%.1f",  -- NAV_COMP_RIO_WIND_DIR_TENS
+    [908] = "%.1f",  -- NAV_COMP_RIO_WIND_DIR_HUNDREDS -- only goes up to 3
+
+    -- Note: for the rollers with flags, when the flag is activated
+    -- the numbers are tumbled in "reverse".
+    -- Can use model viewer to see how high these go.
+
+    -- when using this one, it goes to 180 west to twice over east 080
+    [910] = "%.1f",  -- NAV_COMP_RIO_MAG_VAR_FLAG
+    [911] = "%.1f",  -- NAV_COMP_RIO_MAG_VAR_ONES
+    [912] = "%.1f",  -- NAV_COMP_RIO_MAG_VAR_TENS
+    [913] = "%.1f",  -- NAV_COMP_RIO_MAG_VAR_HUNDREDS
+
+    [915] = "%.1f",  -- NAV_COMP_RIO_POS_LATITUDE_ONES
+    [916] = "%.1f",  -- NAV_COMP_RIO_POS_LATITUDE_TENS
+    [917] = "%.1f",  -- NAV_COMP_RIO_POS_LATITUDE_HUNDREDS
+    [918] = "%.1f",  -- NAV_COMP_RIO_POS_LATITUDE_THOUSANDS
+    [919] = "%.1f",  -- NAV_COMP_RIO_POS_LATITUDE_FLAG -- NORTH SOUTH
+
+
+    [921] = "%.1f",  -- NAV_COMP_RIO_POS_LONGITUDE_FLAG -- EAST WEST
+    [922] = "%.1f",  -- NAV_COMP_RIO_POS_LONGITUDE_ONES
+    [923] = "%.1f",  -- NAV_COMP_RIO_POS_LONGITUDE_TENS
+    [924] = "%.1f",  -- NAV_COMP_RIO_POS_LONGITUDE_HUNDREDS
+    [925] = "%.1f",  -- NAV_COMP_RIO_POS_LONGITUDE_THOUSANDS
+    [926] = "%.1f",  -- NAV_COMP_RIO_POS_LONGITUDE_TENTHOUSANDS
+
+
+    [928] = "%.1f",  -- NAV_COMP_RIO_TARGET_LATITUDE_ONES
+    [929] = "%.1f",  -- NAV_COMP_RIO_TARGET_LATITUDE_TENS
+    [930] = "%.1f",  -- NAV_COMP_RIO_TARGET_LATITUDE_HUNDREDS
+    [931] = "%.1f",  -- NAV_COMP_RIO_TARGET_LATITUDE_THOUSANDS
+    [932] = "%.1f",  -- NAV_COMP_RIO_TARGET_LATITUDE_FLAG -- NORTH SOUTH
+
+
+    [934] = "%.1f",  -- NAV_COMP_RIO_TARGET_LONGITUDE_FLAG -- EAST WEST
+    [935] = "%.1f",  -- NAV_COMP_RIO_TARGET_LONGITUDE_ONES
+    [936] = "%.1f",  -- NAV_COMP_RIO_TARGET_LONGITUDE_TENS
+    [937] = "%.1f",  -- NAV_COMP_RIO_TARGET_LONGITUDE_HUNDREDS
+    [938] = "%.1f",  -- NAV_COMP_RIO_TARGET_LONGITUDE_THOUSANDS
+    [939] = "%.1f",  -- NAV_COMP_RIO_TARGET_LONGITUDE_TENTHOUSANDS
+    ]]
+end
+
+function ExportScript.IFF(mainPanelDevice)
+    -- Pilot Mode 1 roller
+    local pilot_M1_ones = mainPanelDevice:get_argument_value(1332)
+    local pilot_M1_tens = mainPanelDevice:get_argument_value(1331)
+
+    if pilot_M1_ones == 0.0 then
+        pilot_M1_ones = 0
+    elseif pilot_M1_ones < 0.4 then
+        pilot_M1_ones = 1
+    elseif pilot_M1_ones < 0.7 then
+        pilot_M1_ones = 2
+    else
+        pilot_M1_ones = 3
+    end
+
+    if pilot_M1_tens == 0.0 then
+        pilot_M1_tens = 0
+    elseif pilot_M1_tens < 0.2 then
+        pilot_M1_tens = 1
+    elseif pilot_M1_tens < 0.3 then
+        pilot_M1_tens = 2
+    elseif pilot_M1_tens < 0.5 then
+        pilot_M1_tens = 3
+    elseif pilot_M1_tens < 0.6 then
+        pilot_M1_tens = 4
+    elseif pilot_M1_tens < 0.8 then
+        pilot_M1_tens = 5
+    elseif pilot_M1_tens < 0.9 then
+        pilot_M1_tens = 6
+    else
+        pilot_M1_tens = 7
+    end
+
+    ExportScript.Tools.SendData(export_ids.PILOT_IFF_M1,
+        string.format(pilot_M1_tens .. pilot_M1_ones))
+
+    -- Pilot M3 rollers
+    local pilot_M3_ones = mainPanelDevice:get_argument_value(1336)
+    local pilot_M3_tens = mainPanelDevice:get_argument_value(1335)
+    local pilot_M3_hundreds = mainPanelDevice:get_argument_value(1334)
+    local pilot_M3_thousands = mainPanelDevice:get_argument_value(1333)
+
+    if pilot_M3_ones == 0.0 then
+        pilot_M3_ones = 0
+    elseif pilot_M3_ones < 0.2 then
+        pilot_M3_ones = 1
+    elseif pilot_M3_ones < 0.3 then
+        pilot_M3_ones = 2
+    elseif pilot_M3_ones < 0.5 then
+        pilot_M3_ones = 3
+    elseif pilot_M3_ones < 0.6 then
+        pilot_M3_ones = 4
+    elseif pilot_M3_ones < 0.8 then
+        pilot_M3_ones = 5
+    elseif pilot_M3_ones < 0.9 then
+        pilot_M3_ones = 6
+    else
+        pilot_M3_ones = 7
+    end
+
+    if pilot_M3_tens == 0.0 then
+        pilot_M3_tens = 0
+    elseif pilot_M3_tens < 0.2 then
+        pilot_M3_tens = 1
+    elseif pilot_M3_tens < 0.3 then
+        pilot_M3_tens = 2
+    elseif pilot_M3_tens < 0.5 then
+        pilot_M3_tens = 3
+    elseif pilot_M3_tens < 0.6 then
+        pilot_M3_tens = 4
+    elseif pilot_M3_tens < 0.8 then
+        pilot_M3_tens = 5
+    elseif pilot_M3_tens < 0.9 then
+        pilot_M3_tens = 6
+    else
+        pilot_M3_tens = 7
+    end
+
+    if pilot_M3_hundreds == 0.0 then
+        pilot_M3_hundreds = 0
+    elseif pilot_M3_hundreds < 0.2 then
+        pilot_M3_hundreds = 1
+    elseif pilot_M3_hundreds < 0.3 then
+        pilot_M3_hundreds = 2
+    elseif pilot_M3_hundreds < 0.5 then
+        pilot_M3_hundreds = 3
+    elseif pilot_M3_hundreds < 0.6 then
+        pilot_M3_hundreds = 4
+    elseif pilot_M3_hundreds < 0.8 then
+        pilot_M3_hundreds = 5
+    elseif pilot_M3_hundreds < 0.9 then
+        pilot_M3_hundreds = 6
+    else
+        pilot_M3_hundreds = 7
+    end
+
+    if pilot_M3_thousands == 0.0 then
+        pilot_M3_thousands = 0
+    elseif pilot_M3_thousands < 0.2 then
+        pilot_M3_thousands = 1
+    elseif pilot_M3_thousands < 0.3 then
+        pilot_M3_thousands = 2
+    elseif pilot_M3_thousands < 0.5 then
+        pilot_M3_thousands = 3
+    elseif pilot_M3_thousands < 0.6 then
+        pilot_M3_thousands = 4
+    elseif pilot_M3_thousands < 0.8 then
+        pilot_M3_thousands = 5
+    elseif pilot_M3_thousands < 0.9 then
+        pilot_M3_thousands = 6
+    else
+        pilot_M3_thousands = 7
+    end
+
+    ExportScript.Tools.SendData(export_ids.PILOT_IFF_M3,
+        string.format(pilot_M3_thousands .. pilot_M3_hundreds .. pilot_M3_tens .. pilot_M3_ones))
+
+    --[[
+                [2000] = "%.1f", -- Wso_Apx80_Units
+    [2001] = "%.1f", -- Wso_Apx80_Ten
+    [2002] = "%.1f", -- Wso_Apx80_Hundreds
+    [2003] = "%.1f", -- Wso_Apx80_Thounsands
+    [2004] = "%.1f", -- Wso_Apx80_Mode 0,2,4,6,8,1.0
+
+    ]]
+
+    -- WSO APX-80A
+    -- TODO use this for the 0-9 rotaries to save code space
+    -- local Apx80_ones = string.format("%d", mainPanelDevice:get_argument_value(2000) * 10)
+    local Apx80_ones = mainPanelDevice:get_argument_value(2000)
+    local Apx80_tens = mainPanelDevice:get_argument_value(2001)
+    local Apx80_hundreds = mainPanelDevice:get_argument_value(2002)
+    local Apx80_thousands = mainPanelDevice:get_argument_value(2003)
+    local Apx80_mode = mainPanelDevice:get_argument_value(2004)
+
+    if Apx80_ones < 0.10 then
+        Apx80_ones = 0
+    elseif Apx80_ones < 0.15 then
+        Apx80_ones = 1
+    elseif Apx80_ones < 0.30 then
+        Apx80_ones = 2
+    elseif Apx80_ones < 0.45 then
+        Apx80_ones = 3
+    elseif Apx80_ones < 0.55 then
+        Apx80_ones = 4
+    elseif Apx80_ones < 0.65 then
+        Apx80_ones = 5
+    elseif Apx80_ones < 0.80 then
+        Apx80_ones = 6
+    elseif Apx80_ones < 0.95 then
+        Apx80_ones = 7
+    else
+        Apx80_ones = 0
+    end
+
+    if Apx80_tens < 0.10 then
+        Apx80_tens = 0
+    elseif Apx80_tens < 0.15 then
+        Apx80_tens = 1
+    elseif Apx80_tens < 0.30 then
+        Apx80_tens = 2
+    elseif Apx80_tens < 0.45 then
+        Apx80_tens = 3
+    elseif Apx80_tens < 0.55 then
+        Apx80_tens = 4
+    elseif Apx80_tens < 0.65 then
+        Apx80_tens = 5
+    elseif Apx80_tens < 0.80 then
+        Apx80_tens = 6
+    elseif Apx80_tens < 0.95 then
+        Apx80_tens = 7
+    else
+        Apx80_tens = 0
+    end
+
+    if Apx80_hundreds < 0.10 then
+        Apx80_hundreds = 0
+    elseif Apx80_hundreds < 0.15 then
+        Apx80_hundreds = 1
+    elseif Apx80_hundreds < 0.30 then
+        Apx80_hundreds = 2
+    elseif Apx80_hundreds < 0.45 then
+        Apx80_hundreds = 3
+    elseif Apx80_hundreds < 0.55 then
+        Apx80_hundreds = 4
+    elseif Apx80_hundreds < 0.65 then
+        Apx80_hundreds = 5
+    elseif Apx80_hundreds < 0.80 then
+        Apx80_hundreds = 6
+    elseif Apx80_hundreds < 0.95 then
+        Apx80_hundreds = 7
+    else
+        Apx80_hundreds = 0
+    end
+
+    if Apx80_thousands < 0.10 then
+        Apx80_thousands = 0
+    elseif Apx80_thousands < 0.15 then
+        Apx80_thousands = 1
+    elseif Apx80_thousands < 0.30 then
+        Apx80_thousands = 2
+    elseif Apx80_thousands < 0.45 then
+        Apx80_thousands = 3
+    elseif Apx80_thousands < 0.55 then
+        Apx80_thousands = 4
+    elseif Apx80_thousands < 0.65 then
+        Apx80_thousands = 5
+    elseif Apx80_thousands < 0.80 then
+        Apx80_thousands = 6
+    elseif Apx80_thousands < 0.95 then
+        Apx80_thousands = 7
+    else
+        Apx80_thousands = 0
+    end
+
+    if Apx80_mode == 0.0 then
+        Apx80_mode = "X "
+    elseif Apx80_mode < 0.25 then
+        Apx80_mode = "1 "
+    elseif Apx80_mode < 0.45 then
+        Apx80_mode = "2 "
+    elseif Apx80_mode < 0.65 then
+        Apx80_mode = "3 "
+    elseif Apx80_mode < 0.85 then
+        Apx80_mode = "4/A "
+    else
+        Apx80_mode = "4/B "
+    end
+
+
+    ExportScript.Tools.SendData(export_ids.WSO_APX80A,
+        string.format(Apx80_thousands .. Apx80_hundreds .. Apx80_tens .. Apx80_ones))
+    -- TODO add mode to new export
+    --[[
+    ExportScript.Tools.SendData(export_ids.WSO_APX80A_FULL,
+        string.format(Apx80_thousands .. Apx80_hundreds .. Apx80_tens .. Apx80_ones))
+    ]]
+end
+
+function ExportScript.Chaff_Flare(mainPanelDevice)
+    local chaff_ones = round(mainPanelDevice:get_argument_value(1390) * 10)
+    local chaff_tens = round(mainPanelDevice:get_argument_value(1391) * 10)
+    local chaff_hundreds = round(mainPanelDevice:get_argument_value(1392) * 10)
+    if chaff_ones == 10 then chaff_ones = 0 end
+    if chaff_tens == 10 then chaff_tens = 0 end
+    if chaff_hundreds == 10 then chaff_hundreds = 0 end
+
+    ExportScript.Tools.SendData(export_ids.WSO_CHAFF,
+        string.format(chaff_hundreds .. chaff_tens .. chaff_ones))
+
+    local flare_ones = round(mainPanelDevice:get_argument_value(1393) * 10)
+    local flare_tens = round(mainPanelDevice:get_argument_value(1394) * 10)
+    local flare_hundreds = round(mainPanelDevice:get_argument_value(1395) * 10)
+    if flare_ones == 10 then flare_ones = 0 end
+    if flare_tens == 10 then flare_tens = 0 end
+    if flare_hundreds == 10 then flare_hundreds = 0 end
+
+    ExportScript.Tools.SendData(export_ids.WSO_FLARE,
+        string.format(flare_hundreds .. flare_tens .. flare_ones))
+end
+
+function ExportScript.HSI(mainPanelDevice)
+    -- Pilot HSI Course Tumbler
+    local pilotCourseSet_ones = round(mainPanelDevice:get_argument_value(674) * 10)
+    local pilotCourseSet_tens = round(mainPanelDevice:get_argument_value(675) * 10)
+    local pilotCourseSet_hundreds = round(mainPanelDevice:get_argument_value(676) * 10)
+    if pilotCourseSet_ones == 10 then pilotCourseSet_ones = 0 end
+    if pilotCourseSet_tens == 10 then pilotCourseSet_tens = 0 end
+    if pilotCourseSet_hundreds == 10 then pilotCourseSet_hundreds = 0 end
+
+    ExportScript.Tools.SendData(export_ids.PILOT_HSI_COURSE_WINDOW,
+        string.format(pilotCourseSet_hundreds .. pilotCourseSet_tens .. pilotCourseSet_ones))
+
+    -- Pilot HSI Miles Tumbler
+    local pilotMiles_ones = round(mainPanelDevice:get_argument_value(679) * 10)
+    local pilotMiles_tens = round(mainPanelDevice:get_argument_value(680) * 10)
+    local pilotMiles_hundreds = round(mainPanelDevice:get_argument_value(681) * 10)
+    local pilotMiles_thousands = round(mainPanelDevice:get_argument_value(682) * 10)
+    if pilotMiles_ones == 10 then pilotMiles_ones = 0 end
+    if pilotMiles_tens == 10 then pilotMiles_tens = 0 end
+    if pilotMiles_hundreds == 10 then pilotMiles_hundreds = 0 end
+    if pilotMiles_thousands == 10 then pilotMiles_thousands = 0 end
+
+    ExportScript.Tools.SendData(export_ids.PILOT_HSI_MILES,
+        string.format(pilotMiles_thousands .. pilotMiles_hundreds .. pilotMiles_tens .. pilotMiles_ones))
+
+    -- WSO HSI Course Tumbler
+    local wsoCourseSet_ones = round(mainPanelDevice:get_argument_value(2617) * 10)
+    local wsoCourseSet_tens = round(mainPanelDevice:get_argument_value(2618) * 10)
+    local wsoCourseSet_hundreds = round(mainPanelDevice:get_argument_value(2619) * 10)
+    if wsoCourseSet_ones == 10 then wsoCourseSet_ones = 0 end
+    if wsoCourseSet_tens == 10 then wsoCourseSet_tens = 0 end
+    if wsoCourseSet_hundreds == 10 then wsoCourseSet_hundreds = 0 end
+
+    ExportScript.Tools.SendData(export_ids.WSO_HSI_COURSE_WINDOW,
+        string.format(wsoCourseSet_hundreds .. wsoCourseSet_tens .. wsoCourseSet_ones))
+
+    -- WSO HSI Miles Tumbler
+    local wsoMiles_ones = round(mainPanelDevice:get_argument_value(952) * 10)
+    local wsoMiles_tens = round(mainPanelDevice:get_argument_value(953) * 10)
+    local wsoMiles_hundreds = round(mainPanelDevice:get_argument_value(954) * 10)
+    local wsoMiles_thousands = round(mainPanelDevice:get_argument_value(2725) * 10)
+    if wsoMiles_ones == 10 then wsoMiles_ones = 0 end
+    if wsoMiles_tens == 10 then wsoMiles_tens = 0 end
+    if wsoMiles_hundreds == 10 then wsoMiles_hundreds = 0 end
+    if wsoMiles_thousands == 10 then wsoMiles_thousands = 0 end
+
+    ExportScript.Tools.SendData(export_ids.WSO_HSI_MILES_VERT,
+        string.format(wsoMiles_thousands .. "\n" .. wsoMiles_hundreds
+            .. "\n" .. wsoMiles_tens .. "\n" .. wsoMiles_ones))
+
+    ExportScript.Tools.SendData(export_ids.WSO_HSI_MILES_HORZ,
+        string.format(wsoMiles_thousands .. wsoMiles_hundreds .. wsoMiles_tens .. wsoMiles_ones))
+end
+
+function ExportScript.ARBCS(mainPanelDevice)
+    -- WSO ARBCS Low Angle Tumbler
+    local lowAngle_ones = round(mainPanelDevice:get_argument_value(353) * 10)
+    local lowAngle_tens = round(mainPanelDevice:get_argument_value(354) * 10)
+    local lowAngle_hundreds = round(mainPanelDevice:get_argument_value(355) * 10)
+    if lowAngle_ones == 10 then lowAngle_ones = 0 end
+    if lowAngle_tens == 10 then lowAngle_tens = 0 end
+    if lowAngle_hundreds == 10 then lowAngle_hundreds = 0 end
+
+    ExportScript.Tools.SendData(export_ids.WSO_ARBCS_LOW_ANGLE,
+        string.format(lowAngle_hundreds .. lowAngle_tens .. lowAngle_ones))
+
+    -- WSO ARBCS High Angle Tumbler
+    local highAngle_ones = round(mainPanelDevice:get_argument_value(356) * 10)
+    local highAngle_tens = round(mainPanelDevice:get_argument_value(357) * 10)
+    local highAngle_hundreds = round(mainPanelDevice:get_argument_value(358) * 10)
+    local highAngle_thousands = round(mainPanelDevice:get_argument_value(359) * 10)
+    if highAngle_ones == 10 then highAngle_ones = 0 end
+    if highAngle_tens == 10 then highAngle_tens = 0 end
+    if highAngle_hundreds == 10 then highAngle_hundreds = 0 end
+    if highAngle_thousands == 10 then highAngle_thousands = 0 end
+
+    ExportScript.Tools.SendData(export_ids.WSO_ARBCS_HIGH_ANGLE,
+        string.format(highAngle_thousands .. highAngle_hundreds .. highAngle_tens .. highAngle_ones))
+
+    -- WSO ARBCS Timer Pullup Tumbler
+    local pullup_ones = round(mainPanelDevice:get_argument_value(360) * 10)
+    local pullup_tens = round(mainPanelDevice:get_argument_value(361) * 10)
+    local pullup_hundreds = round(mainPanelDevice:get_argument_value(362) * 10)
+    if pullup_ones == 10 then pullup_ones = 0 end
+    if pullup_tens == 10 then pullup_tens = 0 end
+    if pullup_hundreds == 10 then pullup_hundreds = 0 end
+
+    ExportScript.Tools.SendData(export_ids.WSO_ARBCS_PULLUP,
+        string.format(pullup_hundreds .. pullup_tens .. pullup_ones))
+
+    -- WSO ARBCS Timer Release Tumbler
+    local release_ones = round(mainPanelDevice:get_argument_value(363) * 10)
+    local release_tens = round(mainPanelDevice:get_argument_value(364) * 10)
+    local release_hundreds = round(mainPanelDevice:get_argument_value(365) * 10)
+    if release_ones == 10 then release_ones = 0 end
+    if release_tens == 10 then release_tens = 0 end
+    if release_hundreds == 10 then release_hundreds = 0 end
+
+    ExportScript.Tools.SendData(export_ids.WSO_ARBCS_RELEASE,
+        string.format(release_hundreds .. release_tens .. release_ones))
+end
+
+-- TODO this
+function ExportScript.UHF_radios(mainPanelDevice)
+    --[[
+    [131] = "%.2f",  -- Pilot_UHF_Freq_Knob_DecHundreds {-0.333333333, 0, 1, Set Frequency (decimal hundreds)}
+    [132] = "%.1f",  -- Pilot_UHF_Freq_Knob_DecOnes {-0.111111111, 0, 1, Set Frequency (decimal ones)}
+    [133] = "%.1f",  -- Pilot_UHF_Freq_Knob_Ones {-0.111111111, 0, 1, Set Frequency (ones)}
+    [134] = "%.1f",  -- Pilot_UHF_Freq_Knob_Tens {-0.111111111, 0, 1, Set Frequency (tens)}
+    [1375] = "%.2f", -- Pilot_UHF_Freq_Hundreds {-0.333333333, 0, 1, Set Frequency (hundreds)}
+
+]]
+    --[[
+    --works
+    local lUHFRadio = GetDevice(3)                                                                  -- Pilot Comm Preset Frequency
+    ExportScript.Tools.SendData(10099, string.format("%7.3f", lUHFRadio:get_frequency() / 1000000)) -- <- special function for get frequency data
+   ]]
+    --ExportScript.Tools.SendData(10099, ExportScript.Tools.RoundFreqeuncy((UHF_RADIO:get_frequency() / 1000000))) -- ExportScript.Tools.RoundFreqeuncy(frequency (MHz|KHz), format ("7.3"), PrefixZeros (false), LeastValue (0.025))
+    --[[
+    local mode2 = GetDevice(4)                                           -- Pilot IFF
+    ExportScript.Tools.SendData(10100, string.format(mode2:get_mode2())) -- <- special function for get frequency data
+    -- does not work
+]]
+    --[[
+    local pilotUhfHunds = round(mainPanelDevice:get_argument_value(1375) * 10)
+    local pilotUhfOnes = round(mainPanelDevice:get_argument_value(133) * 11)
+    local pilotUhfTens = round(mainPanelDevice:get_argument_value(134) * 11)
+    local pilotUhfOnesDec = round(mainPanelDevice:get_argument_value(132) * 11)
+    local pilotUhfHundsDec = round(mainPanelDevice:get_argument_value(131) * 10)
+
+    if pilotUhfHundsDec == 0 then
+        pilotUhfHundsDec = 00
+    elseif pilotUhfHundsDec == 3 then
+        pilotUhfHundsDec = 25
+    elseif pilotUhfHundsDec == 6 then
+        pilotUhfHundsDec = 50
+    else
+        pilotUhfHundsDec = 75
+    end
+
+    if pilotUhfHunds == 0 then
+        pilotUhfHunds = "T"
+    elseif pilotUhfHunds == 3 then
+        pilotUhfHunds = 2
+    elseif pilotUhfHunds == 6 then
+        pilotUhfHunds = 3
+    else
+        pilotUhfHunds = "A"
+    end
+
+    if pilotUhfHunds == 10 then pilotUhfHunds = 0 end
+    if pilotUhfOnes == 10 then pilotUhfOnes = 0 end
+    if pilotUhfTens == 10 then pilotUhfTens = 0 end
+    if pilotUhfOnesDec == 10 then pilotUhfOnesDec = 0 end
+
+
+    ExportScript.Tools.SendData(export_ids.PILOT_UHF_FREQ,
+        string.format(pilotUhfHunds .. pilotUhfTens .. pilotUhfOnes .. pilotUhfOnesDec .. pilotUhfHundsDec))
+]]
 end
 
 function ExportScript.WSO_speedIndicators(mainPanelDevice)
-	-- WSO True Airspeed
-	local tas_ones = round(mainPanelDevice:get_argument_value(600) * 10)
-	local tas_tens = round(mainPanelDevice:get_argument_value(601) * 10)
-	local tas_hundreds = round(mainPanelDevice:get_argument_value(602) * 10)
-	local tas_thousands = round(mainPanelDevice:get_argument_value(603) * 10) 
-	if tas_ones == 10 then tas_ones = 0 end
-	if tas_tens == 10 then tas_tens = 0 end
-	if tas_hundreds == 10 then tas_hundreds = 0 end
-	if tas_thousands == 10 then tas_thousands = 0 end
+    -- WSO True Airspeed
+    local tas_ones = round(mainPanelDevice:get_argument_value(600) * 10)
+    local tas_tens = round(mainPanelDevice:get_argument_value(601) * 10)
+    local tas_hundreds = round(mainPanelDevice:get_argument_value(602) * 10)
+    local tas_thousands = round(mainPanelDevice:get_argument_value(603) * 10)
+    if tas_ones == 10 then tas_ones = 0 end
+    if tas_tens == 10 then tas_tens = 0 end
+    if tas_hundreds == 10 then tas_hundreds = 0 end
+    if tas_thousands == 10 then tas_thousands = 0 end
 
-	ExportScript.Tools.SendData(export_ids.WSO_TRUEAIRSPEED,
-        string.format(tas_thousands..tas_hundreds..tas_tens..tas_ones))
+    ExportScript.Tools.SendData(export_ids.WSO_TRUEAIRSPEED,
+        string.format(tas_thousands .. tas_hundreds .. tas_tens .. tas_ones))
 
-	-- WSO Ground Speed
-	local gs_ones = round(mainPanelDevice:get_argument_value(604) * 10)
-	local gs_tens = round(mainPanelDevice:get_argument_value(605) * 10)
-	local gs_hundreds = round(mainPanelDevice:get_argument_value(606) * 10)
-	local gs_thousands = round(mainPanelDevice:get_argument_value(607) * 10) 
-	if gs_ones == 10 then gs_ones = 0 end
-	if gs_tens == 10 then gs_tens = 0 end
-	if gs_hundreds == 10 then gs_hundreds = 0 end
-	if gs_thousands == 10 then gs_thousands = 0 end
+    -- WSO Ground Speed
+    local gs_ones = round(mainPanelDevice:get_argument_value(604) * 10)
+    local gs_tens = round(mainPanelDevice:get_argument_value(605) * 10)
+    local gs_hundreds = round(mainPanelDevice:get_argument_value(606) * 10)
+    local gs_thousands = round(mainPanelDevice:get_argument_value(607) * 10)
+    if gs_ones == 10 then gs_ones = 0 end
+    if gs_tens == 10 then gs_tens = 0 end
+    if gs_hundreds == 10 then gs_hundreds = 0 end
+    if gs_thousands == 10 then gs_thousands = 0 end
 
-	ExportScript.Tools.SendData(export_ids.WSO_GROUNDSPEED,
-        string.format(gs_thousands..gs_hundreds..gs_tens..gs_ones))
+    ExportScript.Tools.SendData(export_ids.WSO_GROUNDSPEED,
+        string.format(gs_thousands .. gs_hundreds .. gs_tens .. gs_ones))
 end
 
 function ExportScript.WSO_WRCS(mainPanelDevice)
+    -- Drag
+    local drag_ones = round(mainPanelDevice:get_argument_value(329) * 10)
+    local drag_tens = round(mainPanelDevice:get_argument_value(328) * 10)
+    local drag_hundreds = round(mainPanelDevice:get_argument_value(327) * 10)
+    if drag_ones == 10 then drag_ones = 0 end
+    if drag_tens == 10 then drag_tens = 0 end
+    if drag_hundreds == 10 then drag_hundreds = 0 end
 
-	-- Drag
-	local drag_ones = round(mainPanelDevice:get_argument_value(329) * 10)
-	local drag_tens = round(mainPanelDevice:get_argument_value(328) * 10)
-	local drag_hundreds = round(mainPanelDevice:get_argument_value(327) * 10)
-	if drag_ones == 10 then drag_ones = 0 end
-	if drag_tens == 10 then drag_tens = 0 end
-	if drag_hundreds == 10 then drag_hundreds = 0 end
+    ExportScript.Tools.SendData(export_ids.WSO_WRCS_DRAG,
+        string.format(drag_hundreds .. drag_tens .. drag_ones))
 
-	ExportScript.Tools.SendData(export_ids.WSO_WRCS_DRAG,
-        string.format(drag_hundreds..drag_tens..drag_ones))
+    -- North/South Distance
+    local NS_hunds = round(mainPanelDevice:get_argument_value(308) * 10)
+    local NS_tens = round(mainPanelDevice:get_argument_value(309) * 10)
+    local NS_ones = round(mainPanelDevice:get_argument_value(310) * 10)
+    if NS_hunds == 10 then NS_hunds = 0 end
+    if NS_tens == 10 then NS_tens = 0 end
+    if NS_ones == 10 then NS_ones = 0 end
+    local NS_letter
+    if mainPanelDevice:get_argument_value(345) > 0 then NS_letter = "N" else NS_letter = "S" end
 
-	-- North/South Distance
-	local NS_hunds = round(mainPanelDevice:get_argument_value(308) * 10)
-	local NS_tens = round(mainPanelDevice:get_argument_value(309) * 10)
-	local NS_ones = round(mainPanelDevice:get_argument_value(310) * 10)
-	if NS_hunds == 10 then NS_hunds = 0 end
-	if NS_tens == 10 then NS_tens = 0 end
-	if NS_ones == 10 then NS_ones = 0 end
-	local NS_letter
-	if mainPanelDevice:get_argument_value(345) > 0 then NS_letter = "N" else NS_letter = "S" end
+    ExportScript.Tools.SendData(export_ids.WSO_WRCS_NS,
+        string.format(NS_letter .. NS_hunds .. NS_tens .. NS_ones))
 
-	ExportScript.Tools.SendData(export_ids.WSO_WRCS_NS,
-        string.format(NS_letter..NS_hunds..NS_tens..NS_ones))
-		
-	-- East/West Distance
-	local EW_hunds = round(mainPanelDevice:get_argument_value(311) * 10)
-	local EW_tens = round(mainPanelDevice:get_argument_value(312) * 10)
-	local EW_ones = round(mainPanelDevice:get_argument_value(313) * 10)
-	if EW_hunds == 10 then EW_hunds = 0 end
-	if EW_tens == 10 then EW_tens = 0 end
-	if EW_ones == 10 then EW_ones = 0 end
-	local EW_letter
-	if mainPanelDevice:get_argument_value(346) > 0 then EW_letter = "E" else EW_letter = "W" end
+    -- East/West Distance
+    local EW_hunds = round(mainPanelDevice:get_argument_value(311) * 10)
+    local EW_tens = round(mainPanelDevice:get_argument_value(312) * 10)
+    local EW_ones = round(mainPanelDevice:get_argument_value(313) * 10)
+    if EW_hunds == 10 then EW_hunds = 0 end
+    if EW_tens == 10 then EW_tens = 0 end
+    if EW_ones == 10 then EW_ones = 0 end
+    local EW_letter
+    if mainPanelDevice:get_argument_value(346) > 0 then EW_letter = "E" else EW_letter = "W" end
 
-	ExportScript.Tools.SendData(export_ids.WSO_WRCS_EW,
-	string.format(EW_letter..EW_hunds..EW_tens..EW_ones))
-	
-	-- Advance
-	local Advance_hunds = round(mainPanelDevice:get_argument_value(314) * 10)
-	local Advance_tens = round(mainPanelDevice:get_argument_value(315) * 10)
-	local Advance_ones = round(mainPanelDevice:get_argument_value(316) * 10)
-	if Advance_hunds == 10 then Advance_hunds = 0 end
-	if Advance_tens == 10 then Advance_tens = 0 end
-	if Advance_ones == 10 then Advance_ones = 0 end
+    ExportScript.Tools.SendData(export_ids.WSO_WRCS_EW,
+        string.format(EW_letter .. EW_hunds .. EW_tens .. EW_ones))
 
-	ExportScript.Tools.SendData(export_ids.WSO_WRCS_ADVANCE,
-	string.format(Advance_hunds..Advance_tens..Advance_ones))
-	
-	-- Range
-	local Range_hunds = round(mainPanelDevice:get_argument_value(317) * 10)
-	local Range_tens = round(mainPanelDevice:get_argument_value(318) * 10)
-	local Range_ones = round(mainPanelDevice:get_argument_value(319) * 10)
-	if Range_hunds == 10 then Range_hunds = 0 end
-	if Range_tens == 10 then Range_tens = 0 end
-	if Range_ones == 10 then Range_ones = 0 end
+    -- Advance
+    local Advance_hunds = round(mainPanelDevice:get_argument_value(314) * 10)
+    local Advance_tens = round(mainPanelDevice:get_argument_value(315) * 10)
+    local Advance_ones = round(mainPanelDevice:get_argument_value(316) * 10)
+    if Advance_hunds == 10 then Advance_hunds = 0 end
+    if Advance_tens == 10 then Advance_tens = 0 end
+    if Advance_ones == 10 then Advance_ones = 0 end
 
-	ExportScript.Tools.SendData(export_ids.WSO_WRCS_RANGE,
-	string.format(Range_hunds..Range_tens..Range_ones))
-	
-	-- AltRange
-	local AltRange_hunds = round(mainPanelDevice:get_argument_value(324) * 10)
-	local AltRange_tens = round(mainPanelDevice:get_argument_value(325) * 10)
-	local AltRange_ones = round(mainPanelDevice:get_argument_value(326) * 10)
-	if AltRange_hunds == 10 then AltRange_hunds = 0 end
-	if AltRange_tens == 10 then AltRange_tens = 0 end
-	if AltRange_ones == 10 then AltRange_ones = 0 end
+    ExportScript.Tools.SendData(export_ids.WSO_WRCS_ADVANCE,
+        string.format(Advance_hunds .. Advance_tens .. Advance_ones))
 
-	ExportScript.Tools.SendData(export_ids.WSO_WRCS_ALTRANGE,
-	string.format(AltRange_hunds..AltRange_tens..AltRange_ones))
-	
+    -- Range
+    local Range_hunds = round(mainPanelDevice:get_argument_value(317) * 10)
+    local Range_tens = round(mainPanelDevice:get_argument_value(318) * 10)
+    local Range_ones = round(mainPanelDevice:get_argument_value(319) * 10)
+    if Range_hunds == 10 then Range_hunds = 0 end
+    if Range_tens == 10 then Range_tens = 0 end
+    if Range_ones == 10 then Range_ones = 0 end
+
+    ExportScript.Tools.SendData(export_ids.WSO_WRCS_RANGE,
+        string.format(Range_hunds .. Range_tens .. Range_ones))
+
+    -- AltRange
+    local AltRange_hunds = round(mainPanelDevice:get_argument_value(324) * 10)
+    local AltRange_tens = round(mainPanelDevice:get_argument_value(325) * 10)
+    local AltRange_ones = round(mainPanelDevice:get_argument_value(326) * 10)
+    if AltRange_hunds == 10 then AltRange_hunds = 0 end
+    if AltRange_tens == 10 then AltRange_tens = 0 end
+    if AltRange_ones == 10 then AltRange_ones = 0 end
+
+    ExportScript.Tools.SendData(export_ids.WSO_WRCS_ALTRANGE,
+        string.format(AltRange_hunds .. AltRange_tens .. AltRange_ones))
 end
 
 function ExportScript.LaserCodeReaout(mainPanelDevice)
-	local ones = round(mainPanelDevice:get_argument_value(2020) * 10)
-	local tens = round(mainPanelDevice:get_argument_value(2021) * 10)
-	local hundreds = round(mainPanelDevice:get_argument_value(2022) * 10)
-	local thousands = round(mainPanelDevice:get_argument_value(2023) * 10)
-	
-	if ones == 10 then ones = 0 end
-	if tens == 10 then tens = 0 end
-	if hundreds == 10 then hundreds = 0 end
-	if thousands == 10 then thousands = 0 end
-	
-	ExportScript.Tools.SendData(export_ids.WSO_LASER_CODE,
-        string.format("%.0f%.0f%.0f%.0f",thousands,hundreds,tens,ones))
+    local ones = round(mainPanelDevice:get_argument_value(2020) * 10)
+    local tens = round(mainPanelDevice:get_argument_value(2021) * 10)
+    local hundreds = round(mainPanelDevice:get_argument_value(2022) * 10)
+    local thousands = round(mainPanelDevice:get_argument_value(2023) * 10)
+
+    if ones == 10 then ones = 0 end
+    if tens == 10 then tens = 0 end
+    if hundreds == 10 then hundreds = 0 end
+    if thousands == 10 then thousands = 0 end
+
+    ExportScript.Tools.SendData(export_ids.WSO_LASER_CODE,
+        string.format("%.0f%.0f%.0f%.0f", thousands, hundreds, tens, ones))
 end
 
 function ExportScript.TAS_indicator(mainPanelDevice)
@@ -1433,7 +1956,7 @@ local function get_RWR_button_lights(mainPanelDevice, first_id, second_id)
     local first_label = first_on and labels_map[first_id] or " "
     local second_label = second_on and labels_map[second_id] or " "
 
-    return first_label.."\n\n\n"..second_label
+    return first_label .. "\n\n\n" .. second_label
 end
 
 function ExportScript.RWR_control_panel(mainPanelDevice)
