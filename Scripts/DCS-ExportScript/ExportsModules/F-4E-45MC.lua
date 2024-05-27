@@ -600,12 +600,12 @@ ExportScript.ConfigArguments =
     [1328] = "%.1f", -- Pilot_IFF_Audio {-1, -1, 1, Select Mode 4 Indication}
     [1329] = "%.1f", -- Pilot_IFF_Test {-1, -1, 1, Set Monitor-Radiation}
     [1330] = "%.1f", -- Pilot_IFF_Ident {-1, -1, 1, Set Position Identification}
-    [1331] = "%.4f", -- Pilot_IFF_Mode_1_Tens {-0.142857143, 0, 1, Set M1, code (tens)}
-    [1332] = "%.4f", -- Pilot_IFF_Mode_1_Units {-0.333333333, 0, 1, Set M1, code (ones)}
-    [1333] = "%.4f", -- Pilot_IFF_Mode_3A_Thounsands {-0.142857143, 0, 1, Set M3 code (thousands)}
-    [1334] = "%.4f", -- Pilot_IFF_Mode_3A_Hundreds {-0.142857143, 0, 1, Set M3 code (hundreds)}
-    [1335] = "%.4f", -- Pilot_IFF_Mode_3A_Tens {-0.142857143, 0, 1, Set M3 code (tens)}
-    [1336] = "%.4f", -- Pilot_IFF_Mode_3A_Units {-0.142857143, 0, 1, Set M3 code (ones)}
+    [1331] = "%.2f", -- Pilot_IFF_Mode_1_Tens {-0.142857143, 0, 1, Set M1, code (tens)}
+    [1332] = "%.2f", -- Pilot_IFF_Mode_1_Units {-0.333333333, 0, 1, Set M1, code (ones)}
+    [1333] = "%.2f", -- Pilot_IFF_Mode_3A_Thounsands {-0.142857143, 0, 1, Set M3 code (thousands)}
+    [1334] = "%.2f", -- Pilot_IFF_Mode_3A_Hundreds {-0.142857143, 0, 1, Set M3 code (hundreds)}
+    [1335] = "%.2f", -- Pilot_IFF_Mode_3A_Tens {-0.142857143, 0, 1, Set M3 code (tens)}
+    [1336] = "%.2f", -- Pilot_IFF_Mode_3A_Units {-0.142857143, 0, 1, Set M3 code (ones)}
     [1337] = "%.1f", -- Pilot_DCU_Monitor_Switch_LO {-1, 0, 1, Arm Left/Outer Station}
     [1338] = "%.1f", -- Pilot_DCU_Monitor_Switch_LI {-1, 0, 1, Arm Left/Inner Station}
     [1339] = "%.1f", -- Pilot_DCU_Monitor_Switch_CTR {-1, 0, 1, Arm Center Station}
@@ -1252,7 +1252,7 @@ export_ids = {
     PILOT_IFF_M1                   = 10056,
     PILOT_IFF_M3                   = 10057,
     WSO_APX80A                     = 10058,
-    WSO_APX80A_FULL                = 10059, --WIP
+    WSO_APX80A_FULL                = 10059,
 }
 
 -----------------------------
@@ -1379,6 +1379,54 @@ function ExportScript.NAVCOMP(mainPanelDevice)
     ]]
 end
 
+-- These IFF functions take raw arg values and returns the
+-- equavalent number based on a scale of 0-7 for IFF systems.
+-- Two different functions were required for both the pilot and
+-- WSO APX80A systems based on the animations not being the same.
+function IFFmodeTransator(value)
+    if value < 0.10 then
+        value = 0
+    elseif value < 0.20 then
+        value = 1
+    elseif value < 0.35 then
+        value = 2
+    elseif value < 0.45 then
+        value = 3
+    elseif value < 0.60 then
+        value = 4
+    elseif value < 0.72 then
+        value = 5
+    elseif value < 0.86 then
+        value = 6
+    else
+        value = 7
+    end
+    return value
+end
+
+function IFFmodeTransatorAPX80(value)
+    if value < 0.10 then
+        value = 0
+    elseif value < 0.15 then
+        value = 1
+    elseif value < 0.30 then
+        value = 2
+    elseif value < 0.45 then
+        value = 3
+    elseif value < 0.55 then
+        value = 4
+    elseif value < 0.65 then
+        value = 5
+    elseif value < 0.80 then
+        value = 6
+    elseif value < 0.95 then
+        value = 7
+    else
+        value = 0
+    end
+    return value
+end
+
 function ExportScript.IFF(mainPanelDevice)
     -- Pilot Mode 1 roller
     local pilot_M1_ones = mainPanelDevice:get_argument_value(1332)
@@ -1394,23 +1442,7 @@ function ExportScript.IFF(mainPanelDevice)
         pilot_M1_ones = 3
     end
 
-    if pilot_M1_tens == 0.0 then
-        pilot_M1_tens = 0
-    elseif pilot_M1_tens < 0.2 then
-        pilot_M1_tens = 1
-    elseif pilot_M1_tens < 0.3 then
-        pilot_M1_tens = 2
-    elseif pilot_M1_tens < 0.5 then
-        pilot_M1_tens = 3
-    elseif pilot_M1_tens < 0.6 then
-        pilot_M1_tens = 4
-    elseif pilot_M1_tens < 0.8 then
-        pilot_M1_tens = 5
-    elseif pilot_M1_tens < 0.9 then
-        pilot_M1_tens = 6
-    else
-        pilot_M1_tens = 7
-    end
+    pilot_M1_tens = IFFmodeTransator(pilot_M1_tens)
 
     ExportScript.Tools.SendData(export_ids.PILOT_IFF_M1,
         string.format(pilot_M1_tens .. pilot_M1_ones))
@@ -1421,180 +1453,28 @@ function ExportScript.IFF(mainPanelDevice)
     local pilot_M3_hundreds = mainPanelDevice:get_argument_value(1334)
     local pilot_M3_thousands = mainPanelDevice:get_argument_value(1333)
 
-    if pilot_M3_ones == 0.0 then
-        pilot_M3_ones = 0
-    elseif pilot_M3_ones < 0.2 then
-        pilot_M3_ones = 1
-    elseif pilot_M3_ones < 0.3 then
-        pilot_M3_ones = 2
-    elseif pilot_M3_ones < 0.5 then
-        pilot_M3_ones = 3
-    elseif pilot_M3_ones < 0.6 then
-        pilot_M3_ones = 4
-    elseif pilot_M3_ones < 0.8 then
-        pilot_M3_ones = 5
-    elseif pilot_M3_ones < 0.9 then
-        pilot_M3_ones = 6
-    else
-        pilot_M3_ones = 7
-    end
-
-    if pilot_M3_tens == 0.0 then
-        pilot_M3_tens = 0
-    elseif pilot_M3_tens < 0.2 then
-        pilot_M3_tens = 1
-    elseif pilot_M3_tens < 0.3 then
-        pilot_M3_tens = 2
-    elseif pilot_M3_tens < 0.5 then
-        pilot_M3_tens = 3
-    elseif pilot_M3_tens < 0.6 then
-        pilot_M3_tens = 4
-    elseif pilot_M3_tens < 0.8 then
-        pilot_M3_tens = 5
-    elseif pilot_M3_tens < 0.9 then
-        pilot_M3_tens = 6
-    else
-        pilot_M3_tens = 7
-    end
-
-    if pilot_M3_hundreds == 0.0 then
-        pilot_M3_hundreds = 0
-    elseif pilot_M3_hundreds < 0.2 then
-        pilot_M3_hundreds = 1
-    elseif pilot_M3_hundreds < 0.3 then
-        pilot_M3_hundreds = 2
-    elseif pilot_M3_hundreds < 0.5 then
-        pilot_M3_hundreds = 3
-    elseif pilot_M3_hundreds < 0.6 then
-        pilot_M3_hundreds = 4
-    elseif pilot_M3_hundreds < 0.8 then
-        pilot_M3_hundreds = 5
-    elseif pilot_M3_hundreds < 0.9 then
-        pilot_M3_hundreds = 6
-    else
-        pilot_M3_hundreds = 7
-    end
-
-    if pilot_M3_thousands == 0.0 then
-        pilot_M3_thousands = 0
-    elseif pilot_M3_thousands < 0.2 then
-        pilot_M3_thousands = 1
-    elseif pilot_M3_thousands < 0.3 then
-        pilot_M3_thousands = 2
-    elseif pilot_M3_thousands < 0.5 then
-        pilot_M3_thousands = 3
-    elseif pilot_M3_thousands < 0.6 then
-        pilot_M3_thousands = 4
-    elseif pilot_M3_thousands < 0.8 then
-        pilot_M3_thousands = 5
-    elseif pilot_M3_thousands < 0.9 then
-        pilot_M3_thousands = 6
-    else
-        pilot_M3_thousands = 7
-    end
+    pilot_M3_ones = IFFmodeTransator(pilot_M3_ones)
+    pilot_M3_tens = IFFmodeTransator(pilot_M3_tens)
+    pilot_M3_hundreds = IFFmodeTransator(pilot_M3_hundreds)
+    pilot_M3_thousands = IFFmodeTransator(pilot_M3_thousands)
 
     ExportScript.Tools.SendData(export_ids.PILOT_IFF_M3,
         string.format(pilot_M3_thousands .. pilot_M3_hundreds .. pilot_M3_tens .. pilot_M3_ones))
 
-    --[[
-                [2000] = "%.1f", -- Wso_Apx80_Units
-    [2001] = "%.1f", -- Wso_Apx80_Ten
-    [2002] = "%.1f", -- Wso_Apx80_Hundreds
-    [2003] = "%.1f", -- Wso_Apx80_Thounsands
-    [2004] = "%.1f", -- Wso_Apx80_Mode 0,2,4,6,8,1.0
-
-    ]]
-
     -- WSO APX-80A
-    -- TODO use this for the 0-9 rotaries to save code space
-    -- local Apx80_ones = string.format("%d", mainPanelDevice:get_argument_value(2000) * 10)
     local Apx80_ones = mainPanelDevice:get_argument_value(2000)
     local Apx80_tens = mainPanelDevice:get_argument_value(2001)
     local Apx80_hundreds = mainPanelDevice:get_argument_value(2002)
     local Apx80_thousands = mainPanelDevice:get_argument_value(2003)
     local Apx80_mode = mainPanelDevice:get_argument_value(2004)
 
-    if Apx80_ones < 0.10 then
-        Apx80_ones = 0
-    elseif Apx80_ones < 0.15 then
-        Apx80_ones = 1
-    elseif Apx80_ones < 0.30 then
-        Apx80_ones = 2
-    elseif Apx80_ones < 0.45 then
-        Apx80_ones = 3
-    elseif Apx80_ones < 0.55 then
-        Apx80_ones = 4
-    elseif Apx80_ones < 0.65 then
-        Apx80_ones = 5
-    elseif Apx80_ones < 0.80 then
-        Apx80_ones = 6
-    elseif Apx80_ones < 0.95 then
-        Apx80_ones = 7
-    else
-        Apx80_ones = 0
-    end
 
-    if Apx80_tens < 0.10 then
-        Apx80_tens = 0
-    elseif Apx80_tens < 0.15 then
-        Apx80_tens = 1
-    elseif Apx80_tens < 0.30 then
-        Apx80_tens = 2
-    elseif Apx80_tens < 0.45 then
-        Apx80_tens = 3
-    elseif Apx80_tens < 0.55 then
-        Apx80_tens = 4
-    elseif Apx80_tens < 0.65 then
-        Apx80_tens = 5
-    elseif Apx80_tens < 0.80 then
-        Apx80_tens = 6
-    elseif Apx80_tens < 0.95 then
-        Apx80_tens = 7
-    else
-        Apx80_tens = 0
-    end
+    Apx80_ones = IFFmodeTransatorAPX80(Apx80_ones)
+    Apx80_tens = IFFmodeTransatorAPX80(Apx80_tens)
+    Apx80_hundreds = IFFmodeTransatorAPX80(Apx80_hundreds)
+    Apx80_thousands = IFFmodeTransatorAPX80(Apx80_thousands)
 
-    if Apx80_hundreds < 0.10 then
-        Apx80_hundreds = 0
-    elseif Apx80_hundreds < 0.15 then
-        Apx80_hundreds = 1
-    elseif Apx80_hundreds < 0.30 then
-        Apx80_hundreds = 2
-    elseif Apx80_hundreds < 0.45 then
-        Apx80_hundreds = 3
-    elseif Apx80_hundreds < 0.55 then
-        Apx80_hundreds = 4
-    elseif Apx80_hundreds < 0.65 then
-        Apx80_hundreds = 5
-    elseif Apx80_hundreds < 0.80 then
-        Apx80_hundreds = 6
-    elseif Apx80_hundreds < 0.95 then
-        Apx80_hundreds = 7
-    else
-        Apx80_hundreds = 0
-    end
-
-    if Apx80_thousands < 0.10 then
-        Apx80_thousands = 0
-    elseif Apx80_thousands < 0.15 then
-        Apx80_thousands = 1
-    elseif Apx80_thousands < 0.30 then
-        Apx80_thousands = 2
-    elseif Apx80_thousands < 0.45 then
-        Apx80_thousands = 3
-    elseif Apx80_thousands < 0.55 then
-        Apx80_thousands = 4
-    elseif Apx80_thousands < 0.65 then
-        Apx80_thousands = 5
-    elseif Apx80_thousands < 0.80 then
-        Apx80_thousands = 6
-    elseif Apx80_thousands < 0.95 then
-        Apx80_thousands = 7
-    else
-        Apx80_thousands = 0
-    end
-
-    if Apx80_mode == 0.0 then
+    if Apx80_mode < 0.15 then
         Apx80_mode = "X "
     elseif Apx80_mode < 0.25 then
         Apx80_mode = "1 "
@@ -1608,83 +1488,61 @@ function ExportScript.IFF(mainPanelDevice)
         Apx80_mode = "4/B "
     end
 
-
     ExportScript.Tools.SendData(export_ids.WSO_APX80A,
         string.format(Apx80_thousands .. Apx80_hundreds .. Apx80_tens .. Apx80_ones))
-    -- TODO add mode to new export
-    --[[
+
     ExportScript.Tools.SendData(export_ids.WSO_APX80A_FULL,
-        string.format(Apx80_thousands .. Apx80_hundreds .. Apx80_tens .. Apx80_ones))
-    ]]
+        string.format("%s%.0f%.0f%.0f%.0f",
+            Apx80_mode, Apx80_thousands, Apx80_hundreds, Apx80_tens, Apx80_ones))
 end
 
 function ExportScript.Chaff_Flare(mainPanelDevice)
-    local chaff_ones = round(mainPanelDevice:get_argument_value(1390) * 10)
-    local chaff_tens = round(mainPanelDevice:get_argument_value(1391) * 10)
-    local chaff_hundreds = round(mainPanelDevice:get_argument_value(1392) * 10)
-    if chaff_ones == 10 then chaff_ones = 0 end
-    if chaff_tens == 10 then chaff_tens = 0 end
-    if chaff_hundreds == 10 then chaff_hundreds = 0 end
+    local chaff_ones = string.format("%d", mainPanelDevice:get_argument_value(1390) * 10)
+    local chaff_tens = string.format("%d", mainPanelDevice:get_argument_value(1391) * 10)
+    local chaff_hundreds = string.format("%d", mainPanelDevice:get_argument_value(1392) * 10)
 
     ExportScript.Tools.SendData(export_ids.WSO_CHAFF,
         string.format(chaff_hundreds .. chaff_tens .. chaff_ones))
 
-    local flare_ones = round(mainPanelDevice:get_argument_value(1393) * 10)
-    local flare_tens = round(mainPanelDevice:get_argument_value(1394) * 10)
-    local flare_hundreds = round(mainPanelDevice:get_argument_value(1395) * 10)
-    if flare_ones == 10 then flare_ones = 0 end
-    if flare_tens == 10 then flare_tens = 0 end
-    if flare_hundreds == 10 then flare_hundreds = 0 end
+    local flare_ones = string.format("%d", mainPanelDevice:get_argument_value(1393) * 10)
+    local flare_tens = string.format("%d", mainPanelDevice:get_argument_value(1394) * 10)
+    local flare_hundreds = string.format("%d", mainPanelDevice:get_argument_value(1395) * 10)
 
     ExportScript.Tools.SendData(export_ids.WSO_FLARE,
         string.format(flare_hundreds .. flare_tens .. flare_ones))
 end
 
 function ExportScript.HSI(mainPanelDevice)
-    -- Pilot HSI Course Tumbler
-    local pilotCourseSet_ones = round(mainPanelDevice:get_argument_value(674) * 10)
-    local pilotCourseSet_tens = round(mainPanelDevice:get_argument_value(675) * 10)
-    local pilotCourseSet_hundreds = round(mainPanelDevice:get_argument_value(676) * 10)
-    if pilotCourseSet_ones == 10 then pilotCourseSet_ones = 0 end
-    if pilotCourseSet_tens == 10 then pilotCourseSet_tens = 0 end
-    if pilotCourseSet_hundreds == 10 then pilotCourseSet_hundreds = 0 end
+    -- Pilot HSI Course Roller
+    local pilotCourseSet_ones = string.format("%d", mainPanelDevice:get_argument_value(674) * 10)
+    local pilotCourseSet_tens = string.format("%d", mainPanelDevice:get_argument_value(675) * 10)
+    local pilotCourseSet_hundreds = string.format("%d", mainPanelDevice:get_argument_value(676) * 10)
 
     ExportScript.Tools.SendData(export_ids.PILOT_HSI_COURSE_WINDOW,
         string.format(pilotCourseSet_hundreds .. pilotCourseSet_tens .. pilotCourseSet_ones))
 
-    -- Pilot HSI Miles Tumbler
-    local pilotMiles_ones = round(mainPanelDevice:get_argument_value(679) * 10)
-    local pilotMiles_tens = round(mainPanelDevice:get_argument_value(680) * 10)
-    local pilotMiles_hundreds = round(mainPanelDevice:get_argument_value(681) * 10)
-    local pilotMiles_thousands = round(mainPanelDevice:get_argument_value(682) * 10)
-    if pilotMiles_ones == 10 then pilotMiles_ones = 0 end
-    if pilotMiles_tens == 10 then pilotMiles_tens = 0 end
-    if pilotMiles_hundreds == 10 then pilotMiles_hundreds = 0 end
-    if pilotMiles_thousands == 10 then pilotMiles_thousands = 0 end
+    -- Pilot HSI Miles Roller
+    local pilotMiles_ones = string.format("%d", mainPanelDevice:get_argument_value(679) * 10)
+    local pilotMiles_tens = string.format("%d", mainPanelDevice:get_argument_value(680) * 10)
+    local pilotMiles_hundreds = string.format("%d", mainPanelDevice:get_argument_value(681) * 10)
+    local pilotMiles_thousands = string.format("%d", mainPanelDevice:get_argument_value(682) * 10)
 
     ExportScript.Tools.SendData(export_ids.PILOT_HSI_MILES,
         string.format(pilotMiles_thousands .. pilotMiles_hundreds .. pilotMiles_tens .. pilotMiles_ones))
 
-    -- WSO HSI Course Tumbler
-    local wsoCourseSet_ones = round(mainPanelDevice:get_argument_value(2617) * 10)
-    local wsoCourseSet_tens = round(mainPanelDevice:get_argument_value(2618) * 10)
-    local wsoCourseSet_hundreds = round(mainPanelDevice:get_argument_value(2619) * 10)
-    if wsoCourseSet_ones == 10 then wsoCourseSet_ones = 0 end
-    if wsoCourseSet_tens == 10 then wsoCourseSet_tens = 0 end
-    if wsoCourseSet_hundreds == 10 then wsoCourseSet_hundreds = 0 end
+    -- WSO HSI Course Roller
+    local wsoCourseSet_ones = string.format("%d", mainPanelDevice:get_argument_value(2617) * 10)
+    local wsoCourseSet_tens = string.format("%d", mainPanelDevice:get_argument_value(2618) * 10)
+    local wsoCourseSet_hundreds = string.format("%d", mainPanelDevice:get_argument_value(2619) * 10)
 
     ExportScript.Tools.SendData(export_ids.WSO_HSI_COURSE_WINDOW,
         string.format(wsoCourseSet_hundreds .. wsoCourseSet_tens .. wsoCourseSet_ones))
 
-    -- WSO HSI Miles Tumbler
-    local wsoMiles_ones = round(mainPanelDevice:get_argument_value(952) * 10)
-    local wsoMiles_tens = round(mainPanelDevice:get_argument_value(953) * 10)
-    local wsoMiles_hundreds = round(mainPanelDevice:get_argument_value(954) * 10)
-    local wsoMiles_thousands = round(mainPanelDevice:get_argument_value(2725) * 10)
-    if wsoMiles_ones == 10 then wsoMiles_ones = 0 end
-    if wsoMiles_tens == 10 then wsoMiles_tens = 0 end
-    if wsoMiles_hundreds == 10 then wsoMiles_hundreds = 0 end
-    if wsoMiles_thousands == 10 then wsoMiles_thousands = 0 end
+    -- WSO HSI Miles Roller
+    local wsoMiles_ones = string.format("%d", mainPanelDevice:get_argument_value(952) * 10)
+    local wsoMiles_tens = string.format("%d", mainPanelDevice:get_argument_value(953) * 10)
+    local wsoMiles_hundreds = string.format("%d", mainPanelDevice:get_argument_value(954) * 10)
+    local wsoMiles_thousands = string.format("%d", mainPanelDevice:get_argument_value(2725) * 10)
 
     ExportScript.Tools.SendData(export_ids.WSO_HSI_MILES_VERT,
         string.format(wsoMiles_thousands .. "\n" .. wsoMiles_hundreds
@@ -1696,47 +1554,36 @@ end
 
 function ExportScript.ARBCS(mainPanelDevice)
     -- WSO ARBCS Low Angle Tumbler
-    local lowAngle_ones = round(mainPanelDevice:get_argument_value(353) * 10)
-    local lowAngle_tens = round(mainPanelDevice:get_argument_value(354) * 10)
-    local lowAngle_hundreds = round(mainPanelDevice:get_argument_value(355) * 10)
-    if lowAngle_ones == 10 then lowAngle_ones = 0 end
-    if lowAngle_tens == 10 then lowAngle_tens = 0 end
-    if lowAngle_hundreds == 10 then lowAngle_hundreds = 0 end
+    local lowAngle_ones = string.format("%d", mainPanelDevice:get_argument_value(353) * 10)
+    local lowAngle_tens = string.format("%d", mainPanelDevice:get_argument_value(354) * 10)
+    local lowAngle_hundreds = string.format("%d", mainPanelDevice:get_argument_value(355) * 10)
 
     ExportScript.Tools.SendData(export_ids.WSO_ARBCS_LOW_ANGLE,
         string.format(lowAngle_hundreds .. lowAngle_tens .. lowAngle_ones))
 
     -- WSO ARBCS High Angle Tumbler
-    local highAngle_ones = round(mainPanelDevice:get_argument_value(356) * 10)
-    local highAngle_tens = round(mainPanelDevice:get_argument_value(357) * 10)
-    local highAngle_hundreds = round(mainPanelDevice:get_argument_value(358) * 10)
-    local highAngle_thousands = round(mainPanelDevice:get_argument_value(359) * 10)
-    if highAngle_ones == 10 then highAngle_ones = 0 end
-    if highAngle_tens == 10 then highAngle_tens = 0 end
-    if highAngle_hundreds == 10 then highAngle_hundreds = 0 end
-    if highAngle_thousands == 10 then highAngle_thousands = 0 end
+    local highAngle_ones = string.format("%d", mainPanelDevice:get_argument_value(356) * 10)
+    local highAngle_tens = string.format("%d", mainPanelDevice:get_argument_value(357) * 10)
+    local highAngle_hundreds = string.format("%d", mainPanelDevice:get_argument_value(358) * 10)
+    local highAngle_thousands = string.format("%d", mainPanelDevice:get_argument_value(359) * 10)
+
 
     ExportScript.Tools.SendData(export_ids.WSO_ARBCS_HIGH_ANGLE,
         string.format(highAngle_thousands .. highAngle_hundreds .. highAngle_tens .. highAngle_ones))
 
     -- WSO ARBCS Timer Pullup Tumbler
-    local pullup_ones = round(mainPanelDevice:get_argument_value(360) * 10)
-    local pullup_tens = round(mainPanelDevice:get_argument_value(361) * 10)
-    local pullup_hundreds = round(mainPanelDevice:get_argument_value(362) * 10)
-    if pullup_ones == 10 then pullup_ones = 0 end
-    if pullup_tens == 10 then pullup_tens = 0 end
-    if pullup_hundreds == 10 then pullup_hundreds = 0 end
+    local pullup_ones = string.format("%d", mainPanelDevice:get_argument_value(360) * 10)
+    local pullup_tens = string.format("%d", mainPanelDevice:get_argument_value(361) * 10)
+    local pullup_hundreds = string.format("%d", mainPanelDevice:get_argument_value(362) * 10)
+
 
     ExportScript.Tools.SendData(export_ids.WSO_ARBCS_PULLUP,
         string.format(pullup_hundreds .. pullup_tens .. pullup_ones))
 
-    -- WSO ARBCS Timer Release Tumbler
-    local release_ones = round(mainPanelDevice:get_argument_value(363) * 10)
-    local release_tens = round(mainPanelDevice:get_argument_value(364) * 10)
-    local release_hundreds = round(mainPanelDevice:get_argument_value(365) * 10)
-    if release_ones == 10 then release_ones = 0 end
-    if release_tens == 10 then release_tens = 0 end
-    if release_hundreds == 10 then release_hundreds = 0 end
+    -- WSO ARBCS Timer Release Roller
+    local release_ones = string.format("%d", mainPanelDevice:get_argument_value(363) * 10)
+    local release_tens = string.format("%d", mainPanelDevice:get_argument_value(364) * 10)
+    local release_hundreds = string.format("%d", mainPanelDevice:get_argument_value(365) * 10)
 
     ExportScript.Tools.SendData(export_ids.WSO_ARBCS_RELEASE,
         string.format(release_hundreds .. release_tens .. release_ones))
