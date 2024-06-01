@@ -461,7 +461,7 @@ function ExportScript.LoAircraftInfo(mainPanelDevice)
 end
 function ExportScript.AirportInfo(mainPanelDevice)
 
-  local airdromes = LoGetWorldObjects("airdromes") -- returns a list of runways and their popperties
+  local airdromes = LoGetWorldObjects("airdromes") -- returns a list of runways and their properties
   local airportInfo = {} -- contains generated table of important properties
   -- the table will be sorted by nearest airport first
   -- for this table:
@@ -469,12 +469,12 @@ function ExportScript.AirportInfo(mainPanelDevice)
   -- airportInfo[1][1] is the airport name of the first element/airport
   -- airportInfo[1][2] is the distance to the airport of the first element/airport
   -- airportInfo[1][3] is the bearing to the airport of the first element/airport
-  -- airportInfo[1][4] is the extimated time en route 
+  -- airportInfo[1][4] is the estimated time en route 
   -- airportInfo[1][5] is the direction of the wind
   -- airportInfo[1][6] is the windStrength of the wind
   -- airportInfo[1][7] is the main runway heading
   -- airportInfo[1][8] is the reverse of the main runway
-  -- airportInfo[1][9] is the prefered runway based on winds
+  -- airportInfo[1][9] is the preferred runway based on winds
   
   for key,value in pairs(airdromes) do
     
