@@ -1,30 +1,21 @@
--- SA342M
-
+-- SA342 Gazelle 
+-- based on Bailey ExportScripts
 ExportScript.FoundDCSModule = true
-ExportScript.Version.SA342M = "1.2.1"
+ExportScript.Version.SA342M = "2.0"
 
 ExportScript.ConfigEveryFrameArguments = 
 {
-	--[[
-	every frames arguments
-	based of "mainpanel_init.lua"
-	Example (http://www.lua.org/manual/5.1/manual.html#pdf-string.format)
-	[DeviceID] = "Format"
-	  [4] = "%.4f",  <- floating-point number with 4 digits after point
-	 [19] = "%0.1f", <- floating-point number with 1 digit after point
-	[129] = "%1d",   <- decimal number
-	  [5] = "%.f",   <- floating point number rounded to a decimal number
-	]]
 	-- Gyro Panel
 	[200] = "%.4f",	-- Gyro_Needle_State {-1,1} Gyro Panel SYNC
 	[201] = "%.f",	-- Gyro_voyant_test Lamp {0,1} 
 	[202] = "%.f",	-- Gyro_voyant_trim Lamp {0,1}
 	[203] = "%.f",	-- Gyro_voyant_bpp Lamp {0,1}
+	[208] = "%.f",  --GYRO_Flags {0,1}
 	-- Autopilot Panel
 	[37] = "%.4f",	-- T_Needle_State {-1,1} Pitch correction Indicator
 	[38] = "%.4f",	-- R_Needle_State {-1,1} Roll correction Indicator
 	[39] = "%.4f",	-- L_Needle_State {-1,1} Yaw correction Indicator
-	--[196] = "%.4f",	-- RWR_light {0,1} -- RWR background light
+	[196] = "%.4f",	-- RWR_light {0,1} -- RWR background light
 	--[] = "%.4f",	-- PE_fondbright {0,1} ???
 	--[353] = "%.4f",	-- NADIR_fondbright {0,1} ???
 	-- Flare Dispenser Lamps
@@ -76,9 +67,9 @@ ExportScript.ConfigEveryFrameArguments =
 	[92] = "%0.1f",	-- Baro_Altimeter_press_cent 0X00 {0,1,2,3,4,5,6,7,8,9,0}{0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0}
 	[95] = "%0.1f",	-- Baro_Altimeter_press_mille X000 {0,1,2,3,4,5,6,7,8,9,0}{0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0}
 	-- radar altimetre
-	[94] = "%.4f",	-- Radar_Altimeter {0,5,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,200,250,300,350,400,450,500,550,600,650,700,750,800,850}{0,0.019,0.035,0.072,0.109,0.147,0.18,0.214,0.247,0.283,0.316,0.345,0.376,0.407,0.438,0.469,0.501,0.564,0.606,0.648,0.676,0.706,0.732,0.756,0.775,0.794,0.811,0.829,0.843,0.858,0.87}
+	[94] = "%.4f",	-- Radar_Altimeter feet {0,5,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,200,250,300,350,400,450,500,550,600,650,700,750,800,850}{0,0.019,0.035,0.072,0.109,0.147,0.18,0.214,0.247,0.283,0.316,0.345,0.376,0.407,0.438,0.469,0.501,0.564,0.606,0.648,0.676,0.706,0.732,0.756,0.775,0.794,0.811,0.829,0.843,0.858,0.87}
 	[93] = "%.4f",	-- DangerRALT_index {0,5,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,200,250,300,350,400,450,500,550,600,650,700,750,800,850}{0.0,0.0175,0.0338,0.0715,0.109,0.147,0.182,0.215,0.247,0.282,0.315,0.3445,0.377,0.407,0.439,0.47,0.5005,0.5628,0.6052,0.646,0.675,0.7058,0.7315,0.755,0.7747,0.793,0.8097,0.8272,0.8425,0.8575,0.8693}
-	--[97] = "%.f",	-- RAltlamp {0,1}
+	[97] = "%.f",	-- RAltlamp {0,1}
 	[98] = "%.f",	-- RAlt_flag_Panne OFF Flag{0,1}
 	[99] = "%.1f",	-- RAlt_flag_MA A (Test) Flag{0,1}
 	[91] = "%.1f",	-- RAlt_knob_MA Power/Test Knop{0,1}
@@ -179,6 +170,9 @@ ExportScript.ConfigEveryFrameArguments =
 	[193] = "%.f"	-- HOT3 WP Lamps NUIT
 }
 
+
+
+
 ExportScript.ConfigArguments = 
 {
 	--[[
@@ -194,14 +188,16 @@ ExportScript.ConfigArguments =
 	[374] = "%1d",	-- WP2 - Ma Right
 	[375] = "%1d",	-- WP2 - Ma Right Cover
 	[376] = "%1d",	-- WP2 - Seq Ripple selection
+	[377] = "%1d",
+	[378] = "%1d",
 	-- PILOTSIGHT
 	[171] = "%1d",	-- PILOTSIGHT - Pilot Sight
 	-- PILOT STICK
 	--[50] = "%1d",	-- PILOT STICK - Magnetic Brake
 	--[53] = "%1d",	-- PILOT STICK - Wiper once
 	--[209] = "%1d",	-- PILOT STICK - Autopilot Button
-	--[293] = "%1d",	-- PILOT STICK - Slave
-	--[294] = "%1d",	-- PILOT STICK - Auto-Hover
+	[293] = "%1d",	-- PILOT STICK - Slave
+	[294] = "%1d",	-- PILOT STICK - Auto-Hover
 	-- WSO LEFT SIDE STICK
 	[255] = "%1d",	-- PE WSO STICK - Lasing Button Cover
 	[256] = "%1d",	-- PE WSO STICK - Lasing Button
@@ -285,7 +281,7 @@ ExportScript.ConfigArguments =
 	[124] = "%1d",	-- TV - On/Off
 	[125] = "%.4f",	-- TV - Contrast (Axis) {0.0, 1.0} in 0.1 Steps
 	[123] = "%.4f",	-- TV - Brightness (Axis) {0.0, 1.0} in 0.1 Steps
-	--[126] = "%.4f",	-- TV - Cover (Axis) {0.0, 1.0} in 0.1 Steps
+	[126] = "%.4f",	-- TV - Cover (Axis) {0.0, 1.0} in 0.1 Steps
 	-- RWR
 	[148] = "%1d",	-- RWR - Off/On/Croc {-1.0,0.0,1.0}
 	[149] = "%1d",	-- RWR - Marker
@@ -339,7 +335,7 @@ ExportScript.ConfigArguments =
 	[146] = "%1d",	-- NAVLIGHTS - Navigation Lights CLI/OFF/FIX {-1.0,0.0,1.0}
 	[228] = "%1d",	-- NAVLIGHTS - Anticollision Light NOR/OFF/ATT {-1.0,0.0,1.0}
 	[105] = "%1d",	-- NAVLIGHTS - Landing Light Off/Vario/On {-1.0,0.0,1.0}
-	[106] = "%1d",	-- NAVLIGHTS - Landing Light Extend/Retract
+--	[106] = "%1d",	-- NAVLIGHTS - Landing Light Extend/Retract
 	[382] = "%1d",	-- NAVLIGHTS - Panels Lighting On/Off
 	[30] = "%.4f",	-- NAVLIGHTS - AntiCollision Light Intensity (Axis) {0.0, 1.0} in 0.1 Steps
 	[229] = "%1d",	-- NAVLIGHTS - Formation Lights On/Off
@@ -396,579 +392,321 @@ ExportScript.ConfigArguments =
 	[394] = "%1d",	-- UHF RADIO - 7
 	[395] = "%1d",	-- UHF RADIO - 8
 	[396] = "%1d",	-- UHF RADIO - 9
-	[397] = "%1d"	-- UHF RADIO - 0
+	[397] = "%1d",	-- UHF RADIO - 0
+
+
+[1330] = "%1d", --ALV Y
+[1331] = "%1d", --ALV G
+[1332] = "%1d", --CVS Y
+[1333] = "%1d", --CVS G
+
+[590] = "%1d", --pcb zoom
+[591] = "%.2f", --pcb dist
+[592] = "%1d", --pcb stab
+
+[605] = "%1d", --mini cover
+[606] = "%1d", --mini arm
+[596] = "%1d", --izlid
+
+[1333] = "%1d", --CVS G
+[1333] = "%1d", --CVS G
+[172] = "%1d" --periscope
+	--MEUS--
+	
 }
-
------------------------------
--- HIGH IMPORTANCE EXPORTS --
--- done every export event --
------------------------------
-
--- Pointed to by ProcessIkarusDCSHighImportance
 function ExportScript.ProcessIkarusDCSConfigHighImportance(mainPanelDevice)
-	--[[
-	every frame export to Ikarus
-	Example from A-10C
-	Get Radio Frequencies
-	get data from device
-	local lUHFRadio = GetDevice(54)
-	ExportScript.Tools.SendData("ExportID", "Format")
-	ExportScript.Tools.SendData(2000, string.format("%7.3f", lUHFRadio:get_frequency()/1000000)) -- <- special function for get frequency data
-	ExportScript.Tools.SendData(2000, ExportScript.Tools.RoundFreqeuncy((UHF_RADIO:get_frequency()/1000000))) -- ExportScript.Tools.RoundFreqeuncy(frequency (MHz|KHz), format ("7.3"), PrefixZeros (false), LeastValue (0.025))
-	]]
-	--[97] = "%.f",	-- RAltlamp {0,1}
-	ExportScript.Tools.SendData(97, (mainPanelDevice:get_argument_value(97) > 0.009 and 1 or 0))
-	
-	--[102] = "%.4f",	-- ADF_Aiguille_large Heading Needle large {-360.0,0.0,360.0}{-1.0,0.0,1.0}
-	local ADF_Aiguille_large = mainPanelDevice:get_argument_value(102)
-	if ADF_Aiguille_large ~= 0 then
-		ADF_Aiguille_large = ADF_Aiguille_large + 0.5
-		if ADF_Aiguille_large > 1 then
-			ADF_Aiguille_large = ADF_Aiguille_large - 1.0
-		end
-	end
-	ExportScript.Tools.SendData(102, string.format("%.4f", ADF_Aiguille_large))
-	
+
 	ExportScript.Radios(mainPanelDevice)
+
 end
 
 function ExportScript.ProcessDACConfigHighImportance(mainPanelDevice)
-	--[[
-	every frame export to DAC
-	Example from A-10C
-	Get Radio Frequencies
-	get data from device
-	local UHF_RADIO = GetDevice(54)
-	ExportScript.Tools.SendDataDAC("ExportID", "Format")
-	ExportScript.Tools.SendDataDAC("ExportID", "Format", HardwareConfigID)
-	ExportScript.Tools.SendDataDAC("2000", string.format("%7.3f", UHF_RADIO:get_frequency()/1000000))
-	ExportScript.Tools.SendDataDAC("2000", ExportScript.Tools.RoundFreqeuncy((UHF_RADIO:get_frequency()/1000000))) -- ExportScript.Tools.RoundFreqeuncy(frequency (MHz|KHz), format ("7.3"), PrefixZeros (false), LeastValue (0.025))
-	]]
 end
 
------------------------------------------------------
--- LOW IMPORTANCE EXPORTS                          --
--- done every gExportLowTickInterval export events --
------------------------------------------------------
-
--- Pointed to by ExportScript.ProcessIkarusDCSConfigLowImportance
 function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
-	--[[
-	export in low tick interval to Ikarus
-	Example from A-10C
-	Get Radio Frequencies
-	get data from device
-	local lUHFRadio = GetDevice(54)
-	ExportScript.Tools.SendData("ExportID", "Format")
-	ExportScript.Tools.SendData(2000, string.format("%7.3f", lUHFRadio:get_frequency()/1000000)) -- <- special function for get frequency data
-	ExportScript.Tools.SendData(2000, ExportScript.Tools.RoundFreqeuncy((UHF_RADIO:get_frequency()/1000000))) -- ExportScript.Tools.RoundFreqeuncy(frequency (MHz|KHz), format ("7.3"), PrefixZeros (false), LeastValue (0.025))
-	]]
-
-	
 end
 
 function ExportScript.ProcessDACConfigLowImportance(mainPanelDevice)
-	--[[
-	export in low tick interval to DAC
-	Example from A-10C
-	Get Radio Frequencies
-	get data from device
-	local UHF_RADIO = GetDevice(54)
-	ExportScript.Tools.SendDataDAC("ExportID", "Format")
-	ExportScript.Tools.SendDataDAC("ExportID", "Format", HardwareConfigID)
-	ExportScript.Tools.SendDataDAC("2000", string.format("%7.3f", UHF_RADIO:get_frequency()/1000000))
-	ExportScript.Tools.SendDataDAC("2000", ExportScript.Tools.RoundFreqeuncy((UHF_RADIO:get_frequency()/1000000))) -- ExportScript.Tools.RoundFreqeuncy(frequency (MHz|KHz), format ("7.3"), PrefixZeros (false), LeastValue (0.025))
-	]]
 
-	-- UHF Radio 
-	---------------------------------------------------
-	local lUHFRadio = GetDevice(31)
-	if lUHFRadio:is_on() then
-		--ExportScript.Tools.SendDataDAC("2000", string.format("%.3f", lUHFRadio:get_frequency()/1000000))
-		--ExportScript.Tools.WriteToLog('UHF_Freq: '..ExportScript.Tools.dump(list_indication(5)))
 
-		local lUHFRadioFreq = ExportScript.Tools.getListIndicatorValue(5)
 
-		if lUHFRadioFreq ~= nil and lUHFRadioFreq.UHF_Freq ~= nil then
-			ExportScript.Tools.SendDataDAC("2000", string.format("%s", lUHFRadioFreq.UHF_Freq))
-		end
-	else
-		ExportScript.Tools.SendDataDAC("2000", "-")
-	end
-
-	-- AM Radio 
-	---------------------------------------------------
-	local lAMRadio = GetDevice(5)
-	if lAMRadio:is_on() then
-		--ExportScript.Tools.SendDataDAC("2001", string.format("%.3f", lAMRadio:get_frequency()/1000000))
-		ExportScript.Tools.SendDataDAC("2001", "VHF AM\n" .. ExportScript.Tools.RoundFreqeuncy(lAMRadio:get_frequency()/1000000))
-	else
-		ExportScript.Tools.SendDataDAC("2001", "VHF AM\n---.---")
-	end
-
-	-- FM Radio PR4G
-	---------------------------------------------------
-	local lFMRadio = GetDevice(28)
-	if lFMRadio:is_on() then
-		--ExportScript.Tools.SendDataDAC(2002, string.format("%.3f", lFMRadio:get_frequency()/1000000))
-		--ExportScript.Tools.WriteToLog('FM_Freq: '..ExportScript.Tools.dump(list_indication(4)))
-
-		local lFMRadioFreq = ExportScript.Tools.getListIndicatorValue(4)
-
-		if lFMRadioFreq ~= nil and lFMRadioFreq.FM_Freq ~= nil then
-			ExportScript.Tools.SendDataDAC("2002", string.format("%s", lFMRadioFreq.FM_Freq))
-		end
-	else
-		ExportScript.Tools.SendDataDAC("2002", "-")
-	end
-
-	-- [273] = "%.3f",	-- FM RADIO - Chanel Selector {0.0,0.143,0.286,0.429,0.572,0.715,0.858,1.0} -- laut clickabledata.lua
-	-- [273] = "%.1f",	-- FM RADIO - Chanel Selector {0.0,0.2,0.3,0.5,0.6,0.8,0.9,1.1} -- gerundet
-	local lFM_RADIO_PRESET = {[0.0]="1",[0.2]="2",[0.3]="3",[0.5]="4",[0.6]="5",[0.8]="6",[0.9]="0",[1.1]="R"}
-	ExportScript.Tools.SendDataDAC("2003", lFM_RADIO_PRESET[ExportScript.Tools.round(mainPanelDevice:get_argument_value(273), 1, "ceil")])
-	
-	-- Weapon Panel
-	---------------------------------------------------
-	if mainPanelDevice:get_argument_value(354) >= 0.0 then -- Weapon panel is On
-		local lWeaponPanelDisplays = ExportScript.Tools.getListIndicatorValue(8)
-
-		if lWeaponPanelDisplays ~= nil then
-			if lWeaponPanelDisplays.LEFT_screen ~= nil then
-				ExportScript.Tools.SendDataDAC("2004", string.format("%s", lWeaponPanelDisplays.LEFT_screen))
-			end
-			if lWeaponPanelDisplays.RIGHT_screen ~= nil then
-				ExportScript.Tools.SendDataDAC("2005", string.format("%s", lWeaponPanelDisplays.RIGHT_screen))
-			end
-		end
-	else
-		ExportScript.Tools.SendDataDAC("2004", "-")
-		ExportScript.Tools.SendDataDAC("2005", "-")
-	end
-	
-	-- generic Radio display and frequency rotarys
-	-------------------------------------------------
-	-- genericRadioConf
-	ExportScript.genericRadioConf = {}
-	ExportScript.genericRadioConf['maxRadios'] = 3                       -- numbers of aviables/supported radios
-	ExportScript.genericRadioConf[1] = {}                                -- first radio
-	ExportScript.genericRadioConf[1]['Name'] = "UHF Radio"               -- name of radio
-	ExportScript.genericRadioConf[1]['DeviceID'] = 31                    -- DeviceID for GetDevice from device.lua
-	ExportScript.genericRadioConf[1]['setFrequency'] = true              -- change frequency active
-	ExportScript.genericRadioConf[1]['FrequencyMultiplicator'] = 1000000 -- Multiplicator from Hz to MHz
-	ExportScript.genericRadioConf[1]['FrequencyFormat'] = "%7.3f"        -- frequency view format LUA style
-	ExportScript.genericRadioConf[1]['FrequencyStep'] = 25               -- minimal step for frequency change
-	ExportScript.genericRadioConf[1]['minFrequency'] = 225.000           -- lowest frequency
-	ExportScript.genericRadioConf[1]['maxFrequency'] = 399.975           -- highest frequency
-	ExportScript.genericRadioConf[1]['Power'] = {}                       -- power button active
-	ExportScript.genericRadioConf[1]['Power']['ButtonID'] = 3001         -- power button id from cklickable.lua
-	ExportScript.genericRadioConf[1]['Power']['ValueOn'] = 0.167         -- power on value from cklickable.lua
-	ExportScript.genericRadioConf[1]['Power']['ValueOff'] = 0.0          -- power off value from cklickable.lua
-	--ExportScript.genericRadioConf[1]['Volume'] = {}                      -- volume knob active
-	--ExportScript.genericRadioConf[1]['Volume']['ButtonID'] = 3011        -- volume button id from cklickable.lua
-	--ExportScript.genericRadioConf[1]['Preset'] = {}                      -- preset knob active
-	--ExportScript.genericRadioConf[1]['Preset']['ArgumentID'] = 161       -- ManualPreset argument id from cklickable.lua
-	--ExportScript.genericRadioConf[1]['Preset']['ButtonID'] = 3001        -- preset button id from cklickable.lua
-	-- Preset based on switchlogic on clickabledata.lua
-	--ExportScript.genericRadioConf[1]['Preset']['List'] = {[0.0]="01",[0.05]="02",[0.10]="03",[0.15]="04",[0.20]="05",[0.25]="06",[0.30]="07",[0.35]="08",[0.40]="09",[0.45]="10",[0.50]="11",[0.55]="12",[0.60]="13",[0.65]="14",[0.70]="15",[0.75]="16",[0.80]="17",[0.85]="18",[0.90]="19",[0.95]="20",[1.00]="01"}
-	--ExportScript.genericRadioConf[1]['Preset']['Step'] = 0.05            -- minimal step for preset change
-	--ExportScript.genericRadioConf[1]['Squelch'] = {}                     -- squelch switch active
-	--ExportScript.genericRadioConf[1]['Squelch']['ArgumentID'] = 170      -- ManualPreset argument id from cklickable.lua
-	--ExportScript.genericRadioConf[1]['Squelch']['ButtonID'] = 3010       -- squelch button id from cklickable.lua
-	--ExportScript.genericRadioConf[1]['Squelch']['ValueOn'] = 0.0         -- squelch on value from cklickable.lua
-	--ExportScript.genericRadioConf[1]['Squelch']['ValueOff'] = 1.0        -- squelch off value from cklickable.lua
-	-- Load Button = VLD Button
-	ExportScript.genericRadioConf[1]['Load'] = {}                        -- load button preset
-	ExportScript.genericRadioConf[1]['Load']['ButtonID'] = 3003          -- load button id from cklickable.lua
-	--ExportScript.genericRadioConf[1]['ManualPreset'] = {}                -- switch manual or preset active
-	--ExportScript.genericRadioConf[1]['ManualPreset']['ArgumentID'] = 167 -- ManualPreset argument id from cklickable.lua
-	--ExportScript.genericRadioConf[1]['ManualPreset']['ButtonID'] = 3007  -- ManualPreset button id from cklickable.lua
-	--ExportScript.genericRadioConf[1]['ManualPreset']['ValueManual'] = 0.0-- ManualPreset Manual value from cklickable.lua
-	--ExportScript.genericRadioConf[1]['ManualPreset']['ValuePreset'] = 0.1-- ManualPreset Preset value from cklickable.lua
-
-	ExportScript.genericRadioConf[2] = {}                                -- secound radio
-	ExportScript.genericRadioConf[2]['Name'] = "AM Radio"                -- name of radio
-	ExportScript.genericRadioConf[2]['DeviceID'] = 5                     -- DeviceID for GetDevice from device.lua
-	ExportScript.genericRadioConf[2]['setFrequency'] = true              -- change frequency active
-	ExportScript.genericRadioConf[2]['FrequencyMultiplicator'] = 1000000 -- Multiplicator from Hz to MHz
-	ExportScript.genericRadioConf[2]['FrequencyFormat'] = "%7.3f"        -- frequency view format LUA style
-	ExportScript.genericRadioConf[2]['FrequencyStep'] = 25               -- minimal step for frequency change
-	ExportScript.genericRadioConf[2]['minFrequency'] = 118.000           -- lowest frequency
-	ExportScript.genericRadioConf[2]['maxFrequency'] = 143.975           -- highest frequency
-	ExportScript.genericRadioConf[2]['Power'] = {}                       -- power button active
-	ExportScript.genericRadioConf[2]['Power']['ButtonID'] = 3001         -- power button id from cklickable.lua
-	ExportScript.genericRadioConf[2]['Power']['ValueOn'] = 0.33           -- power on value from cklickable.lua
-	ExportScript.genericRadioConf[2]['Power']['ValueOff'] = 0.0          -- power off value from cklickable.lua
-	--ExportScript.genericRadioConf[2]['Volume'] = {}                      -- volume knob active
-	--ExportScript.genericRadioConf[2]['Volume']['ButtonID'] = 3005        -- volume button id from cklickable.lua
-	--ExportScript.genericRadioConf[2]['Preset'] = {}                      -- preset knob active
-	--ExportScript.genericRadioConf[2]['Preset']['ArgumentID'] = 137       -- ManualPreset argument id from cklickable.lua
-	--ExportScript.genericRadioConf[2]['Preset']['ButtonID'] = 3001        -- preset button id from cklickable.lua
-	-- Preset based on switchlogic on clickabledata.lua
-	--ExportScript.genericRadioConf[2]['Preset']['List'] = {[0.0]="01",[0.01]="02",[0.02]="03",[0.03]="04",[0.04]="05",[0.05]="06",[0.06]="07",[0.07]="08",[0.08]="09",[0.09]="10",[0.10]="11",[0.11]="12",[0.12]="13",[0.13]="14",[0.14]="15",[0.15]="16",[0.16]="17",[0.17]="18",[0.18]="19",[0.19]="20",[0.20]="01"}
-	--ExportScript.genericRadioConf[2]['Preset']['Step'] = 0.01            -- minimal step for preset change
-	--ExportScript.genericRadioConf[2]['Squelch'] = {}                     -- squelch switch active
-	--ExportScript.genericRadioConf[2]['Squelch']['ArgumentID'] = 134      -- ManualPreset argument id from cklickable.lua
-	--ExportScript.genericRadioConf[2]['Squelch']['ButtonID'] = 3008       -- squelch button id from cklickable.lua
-	--ExportScript.genericRadioConf[2]['Squelch']['ValueOn'] = 0.0         -- squelch on value from cklickable.lua
-	--ExportScript.genericRadioConf[2]['Squelch']['ValueOff'] = 1.0        -- squelch off value from cklickable.lua
-	--ExportScript.genericRadioConf[2]['Load'] = {}                        -- load button preset
-	--ExportScript.genericRadioConf[2]['Load']['ButtonID'] = 3006          -- load button id from cklickable.lua
-	--ExportScript.genericRadioConf[2]['ManualPreset'] = {}                -- switch manual or preset active
-	--ExportScript.genericRadioConf[2]['ManualPreset']['ArgumentID'] = 135 -- ManualPreset argument id from cklickable.lua
-	--ExportScript.genericRadioConf[2]['ManualPreset']['ButtonID'] = 3004  -- ManualPreset button id from cklickable.lua
-	--ExportScript.genericRadioConf[2]['ManualPreset']['ValueManual'] = 0.2-- ManualPreset Manual value from cklickable.lua
-	--ExportScript.genericRadioConf[2]['ManualPreset']['ValuePreset'] = 0.3-- ManualPreset Preset value from cklickable.lua
-
-	ExportScript.genericRadioConf[3] = {}                                -- secound radio
-	ExportScript.genericRadioConf[3]['Name'] = "FM Radio"                -- name of radio
-	ExportScript.genericRadioConf[3]['DeviceID'] = 28                    -- DeviceID for GetDevice from device.lua
-	ExportScript.genericRadioConf[3]['setFrequency'] = true              -- change frequency active
-	ExportScript.genericRadioConf[3]['FrequencyMultiplicator'] = 1000000 -- Multiplicator from Hz to MHz
-	ExportScript.genericRadioConf[3]['FrequencyFormat'] = "%7.3f"        -- frequency view format LUA style
-	ExportScript.genericRadioConf[3]['FrequencyStep'] = 25               -- minimal step for frequency change
-	ExportScript.genericRadioConf[3]['minFrequency'] = 30.000            -- lowest frequency
-	ExportScript.genericRadioConf[3]['maxFrequency'] = 87.975            -- highest frequency
-	ExportScript.genericRadioConf[3]['Power'] = {}                       -- power button active
-	ExportScript.genericRadioConf[3]['Power']['ButtonID'] = 3001         -- power button id from cklickable.lua
-	ExportScript.genericRadioConf[3]['Power']['ValueOn'] = 0.25           -- power on value from cklickable.lua
-	ExportScript.genericRadioConf[3]['Power']['ValueOff'] = 0.0          -- power off value from cklickable.lua
-	--ExportScript.genericRadioConf[3]['Volume'] = {}                      -- volume knob active
-	--ExportScript.genericRadioConf[3]['Volume']['ButtonID'] = 3005        -- volume button id from cklickable.lua
-	ExportScript.genericRadioConf[3]['Preset'] = {}                      -- preset knob active
-	ExportScript.genericRadioConf[3]['Preset']['ArgumentID'] = 273       -- ManualPreset argument id from cklickable.lua
-	ExportScript.genericRadioConf[3]['Preset']['ButtonID'] = 3002        -- preset button id from cklickable.lua
-	--ExportScript.genericRadioConf[3]['Preset']['ButtonID2'] = 3002       -- preset button id from cklickable.lua
-	-- Preset based on switchlogic on clickabledata.lua
-	-- [273] = "%.3f",	-- FM RADIO - Chanel Selector {0.0,0.143,0.286,0.429,0.572,0.715,0.858,1.0} -- laut clickabledata.lua
-	ExportScript.genericRadioConf[3]['Preset']['List'] = {[0.0]="1",[0.143]="2",[0.286]="3",[0.429]="4",[0.572]="5",[0.715]="6",[0.858]="0",[1.0]="-"}
-	ExportScript.genericRadioConf[3]['Preset']['Step'] = 0.143           -- minimal step for preset change
-	--ExportScript.genericRadioConf[3]['Preset']['Step2'] = -0.01          -- minimal step for preset change
-	--ExportScript.genericRadioConf[3]['Squelch'] = {}                     -- squelch switch active
-	--ExportScript.genericRadioConf[3]['Squelch']['ArgumentID'] = 148      -- ManualPreset argument id from cklickable.lua
-	--ExportScript.genericRadioConf[3]['Squelch']['ButtonID'] = 3008       -- squelch button id from cklickable.lua
-	--ExportScript.genericRadioConf[3]['Squelch']['ValueOn'] = 0.0         -- squelch on value from cklickable.lua
-	--ExportScript.genericRadioConf[3]['Squelch']['ValueOff'] = -1.0        -- squelch off value from cklickable.lua
-	--ExportScript.genericRadioConf[3]['Load'] = {}                        -- load button preset
-	--ExportScript.genericRadioConf[3]['Load']['ButtonID'] = 3004          -- load button id from cklickable.lua
-	--ExportScript.genericRadioConf[3]['ManualPreset'] = {}                -- switch manual or preset active
-	--ExportScript.genericRadioConf[3]['ManualPreset']['ArgumentID'] = 149 -- ManualPreset argument id from cklickable.lua
-	--ExportScript.genericRadioConf[3]['ManualPreset']['ButtonID'] = 3004  -- ManualPreset button id from cklickable.lua
-	--ExportScript.genericRadioConf[3]['ManualPreset']['ValueManual'] = 0.2-- ManualPreset Manual value from cklickable.lua
-	--ExportScript.genericRadioConf[3]['ManualPreset']['ValuePreset'] = 0.3-- ManualPreset Preset value from cklickable.lua
-
-	ExportScript.genericRadio(nil, nil)
-	
-	--=====================================================================================
-	--[[
-	ExportScript.Tools.WriteToLog('list_cockpit_params(): '..ExportScript.Tools.dump(list_cockpit_params()))
-	ExportScript.Tools.WriteToLog('CMSP: '..ExportScript.Tools.dump(list_indication(7)))
-	
-	-- list_indication get tehe value of cockpit displays
-	local ltmp1 = 0
-	for ltmp2 = 0, 20, 1 do
-		ltmp1 = list_indication(ltmp2)
-		ExportScript.Tools.WriteToLog(ltmp2..': '..ExportScript.Tools.dump(ltmp1))
-	end
-	]]
---[[
-	-- getmetatable get function name from devices
-	local ltmp1 = 0
-	for ltmp2 = 1, 70, 1 do
-		ltmp1 = GetDevice(ltmp2)
-		ExportScript.Tools.WriteToLog(ltmp2..': '..ExportScript.Tools.dump(ltmp1))
-		ExportScript.Tools.WriteToLog(ltmp2..' (metatable): '..ExportScript.Tools.dump(getmetatable(ltmp1)))
-	end
-]]
 end
-
------------------------------
---     Custom functions    --
------------------------------
-
 
 function ExportScript.Radios(mainPanelDevice)
 
-	-- UHF Radio 
-	---------------------------------------------------
-	local lUHFRadio = GetDevice(31)
-	local UHF_readout
-	if lUHFRadio:is_on() then
-		--ExportScript.Tools.SendData(2000, string.format("%.3f", lUHFRadio:get_frequency()/1000000))
-		--ExportScript.Tools.WriteToLog('UHF_Freq: '..ExportScript.Tools.dump(list_indication(5)))
 
-		local lUHFRadioFreq = ExportScript.Tools.getListIndicatorValue(5)
+if mainPanelDevice:get_argument_value(556) == 0 then
 
-		if lUHFRadioFreq ~= nil and lUHFRadioFreq.UHF_Freq ~= nil then
-			UHF_readout = string.format("%s", lUHFRadioFreq.UHF_Freq)
+
+elseif mainPanelDevice:get_argument_value(556) > 0 then
+
+local rotor = ((mainPanelDevice:get_argument_value(52) - 0.096) * (1/0.175))
+	turbine = ((mainPanelDevice:get_argument_value(135) - 0.095) * 61.80469715698393)
+rotor = string.format("%.1f", rotor)
+turbine = string.format("%.1f", turbine)
+
+	-- [300] = "%.f",	-- Voyant_DEM Start lamp{0,1}
+	-- [301] = "%.f",	-- Voyant_RLT Idle lamp {0,1}
+	-- [302] = "%.f",	-- Voyant_BLOC Blocked Engine lamp {0,1}
+
+--idleio = mainPanelDevice:get_argument_value(301)
+--startio = mainPanelDevice:get_argument_value(300)
+--blocio =mainPanelDevice:get_argument_value(302)
+
+local idleio = mainPanelDevice:get_argument_value(301)
+	if idleio == 0 then
+		idlelamp="⚫"
+	elseif idleio > 0 then
+		idlelamp="🟡"
+	end
+
+local startio = mainPanelDevice:get_argument_value(300)
+	if startio == 0 then
+		startlamp="⚫"
+	elseif startio > 0 then
+		startlamp="🟢"
+	end
+
+local blocio = mainPanelDevice:get_argument_value(302)
+	if blocio == 0 then
+		bloclamp="⚫"
+	elseif blocio > 0 then
+		bloclamp="🔴"
+	end
+
+ExportScript.Tools.SendData(1006, string.format("R   " .. rotor .. "\n" ..
+												"T  " .. turbine .. "\n" ..
+												startlamp .. idlelamp .. bloclamp))
+end
+--value =  (output - output_min) * ((value_max) / (output_max-output_min))	
+t4p = mainPanelDevice:get_argument_value(15)
+t4temp = (-9679.7 * t4p^5) + (25333 * t4p^4) - (24033 * t4p^3) + (9712.1 * t4p^2) - (346.74 * t4p) - 105.2
+
+	
+	if 
+		t4temp <= 550 then
+		t4lamp = "🟢"
+	elseif
+		t4temp > 550 and t4temp < 600 then
+		t4lamp = "🟡" 
+	elseif
+		t4temp >= 600 then
+		t4lamp = "🔴"
+	end
+
+	t4temp = string.format("%.f", t4temp) --??
+
+local oiltemp = (mainPanelDevice:get_argument_value(151) * 100)
+
+    if 
+    	oiltemp <= 24 then
+		oillamp = "🟡"
+	elseif
+		oiltemp > 24 and oiltemp < 85 then
+		oillamp = "🟢" 
+	elseif
+		oiltemp >= 85 then
+		oillamp = "🔴"
+	end
+
+	oiltemp = string.format("%.f", oiltemp) --??
+
+	ExportScript.Tools.SendData(1005, string.format("🌡️Oil\n" ..
+													oillamp .. oiltemp .. " ºC" .. "\n" ..
+													"🌡️T4\n" ..
+													t4lamp .. t4temp .. " ºC"))
+-----------
+--output_min = 0
+--output_max = 0.886
+--value_min = 0
+--value_max = 370
+--output = 1
+
+--value =  (output - output_min) * ((value_max) / (output_max-output_min))
+
+--fuel
+fuel = ((mainPanelDevice:get_argument_value(137) - 0.093) * ((450)/(0.932-0.093)))
+fuel = string.format("%.f", fuel)
+ExportScript.Tools.SendData(1016, string.format(fuel .. "L"))
+
+torque = ((mainPanelDevice:get_argument_value(16) - 0.085) * ((110)/(0.908-0.085)))
+torque = string.format("%.f", torque)
+ExportScript.Tools.SendData(1008, string.format("⚙️" .. torque .. "%%\n\n" ..  "⛽" .. fuel .. "L"))
+
+--IAS
+local x = (mainPanelDevice:get_argument_value(51))
+local IASkmh = ((294.33 * x^3) - (245.86 * x^2) + (396.8 * x) + 12.511)	
+IASkmh = string.format("%.f", IASkmh)
+IASkts = IASkmh * 0.539957
+IASkts = string.format("%.f", IASkts)
+ExportScript.Tools.SendData(1009, string.format(IASkmh .. " Kmh\n" ..
+												"(" .. IASkts .. " Kts)"))
+--Rad alt
+local x = (mainPanelDevice:get_argument_value(94))
+local ralt = (2329.2*x^4) - (1163.2*x^3) - (1.5301*x^2) + (325.05*x)
+ralt = string.format("%.f", ralt)
+
+ExportScript.Tools.SendData(1015, string.format(ralt))
+
+--baro alt
+baro = ((mainPanelDevice:get_argument_value(87)) * 10000)
+baroft = (baro * 3.2808399)
+baroft = string.format("%.f", baroft)
+
+QNH1000 = ((mainPanelDevice:get_argument_value(95)) * 10)
+QNH0100 = ((mainPanelDevice:get_argument_value(92)) * 10)
+QNH0010 = ((mainPanelDevice:get_argument_value(90)) * 10)
+QNH0001 = ((mainPanelDevice:get_argument_value(88)) * 10)
+
+QNH1000 = string.format("%.f", QNH1000)
+QNH0100 = string.format("%.f", QNH0100)
+QNH0010 = string.format("%.f", QNH0010)
+QNH0001 = string.format("%.f", QNH0001)
+
+ExportScript.Tools.SendData(1010, string.format(ralt .. "m (R)\n" .. baroft .. "ft (B)\n" .. QNH1000 .. QNH0100 .. QNH0010 .. QNH0001))
+
+---ADI to waypoint
+phdg  = ((mainPanelDevice:get_argument_value(113)) * 360)
+phdg = string.format("%.f", phdg)
+ExportScript.Tools.SendData(1018, string.format(phdg .. "º"))
+
+toWPdiv = ((mainPanelDevice:get_argument_value(102)) * 360)
+toWPdiv = string.format("%.f", toWPdiv)
+toWPhdg = phdg + toWPdiv
+
+WPdistcent = (mainPanelDevice:get_argument_value(110) * 10)
+WPdistcent = string.format("%.f", WPdistcent)
+WPdistdix = (mainPanelDevice:get_argument_value(111) * 10)
+WPdistdix = string.format("%.f", WPdistdix)
+WPdistunit = (mainPanelDevice:get_argument_value(112) * 10)
+WPdistunit = string.format("%.f", WPdistunit)
+ExportScript.Tools.SendData(1019, string.format(WPdistcent .. WPdistdix .. "." .. WPdistunit .. "Km"))
+
+
+
+ExportScript.Tools.SendData(1017, string.format("Hdg " .. phdg .. "º\n"
+											 .. "Wpt " .. toWPdiv .. "º\n"
+											  .. WPdistcent .. WPdistdix .. "." .. WPdistunit))
+
+--CWP any
+
+w1 = mainPanelDevice:get_argument_value(1)
+w2 = mainPanelDevice:get_argument_value(2)
+w3 = mainPanelDevice:get_argument_value(3)
+w4 = mainPanelDevice:get_argument_value(4)
+w5 = mainPanelDevice:get_argument_value(5)
+w6 = mainPanelDevice:get_argument_value(6)
+w7 = mainPanelDevice:get_argument_value(7)
+w8 = mainPanelDevice:get_argument_value(8)
+w9 = mainPanelDevice:get_argument_value(9)
+w10 = mainPanelDevice:get_argument_value(10)
+w11 = mainPanelDevice:get_argument_value(11)
+w12 = mainPanelDevice:get_argument_value(12)
+w13 = mainPanelDevice:get_argument_value(13)
+
+if (w1 + w2 + w3 + w4 + w5 + w6 + w7 
+	+ w8 + w9 + w10 + w11 + w12 + w13) > 0 then
+		w14 = 1
+	else
+		w14 = 0
+	end
+ExportScript.Tools.SendData(1018, w14)
+
+--Hot3
+--	[181] = "%.3f",	-- PH - Station Select 0/1/0/2/0/3/0/4/0 {0.0,0.125,0.250,0,375,0.500,0.625,0.750,0.875,1.0}
+
+
+-----------
+--Clock
+gameTimeLocal = LoGetMissionStartTime() + LoGetModelTime()
+
+function formatTime(time)
+     seconds = math.floor(time) % 60
+     minutes = math.floor(time / 60) % 60
+     hours = math.floor(time / (60 * 60)) % 24
+    return string.format("%02d", hours) .. string.format("%02d", minutes) .. "L"
+end 
+
+ExportScript.Tools.SendData(9999, formatTime(gameTimeLocal))
+--digital cronometro
+ chmin = (mainPanelDevice:get_argument_value(44) * ((1 / (1/30))*60))
+chmin = string.format("%.f", chmin)
+
+	hour2= math.floor(chmin / 3600)
+	min1= math.floor(chmin / 60)
+	if
+		min1 >= 60 then min3 = min1 - (60 * hour2)
+	elseif
+		min1 < 60 then min3 = min1
+	end
+	sec1= math.floor(chmin % 60)
+
+--hour2 = string.format("%02i", hour)
+--hour = string.format(hour .. "H")
+min3 = string.format("%02i", min3)
+min3 = string.format(min3 .. "'")
+sec1 = string.format("%02i", sec1)
+
+ExportScript.Tools.SendData(1012, string.format(formatTime(gameTimeLocal))) --.. sec)) --just Local Hour
+ExportScript.Tools.SendData(1013, string.format(min3 .. sec1)) --just the timer
+ExportScript.Tools.SendData(1014, string.format(formatTime(gameTimeLocal) .. "\n" .. "🕗" .."\n" .. 
+												min3 .. sec1)) --Local Hour and Timer
+
+if mainPanelDevice:get_argument_value(354) >= 0.0 then -- Weapon panel is On
+	local lWeaponPanelDisplays = ExportScript.Tools.getListIndicatorValue(7)
+
+	if lWeaponPanelDisplays ~= nil then
+		if lWeaponPanelDisplays.LEFT_screen ~= nil then
+			ExportScript.Tools.SendData(2000, string.format("%s", lWeaponPanelDisplays.LEFT_screen))
 		end
-	else
-		UHF_readout = string.format("%s", "---.---")
-	end
-	ExportScript.Tools.SendData(2002, "UHF\n" .. UHF_readout)
-
-	-- AM Radio 
-	---------------------------------------------------
-	local lAMRadio = GetDevice(5)
-	local VHFAM_readout
-	if lAMRadio:is_on() then
-		--ExportScript.Tools.SendData(2001, string.format("%.3f", lAMRadio:get_frequency()/1000000))
-		VHFAM_readout = ExportScript.Tools.RoundFreqeuncy(lAMRadio:get_frequency()/1000000)
-	else
-		VHFAM_readout = string.format("%s", "---.---")
-	end
-	ExportScript.Tools.SendData(2003, "VHF AM\n" .. VHFAM_readout)
-
-	-- FM Radio PR4G
-	---------------------------------------------------
-	
-	local lFM_RADIO_PRESET = {[0.0]="1",[0.2]="2",[0.3]="3",[0.5]="4",[0.6]="5",[0.8]="6",[0.9]="0",[1.1]="R"}
-	ExportScript.Tools.SendData(2004, "CH " .. lFM_RADIO_PRESET[ExportScript.Tools.round(mainPanelDevice:get_argument_value(273), 1, "ceil")])
-	
-	local lFMRadio = GetDevice(28)
-	local VHFFM_readout
-	if lFMRadio:is_on() then
-		--ExportScript.Tools.SendData(2002, string.format("%.3f", lFMRadio:get_frequency()/1000000))
-		--ExportScript.Tools.WriteToLog('FM_Freq: '..ExportScript.Tools.dump(list_indication(4)))
-
-		local lFMRadioFreq = ExportScript.Tools.getListIndicatorValue(4)
-
-		if lFMRadioFreq ~= nil and lFMRadioFreq.FM_Freq ~= nil then
-			VHFFM_readout = string.format("%s", lFMRadioFreq.FM_Freq)
-			ExportScript.Tools.SendData(2005, "VHF FM\n" ..  string.format("%s", lFMRadioFreq.FM_Freq) .. "\n" ..
-																	"CH " .. lFM_RADIO_PRESET[ExportScript.Tools.round(mainPanelDevice:get_argument_value(273), 1, "ceil")])
+		if lWeaponPanelDisplays.RIGHT_screen ~= nil then
+			ExportScript.Tools.SendData(2001, string.format("%s", lWeaponPanelDisplays.RIGHT_screen))
 		end
-	else
-		VHFFM_readout = string.format("%s", "---.---")
-		ExportScript.Tools.SendData(2005, "VHF FM\n--.---\nCH " .. lFM_RADIO_PRESET[ExportScript.Tools.round(mainPanelDevice:get_argument_value(273), 1, "ceil")])
 	end
-	ExportScript.Tools.SendData(2006, "VHF FM\n" .. VHFFM_readout)
-	-- [273] = "%.3f",	-- FM RADIO - Chanel Selector {0.0,0.143,0.286,0.429,0.572,0.715,0.858,1.0} -- laut clickabledata.lua
-	-- [273] = "%.1f",	-- FM RADIO - Chanel Selector {0.0,0.2,0.3,0.5,0.6,0.8,0.9,1.1} -- gerundet
-	
-	
-	--ExportScript.Tools.SendData(2012, "CH " .. lFM_RADIO_PRESET[ExportScript.Tools.round(mainPanelDevice:get_argument_value(273), 1, "ceil")])
-	-- Weapon Panel
-	---------------------------------------------------
-	if mainPanelDevice:get_argument_value(354) >= 0.0 then -- Weapon panel is On
-		local lWeaponPanelDisplays = ExportScript.Tools.getListIndicatorValue(8)
+else
+	ExportScript.Tools.SendData(2000, "-")
+	ExportScript.Tools.SendData(2001, "-")
+end
+------------
+if mainPanelDevice:get_argument_value(272) > 0.0 then
+FM = ExportScript.Tools.split(list_indication(3), "%c")[9]
+ExportScript.Tools.SendData(1020, FM)
+else
+ExportScript.Tools.SendData(1020, "--.---")
+end
 
-		if lWeaponPanelDisplays ~= nil then
-			if lWeaponPanelDisplays.LEFT_screen ~= nil then
-				ExportScript.Tools.SendData(2000, string.format("%s", lWeaponPanelDisplays.LEFT_screen))
-			end
-			if lWeaponPanelDisplays.RIGHT_screen ~= nil then
-				ExportScript.Tools.SendData(2001, string.format("%s", lWeaponPanelDisplays.RIGHT_screen))
-			end
-		end
-	else
-		ExportScript.Tools.SendData(2000, "-")
-		ExportScript.Tools.SendData(2001, "-")
-	end
+if mainPanelDevice:get_argument_value(383) > 0.0 then
+UHF = ExportScript.Tools.split(list_indication(4), "%c")[9]
+ExportScript.Tools.SendData(1021, UHF)
+else
+ExportScript.Tools.SendData(1021, "---.---")
+end
 
+-----------
+	
 	---------
 	-- ADF --
 	---------
-	local ADF_nav1_centaine = mainPanelDevice:get_argument_value(158)
-	local ADF_nav1_dizaine = mainPanelDevice:get_argument_value(159)
-	local ADF_nav1_unite = mainPanelDevice:get_argument_value(160)
-	local ADF_nav1_dec = mainPanelDevice:get_argument_value(161)
+	local ADF_nav1_centaine = mainPanelDevice:get_argument_value(158) * 10
+	local ADF_nav1_dizaine = mainPanelDevice:get_argument_value(159) * 10
+	local ADF_nav1_unite = mainPanelDevice:get_argument_value(160) * 10
+	local ADF_nav1_dec = mainPanelDevice:get_argument_value(161) * 10
 	
-	if ADF_nav1_centaine < 0.05 then
-		ADF_nav1_centaine = 0
-	elseif ADF_nav1_centaine < 0.15 then
-		ADF_nav1_centaine = 1
-	elseif ADF_nav1_centaine < 0.25 then
-		ADF_nav1_centaine = 2
-	elseif ADF_nav1_centaine < 0.35 then
-		ADF_nav1_centaine = 3
-	elseif ADF_nav1_centaine < 0.45 then
-		ADF_nav1_centaine = 4
-	elseif ADF_nav1_centaine < 0.55 then
-		ADF_nav1_centaine = 5
-	elseif ADF_nav1_centaine < 0.65 then
-		ADF_nav1_centaine = 6
-	elseif ADF_nav1_centaine < 0.75 then
-		ADF_nav1_centaine = 7
-	elseif ADF_nav1_centaine < 0.85 then
-		ADF_nav1_centaine = 8
-	elseif ADF_nav1_centaine < 0.95 then
-		ADF_nav1_centaine = 9
-	else
-		ADF_nav1_centaine = 0
-	end
-	
-	if ADF_nav1_dizaine < 0.05 then
-		ADF_nav1_dizaine = 0
-	elseif ADF_nav1_dizaine < 0.15 then
-		ADF_nav1_dizaine = 1
-	elseif ADF_nav1_dizaine < 0.25 then
-		ADF_nav1_dizaine = 2
-	elseif ADF_nav1_dizaine < 0.35 then
-		ADF_nav1_dizaine = 3
-	elseif ADF_nav1_dizaine < 0.45 then
-		ADF_nav1_dizaine = 4
-	elseif ADF_nav1_dizaine < 0.55 then
-		ADF_nav1_dizaine = 5
-	elseif ADF_nav1_dizaine < 0.65 then
-		ADF_nav1_dizaine = 6
-	elseif ADF_nav1_dizaine < 0.75 then
-		ADF_nav1_dizaine = 7
-	elseif ADF_nav1_dizaine < 0.85 then
-		ADF_nav1_dizaine = 8
-	elseif ADF_nav1_dizaine < 0.95 then
-		ADF_nav1_dizaine = 9
-	else
-		ADF_nav1_dizaine = 0
-	end
-	
-	if ADF_nav1_unite < 0.05 then
-		ADF_nav1_unite = 0
-	elseif ADF_nav1_unite < 0.15 then
-		ADF_nav1_unite = 1
-	elseif ADF_nav1_unite < 0.25 then
-		ADF_nav1_unite = 2
-	elseif ADF_nav1_unite < 0.35 then
-		ADF_nav1_unite = 3
-	elseif ADF_nav1_unite < 0.45 then
-		ADF_nav1_unite = 4
-	elseif ADF_nav1_unite < 0.55 then
-		ADF_nav1_unite = 5
-	elseif ADF_nav1_unite < 0.65 then
-		ADF_nav1_unite = 6
-	elseif ADF_nav1_unite < 0.75 then
-		ADF_nav1_unite = 7
-	elseif ADF_nav1_unite < 0.85 then
-		ADF_nav1_unite = 8
-	elseif ADF_nav1_unite < 0.95 then
-		ADF_nav1_unite = 9
-	else
-		ADF_nav1_unite = 0
-	end
-	
-	if ADF_nav1_dec < 0.05 then
-		ADF_nav1_dec = 0
-	elseif ADF_nav1_dec < 0.15 then
-		ADF_nav1_dec = 1
-	elseif ADF_nav1_dec < 0.25 then
-		ADF_nav1_dec = 2
-	elseif ADF_nav1_dec < 0.35 then
-		ADF_nav1_dec = 3
-	elseif ADF_nav1_dec < 0.45 then
-		ADF_nav1_dec = 4
-	elseif ADF_nav1_dec < 0.55 then
-		ADF_nav1_dec = 5
-	elseif ADF_nav1_dec < 0.65 then
-		ADF_nav1_dec = 6
-	elseif ADF_nav1_dec < 0.75 then
-		ADF_nav1_dec = 7
-	elseif ADF_nav1_dec < 0.85 then
-		ADF_nav1_dec = 8
-	elseif ADF_nav1_dec < 0.95 then
-		ADF_nav1_dec = 9
-	else
-		ADF_nav1_dec = 0
-	end
-	
-	local ADF_nav2_centaine = mainPanelDevice:get_argument_value(162)
-	local ADF_nav2_dizaine = mainPanelDevice:get_argument_value(163)
-	local ADF_nav2_unite = mainPanelDevice:get_argument_value(164)
-	local ADF_nav2_dec = mainPanelDevice:get_argument_value(165)
-	
-	if ADF_nav2_centaine < 0.05 then
-		ADF_nav2_centaine = 0
-	elseif ADF_nav2_centaine < 0.15 then
-		ADF_nav2_centaine = 1
-	elseif ADF_nav2_centaine < 0.25 then
-		ADF_nav2_centaine = 2
-	elseif ADF_nav2_centaine < 0.35 then
-		ADF_nav2_centaine = 3
-	elseif ADF_nav2_centaine < 0.45 then
-		ADF_nav2_centaine = 4
-	elseif ADF_nav2_centaine < 0.55 then
-		ADF_nav2_centaine = 5
-	elseif ADF_nav2_centaine < 0.65 then
-		ADF_nav2_centaine = 6
-	elseif ADF_nav2_centaine < 0.75 then
-		ADF_nav2_centaine = 7
-	elseif ADF_nav2_centaine < 0.85 then
-		ADF_nav2_centaine = 8
-	elseif ADF_nav2_centaine < 0.95 then
-		ADF_nav2_centaine = 9
-	else
-		ADF_nav2_centaine = 0
-	end
-	
-	if ADF_nav2_dizaine < 0.05 then
-		ADF_nav2_dizaine = 0
-	elseif ADF_nav2_dizaine < 0.15 then
-		ADF_nav2_dizaine = 1
-	elseif ADF_nav2_dizaine < 0.25 then
-		ADF_nav2_dizaine = 2
-	elseif ADF_nav2_dizaine < 0.35 then
-		ADF_nav2_dizaine = 3
-	elseif ADF_nav2_dizaine < 0.45 then
-		ADF_nav2_dizaine = 4
-	elseif ADF_nav2_dizaine < 0.55 then
-		ADF_nav2_dizaine = 5
-	elseif ADF_nav2_dizaine < 0.65 then
-		ADF_nav2_dizaine = 6
-	elseif ADF_nav2_dizaine < 0.75 then
-		ADF_nav2_dizaine = 7
-	elseif ADF_nav2_dizaine < 0.85 then
-		ADF_nav2_dizaine = 8
-	elseif ADF_nav2_dizaine < 0.95 then
-		ADF_nav2_dizaine = 9
-	else
-		ADF_nav2_dizaine = 0
-	end
-	
-	if ADF_nav2_unite < 0.05 then
-		ADF_nav2_unite = 0
-	elseif ADF_nav2_unite < 0.15 then
-		ADF_nav2_unite = 1
-	elseif ADF_nav2_unite < 0.25 then
-		ADF_nav2_unite = 2
-	elseif ADF_nav2_unite < 0.35 then
-		ADF_nav2_unite = 3
-	elseif ADF_nav2_unite < 0.45 then
-		ADF_nav2_unite = 4
-	elseif ADF_nav2_unite < 0.55 then
-		ADF_nav2_unite = 5
-	elseif ADF_nav2_unite < 0.65 then
-		ADF_nav2_unite = 6
-	elseif ADF_nav2_unite < 0.75 then
-		ADF_nav2_unite = 7
-	elseif ADF_nav2_unite < 0.85 then
-		ADF_nav2_unite = 8
-	elseif ADF_nav2_unite < 0.95 then
-		ADF_nav2_unite = 9
-	else
-		ADF_nav2_unite = 0
-	end
-	
-	if ADF_nav2_dec < 0.05 then
-		ADF_nav2_dec = 0
-	elseif ADF_nav2_dec < 0.15 then
-		ADF_nav2_dec = 1
-	elseif ADF_nav2_dec < 0.25 then
-		ADF_nav2_dec = 2
-	elseif ADF_nav2_dec < 0.35 then
-		ADF_nav2_dec = 3
-	elseif ADF_nav2_dec < 0.45 then
-		ADF_nav2_dec = 4
-	elseif ADF_nav2_dec < 0.55 then
-		ADF_nav2_dec = 5
-	elseif ADF_nav2_dec < 0.65 then
-		ADF_nav2_dec = 6
-	elseif ADF_nav2_dec < 0.75 then
-		ADF_nav2_dec = 7
-	elseif ADF_nav2_dec < 0.85 then
-		ADF_nav2_dec = 8
-	elseif ADF_nav2_dec < 0.95 then
-		ADF_nav2_dec = 9
-	else
-		ADF_nav2_dec = 0
-	end
+	ADF_nav1_centaine = string.format("%.0f", ADF_nav1_centaine)
+	ADF_nav1_dizaine = string.format("%.0f", ADF_nav1_dizaine)
+	ADF_nav1_unite = string.format("%.0f", ADF_nav1_unite)
+	ADF_nav1_dec = string.format("%.1d", ADF_nav1_dec)
+
+	local ADF_nav2_centaine = mainPanelDevice:get_argument_value(162) * 10
+	local ADF_nav2_dizaine = mainPanelDevice:get_argument_value(163) * 10
+	local ADF_nav2_unite = mainPanelDevice:get_argument_value(164) * 10
+	local ADF_nav2_dec = mainPanelDevice:get_argument_value(165) * 10
+
+	ADF_nav2_centaine = string.format("%.0f", ADF_nav2_centaine)
+	ADF_nav2_dizaine = string.format("%.0f", ADF_nav2_dizaine)
+	ADF_nav2_unite = string.format("%.0f", ADF_nav2_unite)
+	ADF_nav2_dec = string.format("%.1d", ADF_nav2_dec)
+
 	
 	local ADF_RADIO_Select = mainPanelDevice:get_argument_value(166)
 	local isADF1Selected = 1
@@ -990,86 +728,35 @@ function ExportScript.Radios(mainPanelDevice)
 	else
 		ADF_shortandSelect = "A2"
 	end
+
+	local ADF1_freqDisplay = (ADF_nav1_centaine .. ADF_nav1_dizaine .. ADF_nav1_unite .. "." .. ADF_nav1_dec)
+	local ADF2_freqDisplay = (ADF_nav2_centaine .. ADF_nav2_dizaine .. ADF_nav2_unite .. "." .. ADF_nav2_dec)
+	ExportScript.Tools.SendData(2014, "ADF1\n" .. ADF1_freqDisplay)
+	ExportScript.Tools.SendData(2015, "ADF2\n" .. ADF2_freqDisplay)
+	--NADIR--
+
+if isADF1Selected == 1 then
+ExportScript.Tools.SendData(1022, "ADF1\n" .. ADF1_freqDisplay) 
+else
+ExportScript.Tools.SendData(1022, "ADF2\n" .. ADF2_freqDisplay) 
+end
 	
-	ExportScript.Tools.SendData(2008, "ADF\n\n" .. ADF_freqDisplay)
-	ExportScript.Tools.SendData(2009, "ADF\n" .. ADF_freqDisplay)
-	
-	ExportScript.Tools.SendData(2010, "ADF\n" .. ADF_nav1_centaine .. ADF_nav1_dizaine .. ADF_nav1_unite .. "." .. ADF_nav1_dec .. "\n" .. ADF_nav2_centaine .. ADF_nav2_dizaine .. ADF_nav2_unite .. "." .. ADF_nav2_dec)
+AM_dizaine = mainPanelDevice:get_argument_value(134) * 10
+AM_unite = mainPanelDevice:get_argument_value(136) * 10
+AM_dec = mainPanelDevice:get_argument_value(138) * 10
+AM_cent = mainPanelDevice:get_argument_value(139) * 100
 
-	--helpers for the knob readouts
-	ExportScript.Tools.SendData(2011, ADF_nav1_unite .. "." .. ADF_nav1_dec)
-	ExportScript.Tools.SendData(2012, ADF_nav2_unite .. "." .. ADF_nav2_dec)
-	
-	
-	---------------------
-	-- All Radios Tile --
-	---------------------
+AM_dizaine = string.format("%.0f", AM_dizaine)
+AM_unite = string.format("%.0f", AM_unite)
+AM_dec = string.format("%.0f", AM_dec)
+AM_cent = string.format("%.2d", AM_cent)
 
-	ExportScript.Tools.SendData(2013, "U " .. UHF_readout
-										.. "\n" .. "VA " .. VHFAM_readout
-										.. "\n" .. "VF " .. VHFFM_readout
-										.. "\n" .. ADF_shortandSelect .. " " .. ADF_freqDisplay)
-										
+if  mainPanelDevice:get_argument_value(141) == 1 then
+ExportScript.Tools.SendData(1023, "1" .. AM_dizaine .. AM_unite .. "." .. AM_dec .. AM_cent)
+else
+ExportScript.Tools.SendData(1023, "---.---")	
 end
 
-
-------------------------------
--- General Helper Functions --
-------------------------------
-
-function ExportScript.Linearize(current_value, raw_tab, final_tab)
-  -- (c) scoobie
-  if current_value <= raw_tab[1] then
-    return final_tab[1] 
-  end
-  for index, value in pairs(raw_tab) do
-    if current_value <= value then
-      local ft = final_tab[index]
-      local rt = raw_tab[index]
-      return (current_value - rt) * (ft - final_tab[index - 1]) / (rt - raw_tab[index - 1]) + ft
-    end
-  end
-  -- we shouldn't be here, so something went wrong - return arbitrary max. final value, maybe the user will notice the problem:
-  return final_tab[#final_tab]
+local nadirwp = ExportScript.Tools.split(list_indication(2), "%c")[135]
+ExportScript.Tools.SendData(2016, nadirwp)
 end
-
-
-function round(num, numDecimalPlaces) --http://lua-users.org/wiki/SimpleRound
-  local mult = 10^(numDecimalPlaces or 0)
-  return math.floor(num * mult + 0.5) / mult
-end
-
-
-function format_int(number) --https://stackoverflow.com/questions/10989788/format-integer-in-lua
-
-  local i, j, minus, int, fraction = tostring(number):find('([-]?)(%d+)([.]?%d*)')
-
-  -- reverse the int-string and append a comma to all blocks of 3 digits
-  int = int:reverse():gsub("(%d%d%d)", "%1,")
-
-  -- reverse the int-string back remove an optional comma and put the 
-  -- optional minus and fractional part back
-  return minus .. int:reverse():gsub("^,", "") .. fraction
-end
-
-function trim(s) --http://lua-users.org/wiki/CommonFunctions
-  -- from PiL2 20.4
-  return (s:gsub("^%s*(.-)%s*$", "%1"))
-end
-
-
-
-
-
--- Notes
-
---[[
-local a = ExportScript.Tools.split(list_indication(3), "%c")
-return a
-contains the nav screen output
-
-add ADF radio output
-
-add radar altimeter with warning
-
-]]--
