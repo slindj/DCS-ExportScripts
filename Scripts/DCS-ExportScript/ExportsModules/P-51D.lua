@@ -413,13 +413,13 @@ function ExportScript.LoAircraftInfo(mainPanelDevice)
   ExportScript.Tools.SendData(8001, pilotName)
   
   ExportScript.Tools.SendData(8002, 'Real Time\n'.. realTimeLocal .. '\nDCS Time\n' .. dcsTimeLocal) -- clocks
-  
+
   ExportScript.Tools.SendData(8003, 'HDG ' .. prefixZerosFixedLength(round(aircraftHeading,0),3)  .. 'º'
                                     .. '\nALT ' .. format_int(round(altMsl_feet,-1)) .. ' ft'
                                     .. '\nIAS ' .. round(ias_knots,0)  .. ' kts'
                                     .. '\nV/S ' .. format_int(round(verticalVelocity_imperial,-2)) .. ' ft/min'
                                     ) -- Aircraft Instrument panel (western)
-                                  
+
   ExportScript.Tools.SendData(8004, 'HDG ' .. prefixZerosFixedLength(round(aircraftHeading,0),3)  .. 'º'
                                     .. '\nALT ' .. format_int(round(altMsl_meters,-1)) .. ' m'
                                     .. '\nIAS ' .. round(ias_metric,0)  .. ' km/h'
@@ -448,10 +448,19 @@ function ExportScript.LoAircraftInfo(mainPanelDevice)
   
   -- Example for using the Lo Data. Feel free to make your own!
   ExportScript.Tools.SendData(8010, format_int(round(kgPerSecond2poundPerHour(lFuelConsumptionLeft), -1))) -- fuel use in pph
-  
+
+  --Break out instrument panel values individually for better visibility on stream deck.
+  ExportScript.Tools.SendData(8020, 'HDG\n' .. prefixZerosFixedLength(round(aircraftHeading,0),3)  .. 'º')
+  ExportScript.Tools.SendData(8021, 'ALT\n' .. format_int(round(altMsl_feet,-1)) .. '\nft')
+  ExportScript.Tools.SendData(8022, 'ALT\n' .. format_int(round(altMsl_meters,-1)) .. '\nm')
+  ExportScript.Tools.SendData(8023, 'IAS\n' .. round(ias_knots,0)  .. '\nkts')
+  ExportScript.Tools.SendData(8024, 'IAS\n' .. round(ias_metric,0)  .. '\nkm/h')
+  ExportScript.Tools.SendData(8025, 'IAS\n' .. round(ias_mph,0)  .. '\nmph')
+  ExportScript.Tools.SendData(8026, 'V/S\n' .. format_int(round(verticalVelocity_imperial,-2)) .. '\nft/min')
+  ExportScript.Tools.SendData(8027, 'V/S\n' .. format_int(round(verticalVelocity_metric,0)) .. '\nm/s')
 end
 function ExportScript.AirportInfo(mainPanelDevice)
-  
+
   local airdromes = LoGetWorldObjects("airdromes") -- returns a list of runways and their popperties
   local airportInfo = {} -- contains generated table of important properties
   -- the table will be sorted by nearest airport first
