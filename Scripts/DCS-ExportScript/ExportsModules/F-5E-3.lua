@@ -529,7 +529,7 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
   ExportScript.RWRControlPanel(mainPanelDevice)
   ExportScript.flapPositionIndicator(mainPanelDevice)
   ExportScript.pitchTrimPosition(mainPanelDevice)
-
+--[[
   if LoIsObjectExportAllowed() then -- returns true if world objects data is available
     if LoIsOwnshipExportAllowed() then -- returns true if ownship data is available
   ExportScript.LoAircraftInfo(mainPanelDevice) -- Provides a lot of aircraft properties
@@ -540,7 +540,7 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
   ExportScript.IglaHunter(mainPanelDevice) -- Locates closest Igla (Use in Single Player)
     end
   end
-
+]]
 end
 
 function ExportScript.ProcessDACConfigLowImportance(mainPanelDevice)
