@@ -65,10 +65,10 @@ ExportScript.ConfigArguments =
     [87] = "%.1f",   -- Pilot_Canopy
     [88] = "%.1f",   -- Copilot_Canopy
     [90] = "%.1f",   -- Pilot_VSI_Needle
-    [91] = "%.1f",   -- Pilot_Altimeter_Needle
-    [92] = "%.1f",   -- Pilot_Altimeter_Hundreds
-    [93] = "%.1f",   -- Pilot_Altimeter_Thousands
-    [94] = "%.1f",   -- Pilot_Altimeter_Tenthousands
+    [91] = "%.3f",   -- Pilot_Altimeter_Needle
+    [92] = "%.3f",   -- Pilot_Altimeter_Hundreds
+    [93] = "%.3f",   -- Pilot_Altimeter_Thousands
+    [94] = "%.3f",   -- Pilot_Altimeter_Tenthousands
     [95] = "%.2f",   -- Pilot_Altimeter_Set_Knob {0.5, 0, 1, Change Reference Pressure}
     [96] = "%.1f",   -- Pilot_Altimeter_Set_DecHundreds
     [97] = "%.1f",   -- Pilot_Altimeter_Set_DecTens
@@ -206,7 +206,7 @@ ExportScript.ConfigArguments =
     [268] = "%.1f",  -- Reticle_Depress_100s
     [269] = "%.1f",  -- Reticle_Depress_10s
     [270] = "%.1f",  -- Reticle_Depress_1s
-    [271] = "%.4f",  -- HUD_Mode_Select {-0.1666, 0, 0.9996 Select HUD Mode}
+    [271] = "%.3f",  -- HUD_Mode_Select {-0.1666, 0, 0.9996 Select HUD Mode}
     [272] = "%.4f",  -- Delivery_Mode_Knob {-0.0833, 0, 0.9996 Select Delivery Mode}
     [273] = "%.2f",  -- Weapon_Select_Knob {-0.142867143, 0, 1, Select Weapon}
     [274] = "%.1f",  -- Heads_Up_Gun_Light
@@ -1253,7 +1253,24 @@ export_ids = {
     PILOT_IFF_M3                   = 10057,
     WSO_APX80A                     = 10058,
     WSO_APX80A_FULL                = 10059,
+
+    PILOT_GEAR_IND                 = 10060,
+    PILOT_ALTIMETER                = 10061,
+    MISSILE_LIGHTS                 = 10062,
+    PILOT_RADAR_ALTITUDE           = 10063,
+    PILOT_HSI_BEARING_POINTER      = 10064, -- WIP
+    LEFT_ENGINE_RPM                = 10065,
+    RIGHT_ENGINE_RPM               = 10066,
+    VSI_INDICATION                 = 10067,
+    AOA_INDEXER                    = 10068,
 }
+
+-- ⚪ white
+-- ⚫ black
+-- 🟡 yellow
+-- 🔴 red
+-- 🟢 green
+-- 🔵 blue
 
 -----------------------------
 -- HIGH IMPORTANCE EXPORTS --
@@ -1284,7 +1301,8 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
 	local lUHFRadio = GetDevice(54)
 	ExportScript.Tools.SendData("ExportID", "Format")
 	ExportScript.Tools.SendData(2000, string.format("%7.3f", lUHFRadio:get_frequency()/1000000)) -- <- special function for get frequency data
-	ExportScript.Tools.SendData(2000, ExportScript.Tools.RoundFreqeuncy((UHF_RADIO:get_frequency()/1000000))) -- ExportScript.Tools.RoundFreqeuncy(frequency (MHz|KHz), format ("7.3"), PrefixZeros (false), LeastValue (0.025))
+	-- ExportScript.Tools.RoundFreqeuncy(frequency (MHz|KHz), format ("7.3"), PrefixZeros (false), LeastValue (0.025))
+	ExportScript.Tools.SendData(2000, ExportScript.Tools.RoundFreqeuncy((UHF_RADIO:get_frequency()/1000000)))
 	]]
 
     ExportScript.TAS_indicator(mainPanelDevice)
@@ -1304,6 +1322,14 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
     ExportScript.Chaff_Flare(mainPanelDevice)
     ExportScript.IFF(mainPanelDevice)
     ExportScript.NAVCOMP(mainPanelDevice) -- WIP
+    ExportScript.Missile_Lights(mainPanelDevice)
+    ExportScript.Pilot_Gear_Status(mainPanelDevice)
+    ExportScript.Pilot_Altimeter(mainPanelDevice)
+    ExportScript.RADAR_ALTITUDE(mainPanelDevice)
+    ExportScript.PILOT_HSI_BEARING_POINTER(mainPanelDevice)
+    ExportScript.ENGINE_RPM(mainPanelDevice)
+    ExportScript.VSI_INDICATION(mainPanelDevice)
+    ExportScript.AOA_INDEXER(mainPanelDevice)
 
     ---------------
     -- Log Dumps --
@@ -1324,6 +1350,217 @@ local function round(num)
     -- Hey look at that funny FPU trick! Basically a round function
     -- https://stackoverflow.com/a/58411671/17325837
     return num + (2 ^ 52 + 2 ^ 51) - (2 ^ 52 + 2 ^ 51)
+end
+
+function ExportScript.PILOT_HSI_BEARING_POINTER(mainPanelDevice) -- Bearmat
+    local bearing_value = mainPanelDevice:get_argument_value(670) * 360
+    local formatted_bearing = string.format("%.0f", bearing_value)
+    ExportScript.Tools.SendData(export_ids.PILOT_HSI_BEARING_POINTER, formatted_bearing)
+end
+
+function ExportScript.ENGINE_RPM(mainPanelDevice) -- Bearmat
+    local rpm_valueL = mainPanelDevice:get_argument_value(299) * 100
+    local formatted_rpmL = string.format("%.0f", rpm_valueL)
+    ExportScript.Tools.SendData(export_ids.LEFT_ENGINE_RPM, formatted_rpmL)
+
+    local rpm_valueR = mainPanelDevice:get_argument_value(300) * 100
+    local formatted_rpmR = string.format("%.0f", rpm_valueR)
+    ExportScript.Tools.SendData(export_ids.RIGHT_ENGINE_RPM, formatted_rpmR)
+end
+
+function ExportScript.VSI_INDICATION(mainPanelDevice) -- Bearmat
+    local vsi_value = mainPanelDevice:get_argument_value(90)
+    local vsi_fpm = vsi_value * 6000
+    local formatted_vsi = string.format("%d", vsi_fpm)
+    ExportScript.Tools.SendData(export_ids.VSI_INDICATION, formatted_vsi)
+end
+
+function ExportScript.AOA_INDEXER(mainPanelDevice) -- Bearmat
+    local aoa_value = mainPanelDevice:get_argument_value(70)
+    local aoa_units = aoa_value * 30
+    local formatted_aoa = string.format("%d", aoa_units)
+    ExportScript.Tools.SendData(export_ids.AOA_INDEXER, formatted_aoa)
+end
+
+function ExportScript.RADAR_ALTITUDE(mainPanelDevice) -- Bearmat
+    local radar_altitude_value = mainPanelDevice:get_argument_value(73)
+
+    local altitude_table = {
+        { 0.0000, 0 },
+        { 0.0155, 0 },    -- on ground
+        { 0.1681, 50 },
+        { 0.2220, 100 },  -- average between 0.2080 and 0.2220
+        { 0.2950, 150 },
+        { 0.3682, 200 },  -- new value
+        { 0.4597, 300 },
+        { 0.5705, 500 },  -- new value
+        { 0.6933, 1000 }, -- average between 0.6933 and 0.7145
+        { 0.7733, 1500 },
+        { 0.8159, 2000 }, -- average between 0.8159 and 0.8224
+        { 0.9011, 3000 }, -- average between 0.9011 and 0.9630
+        { 0.9839, 5000 }
+    }
+
+    local function interpolate(value, table)
+        for i = 1, #table - 1 do
+            if value >= table[i][1] and value <= table[i + 1][1] then
+                local ratio = (value - table[i][1]) / (table[i + 1][1] - table[i][1])
+                return table[i][2] + ratio * (table[i + 1][2] - table[i][2])
+            end
+        end
+        return 0 -- return 0 if value is out of bounds
+    end
+
+    local radar_altitude_feet = interpolate(radar_altitude_value, altitude_table)
+    local formatted_radar_altitude = string.format("%d", radar_altitude_feet)
+
+    ExportScript.Tools.SendData(export_ids.PILOT_RADAR_ALTITUDE, formatted_radar_altitude)
+end
+
+function ExportScript.Pilot_Gear_Status(mainPanelDevice)
+    local left, nose, right
+
+    if mainPanelDevice:get_argument_value(52) < 0.5 then
+        left = "🔴"
+    elseif mainPanelDevice:get_argument_value(52) > 0.1 and mainPanelDevice:get_argument_value(52) < 0.9 then
+        left = "🟡"
+    else
+        left = "🟢"
+    end
+
+    if mainPanelDevice:get_argument_value(51) < 0.5 then
+        nose = "🔴"
+    elseif mainPanelDevice:get_argument_value(51) > 0.1 and mainPanelDevice:get_argument_value(51) < 0.9 then
+        nose = "🟡"
+    else
+        nose = "🟢"
+    end
+
+    if mainPanelDevice:get_argument_value(50) < 0.5 then
+        right = "🔴"
+    elseif mainPanelDevice:get_argument_value(50) > 0.1 and mainPanelDevice:get_argument_value(50) < 0.9 then
+        right = "🟡"
+    else
+        right = "🟢"
+    end
+
+    local All_Gear = "LND GEAR\n" .. nose .. "\n" .. left .. " " .. right
+    ExportScript.Tools.SendData(export_ids.PILOT_GEAR_IND, All_Gear)
+end
+
+function ExportScript.Pilot_Altimeter(mainPanelDevice)
+    local altitudeWindowReadout_value1 = string.format("%.f", mainPanelDevice:get_argument_value(92) * 10)   --hundreds
+    --local altitudeWindowReadout_value2 = string.format("%.f",math.floor(mainPanelDevice:get_argument_value(93) * 10)) --thousands
+    local altitudeWindowReadout_value2 = string.format("%.f", mainPanelDevice:get_argument_value(93) * 10)   --thousands
+    local altitudeWindowReadout_value3 = string.format("%.f", mainPanelDevice:get_argument_value(94) * 10)   --tenthousands
+    local altitudeWindowReadout_needle = string.format("%.f", mainPanelDevice:get_argument_value(91) * 1000) --needle
+    local separator
+    --this fixes the extra "10" problem
+    if mainPanelDevice:get_argument_value(92) * 10 < 10 then --altitudeWindowReadout_value1 == "10" then
+        altitudeWindowReadout_value1 = "0"
+    end
+    if altitudeWindowReadout_value2 == "10" then
+        altitudeWindowReadout_value2 = "0"
+    end
+    if altitudeWindowReadout_value3 == "10" then
+        altitudeWindowReadout_value3 = "0"
+    end
+    if altitudeWindowReadout_needle == "10" then
+        altitudeWindowReadout_needle = "0"
+    end
+    --this is for the hash part
+    if altitudeWindowReadout_value1 == "0" then
+        altitudeWindowReadout_value1 = ""
+    end
+
+    -- this is to fill the blank space when the needle is below 100
+    if #altitudeWindowReadout_needle == 1 then
+        altitudeWindowReadout_needle = string.format("00" .. altitudeWindowReadout_needle)
+    end
+    if #altitudeWindowReadout_needle == 2 then
+        altitudeWindowReadout_needle = string.format("0" .. altitudeWindowReadout_needle)
+    end
+
+    --[[ExportScript.Tools.SendData(44261, altitudeWindowReadout_value1 .. " ft") --test values
+    ExportScript.Tools.SendData(44262, altitudeWindowReadout_value2 .. " ft") --test values
+	ExportScript.Tools.SendData(44263, altitudeWindowReadout_value3 .. " ft") --test values
+	ExportScript.Tools.SendData(44264, altitudeWindowReadout_needle .. " ft") --test values
+    ExportScript.Tools.SendData(44265, string.format("%.f",mainPanelDevice:get_argument_value(92) * 10) .. " ft") --test values
+    ExportScript.Tools.SendData(44266, string.format("%2.d",mainPanelDevice:get_argument_value(93) * 10) .. " ft") --test values
+	ExportScript.Tools.SendData(44267, string.format("%.f",mainPanelDevice:get_argument_value(94) * 10) .. " ft") --test values
+	ExportScript.Tools.SendData(44268, string.format("%.f",mainPanelDevice:get_argument_value(91) * 1000) .. " ft") --test values]]
+    --add separator
+    if altitudeWindowReadout_value2 ~= "0" then
+        separator = ","
+    else
+        separator = ""
+    end
+    --value 3 isnt needed bc it is taken over by the needle
+    local altitudeWindowReadout_total = string.format(altitudeWindowReadout_value3 ..
+        altitudeWindowReadout_value2 .. altitudeWindowReadout_value1 .. altitudeWindowReadout_needle)
+    --remove leading zeros
+    altitudeWindowReadout_total       = altitudeWindowReadout_total:match("0*(%d+)") --https://stackoverflow.com/questions/34331633/remove-leading-zeroes-in-lua-string
+    local altMsl_f4e_ft               = altitudeWindowReadout_total .. "\nFT"
+    ExportScript.Tools.SendData(export_ids.PILOT_ALTIMETER, altMsl_f4e_ft)
+    --[[ExportScript.Tools.SendData(export_ids.PILOT_needle, altitudeWindowReadout_needle) --test
+    ExportScript.Tools.SendData(export_ids.PILOT_hundreds, altitudeWindowReadout_value1) --test
+    ExportScript.Tools.SendData(export_ids.PILOT_thousands, altitudeWindowReadout_value2) --test
+    ExportScript.Tools.SendData(export_ids.PILOT_tenthousands, altitudeWindowReadout_value3) --test]]
+end
+
+-- ⚪ white
+-- ⚫ black
+-- 🟡 yellow
+-- 🔴 red
+-- 🟢 green
+-- 🔵 blue
+function ExportScript.Missile_Lights(mainPanelDevice)
+    local heat_left, heat_ml, heat_mr, heat_right, radar_tl, radar_tr, radar_bl, radar_br
+    if mainPanelDevice:get_argument_value(284) < 0.8 then
+        heat_left = "⚫"
+    else
+        heat_left = "🔴"
+    end
+    if mainPanelDevice:get_argument_value(285) < 0.8 then
+        heat_ml = "⚫"
+    else
+        heat_ml = "🔴"
+    end
+    if mainPanelDevice:get_argument_value(286) < 0.8 then
+        heat_mr = "⚫"
+    else
+        heat_mr = "🔴"
+    end
+    if mainPanelDevice:get_argument_value(287) < 0.8 then
+        heat_right = "⚫"
+    else
+        heat_right = "🔴"
+    end
+    if mainPanelDevice:get_argument_value(288) < 0.8 then
+        radar_tl = "⚫"
+    else
+        radar_tl = "🟢"
+    end
+    if mainPanelDevice:get_argument_value(289) < 0.8 then
+        radar_bl = "⚫"
+    else
+        radar_bl = "🟢"
+    end
+    if mainPanelDevice:get_argument_value(290) < 0.8 then
+        radar_tr = "⚫"
+    else
+        radar_tr = "🟢"
+    end
+    if mainPanelDevice:get_argument_value(291) < 0.8 then
+        radar_br = "⚫"
+    else
+        radar_br = "🟢"
+    end
+    local missile_lights = "MSSL STAT" .. "\n" ..
+        "" .. radar_tl .. "  " .. radar_tr .. "\n" ..
+        heat_left .. heat_ml .. "  " .. heat_mr .. heat_right .. "\n" ..
+        "" .. radar_bl .. "  " .. radar_br
+    ExportScript.Tools.SendData(export_ids.MISSILE_LIGHTS, missile_lights)
 end
 
 function ExportScript.NAVCOMP(mainPanelDevice)
@@ -1380,7 +1617,7 @@ function ExportScript.NAVCOMP(mainPanelDevice)
 end
 
 -- These IFF functions take raw arg values and returns the
--- equavalent number based on a scale of 0-7 for IFF systems.
+-- equivalent number based on a scale of 0-7 for IFF systems.
 -- Two different functions were required for both the pilot and
 -- WSO APX80A systems based on the animations not being the same.
 function IFFmodeTransator(value)
