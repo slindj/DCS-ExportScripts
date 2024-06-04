@@ -391,7 +391,7 @@ ExportScript.ConfigArguments =
     [663] = "%.4f",  -- PILOT_NAV_FUNCT_SEL_PANEL_SOURCE_MODE_SELECTOR_KNOB {-0.333333333, 0, 1, Select Navigation Mode}
     [664] = "%.2f",  -- RIO_TACAN_NAV_FUNCTION_SELECTOR_SWITCH {-0.5, 0, 1, Select Navigation Input}
     [665] = "%.1f",  -- PILOT_NAV_FUNCT_SEL_PANEL_FD_SWITCH {-1, 0, 1, Toggle Flight Director (vertical - off)}
-    [668] = "%.1f",  -- PILOT_HSI_COMPASS_CARD
+    [668] = "%.3f",  -- PILOT_HSI_COMPASS_CARD
     [669] = "%.1f",  -- PILOT_HSI_BEARING_POINTER
     [670] = "%.1f",  -- PILOT_HSI_COURSE_ARROW
     [671] = "%.1f",  -- PILOT_HSI_COURSE_DEVIATION_IND
@@ -1258,11 +1258,15 @@ export_ids = {
     PILOT_ALTIMETER                = 10061,
     MISSILE_LIGHTS                 = 10062,
     PILOT_RADAR_ALTITUDE           = 10063,
-    PILOT_HSI_BEARING_POINTER      = 10064, -- WIP
+    PILOT_HSI_BAR_POINTER          = 10064,
     LEFT_ENGINE_RPM                = 10065,
     RIGHT_ENGINE_RPM               = 10066,
     VSI_INDICATION                 = 10067,
     AOA_INDEXER                    = 10068,
+    PILOT_FUEL_READOUT             = 10069,
+    PILOT_HDG_CRS                  = 10070,
+    PILOT_HSI_COMPASS              = 10071,
+    PILOT_HSI_POINTER              = 10072
 }
 
 -- ⚪ white
@@ -1326,10 +1330,10 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
     ExportScript.Pilot_Gear_Status(mainPanelDevice)
     ExportScript.Pilot_Altimeter(mainPanelDevice)
     ExportScript.RADAR_ALTITUDE(mainPanelDevice)
-    ExportScript.PILOT_HSI_BEARING_POINTER(mainPanelDevice)
     ExportScript.ENGINE_RPM(mainPanelDevice)
     ExportScript.VSI_INDICATION(mainPanelDevice)
     ExportScript.AOA_INDEXER(mainPanelDevice)
+    ExportScript.Pilot_Fuel_Readout(mainPanelDevice)
 
     ---------------
     -- Log Dumps --
@@ -1352,10 +1356,13 @@ local function round(num)
     return num + (2 ^ 52 + 2 ^ 51) - (2 ^ 52 + 2 ^ 51)
 end
 
-function ExportScript.PILOT_HSI_BEARING_POINTER(mainPanelDevice) -- Bearmat
-    local bearing_value = mainPanelDevice:get_argument_value(670) * 360
-    local formatted_bearing = string.format("%.0f", bearing_value)
-    ExportScript.Tools.SendData(export_ids.PILOT_HSI_BEARING_POINTER, formatted_bearing)
+function ExportScript.Pilot_Fuel_Readout(mainPanelDevice) -- bones1014
+    local tens = string.format("%d", mainPanelDevice:get_argument_value(719) * 10)
+    local hundreds = string.format("%d", mainPanelDevice:get_argument_value(720) * 10)
+    local thousands = string.format("%d", mainPanelDevice:get_argument_value(721) * 10)
+    local tensofthousands = string.format("%d", mainPanelDevice:get_argument_value(722) * 10)
+    ExportScript.Tools.SendData(export_ids.PILOT_FUEL_READOUT,
+        string.format("FUEL\n" .. tensofthousands .. thousands .. hundreds .. tens .. "\nx10"))
 end
 
 function ExportScript.ENGINE_RPM(mainPanelDevice) -- Bearmat
@@ -1757,6 +1764,32 @@ function ExportScript.HSI(mainPanelDevice)
 
     ExportScript.Tools.SendData(export_ids.PILOT_HSI_COURSE_WINDOW,
         string.format(pilotCourseSet_hundreds .. pilotCourseSet_tens .. pilotCourseSet_ones))
+
+    -- HSI Bar
+    local bearing_value = mainPanelDevice:get_argument_value(670) * 360
+    local formatted_bearing = string.format("%03.0f", bearing_value)
+    if formatted_bearing == "360" then formatted_bearing = "000" end
+    ExportScript.Tools.SendData(export_ids.PILOT_HSI_BAR_POINTER, formatted_bearing)
+
+    -- HSI Compass
+    local hsiCompass = mainPanelDevice:get_argument_value(668) * 360 --bearmat
+    local formatted_hsiCompass = string.format("%03.0f", hsiCompass) --bearmat
+    if formatted_hsiCompass == "360" then formatted_hsiCompass = "000" end
+    ExportScript.Tools.SendData(export_ids.PILOT_HSI_COMPASS, string.format(formatted_hsiCompass))
+
+    -- PILOT_HSI_BEARING_POINTER The little arrow on the outer part of the HSI
+    local hsiPointer = mainPanelDevice:get_argument_value(669) * 360
+    local adjustedPointer = hsiPointer + hsiCompass
+    if adjustedPointer > 360 then
+        adjustedPointer = adjustedPointer - 360
+    end
+    local formatted_hsiPointer = string.format("%03.0f", adjustedPointer)
+    if formatted_hsiPointer == "360" then formatted_hsiPointer = "000" end
+    ExportScript.Tools.SendData(export_ids.PILOT_HSI_POINTER, string.format(formatted_hsiPointer))
+
+    -- Heading and HSI Course
+    ExportScript.Tools.SendData(export_ids.PILOT_HDG_CRS,
+        string.format("HDG\n" .. formatted_hsiCompass .. "\nCRS\n" .. formatted_bearing))
 
     -- Pilot HSI Miles Roller
     local pilotMiles_ones = string.format("%d", mainPanelDevice:get_argument_value(679) * 10)
