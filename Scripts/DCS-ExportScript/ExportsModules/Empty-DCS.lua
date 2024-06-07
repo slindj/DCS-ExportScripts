@@ -6,8 +6,7 @@ ExportScript.Version.<ModuleName> = "1.2.X"
 ExportScript.ConfigEveryFrameArguments = 
 {
 	--[[
-	every frames arguments
-	based of "mainpanel_init.lua"
+	every frames arguments based of "mainpanel_init.lua"
 	Example (http://www.lua.org/manual/5.1/manual.html#pdf-string.format)
 	[DeviceID] = "Format"
 	  [4] = "%.4f",  <- floating-point number with 4 digits after point
@@ -32,16 +31,6 @@ ExportScript.ConfigArguments =
 
 -- Pointed to by ProcessIkarusDCSHighImportance
 function ExportScript.ProcessIkarusDCSConfigHighImportance(mainPanelDevice)
-	--[[
-	every frame export to Ikarus
-	Example from A-10C
-	Get Radio Frequencies
-	get data from device
-	local lUHFRadio = GetDevice(54)
-	ExportScript.Tools.SendData("ExportID", "Format")
-	ExportScript.Tools.SendData(2000, string.format("%7.3f", lUHFRadio:get_frequency()/1000000)) -- <- special function for get frequency data
-	ExportScript.Tools.SendData(2000, ExportScript.Tools.RoundFreqeuncy((UHF_RADIO:get_frequency()/1000000))) -- ExportScript.Tools.RoundFreqeuncy(frequency (MHz|KHz), format ("7.3"), PrefixZeros (false), LeastValue (0.025))
-	]]
 end
 
 function ExportScript.ProcessDACConfigHighImportance(mainPanelDevice)
@@ -63,6 +52,9 @@ end
 -- done every gExportLowTickInterval export events --
 -----------------------------------------------------
 
+function ExportScript.ProcessDACConfigLowImportance(mainPanelDevice)
+end
+
 -- Pointed to by ExportScript.ProcessIkarusDCSConfigLowImportance
 function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
 	--[[
@@ -73,7 +65,8 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
 	local lUHFRadio = GetDevice(54)
 	ExportScript.Tools.SendData("ExportID", "Format")
 	ExportScript.Tools.SendData(2000, string.format("%7.3f", lUHFRadio:get_frequency()/1000000)) -- <- special function for get frequency data
-	ExportScript.Tools.SendData(2000, ExportScript.Tools.RoundFreqeuncy((UHF_RADIO:get_frequency()/1000000))) -- ExportScript.Tools.RoundFreqeuncy(frequency (MHz|KHz), format ("7.3"), PrefixZeros (false), LeastValue (0.025))
+	-- ExportScript.Tools.RoundFreqeuncy(frequency (MHz|KHz), format ("7.3"), PrefixZeros (false), LeastValue (0.025))
+	ExportScript.Tools.SendData(2000, ExportScript.Tools.RoundFreqeuncy((UHF_RADIO:get_frequency()/1000000))) 
 	]]
 
     ---------------
@@ -82,20 +75,6 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
     --ExportScript.CockpitParamsLogDump(mainPanelDevice)
     --ExportScript.MetaTableLogDump(mainPanelDevice)
     --ExportScript.ListIndicationLogDump(mainPanelDevice)
-end
-
-function ExportScript.ProcessDACConfigLowImportance(mainPanelDevice)
-	--[[
-	export in low tick interval to DAC
-	Example from A-10C
-	Get Radio Frequencies
-	get data from device
-	local UHF_RADIO = GetDevice(54)
-	ExportScript.Tools.SendDataDAC("ExportID", "Format")
-	ExportScript.Tools.SendDataDAC("ExportID", "Format", HardwareConfigID)
-	ExportScript.Tools.SendDataDAC("2000", string.format("%7.3f", UHF_RADIO:get_frequency()/1000000))
-	ExportScript.Tools.SendDataDAC("2000", ExportScript.Tools.RoundFreqeuncy((UHF_RADIO:get_frequency()/1000000))) -- ExportScript.Tools.RoundFreqeuncy(frequency (MHz|KHz), format ("7.3"), PrefixZeros (false), LeastValue (0.025))
-	]]
 end
 
 -----------------------------
