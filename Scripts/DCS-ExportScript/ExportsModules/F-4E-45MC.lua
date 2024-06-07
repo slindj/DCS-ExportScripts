@@ -1284,6 +1284,13 @@ export_ids = {
 -- Pointed to by ProcessIkarusDCSHighImportance
 function ExportScript.ProcessIkarusDCSConfigHighImportance(mainPanelDevice)
 
+    ExportScript.WSO_speedIndicators(mainPanelDevice)
+    ExportScript.Pilot_Gear_Status(mainPanelDevice)
+    ExportScript.Pilot_Altimeter(mainPanelDevice)
+    ExportScript.RADAR_ALTITUDE(mainPanelDevice)
+    ExportScript.ENGINE_RPM(mainPanelDevice)
+    ExportScript.VSI_INDICATION(mainPanelDevice)
+    ExportScript.AOA_INDEXER(mainPanelDevice)
 end
 
 function ExportScript.ProcessDACConfigHighImportance(mainPanelDevice)
@@ -1317,9 +1324,8 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
     ExportScript.avtr_time_indicator()
     ExportScript.VOR_ILS_frequency(mainPanelDevice)
     ExportScript.TACAN_channels(mainPanelDevice)
-    ExportScript.LaserCodeReaout(mainPanelDevice)
+    ExportScript.LaserCodeReadout(mainPanelDevice)
     ExportScript.WSO_WRCS(mainPanelDevice)
-    ExportScript.WSO_speedIndicators(mainPanelDevice)
     ExportScript.ARBCS(mainPanelDevice)
     ExportScript.UHF_radios(mainPanelDevice) -- WIP
     ExportScript.HSI(mainPanelDevice)
@@ -1327,12 +1333,6 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
     ExportScript.IFF(mainPanelDevice)
     ExportScript.NAVCOMP(mainPanelDevice) -- WIP
     ExportScript.Missile_Lights(mainPanelDevice)
-    ExportScript.Pilot_Gear_Status(mainPanelDevice)
-    ExportScript.Pilot_Altimeter(mainPanelDevice)
-    ExportScript.RADAR_ALTITUDE(mainPanelDevice)
-    ExportScript.ENGINE_RPM(mainPanelDevice)
-    ExportScript.VSI_INDICATION(mainPanelDevice)
-    ExportScript.AOA_INDEXER(mainPanelDevice)
     ExportScript.Pilot_Fuel_Readout(mainPanelDevice)
 
     ---------------
@@ -2018,7 +2018,7 @@ function ExportScript.WSO_WRCS(mainPanelDevice)
         string.format(AltRange_hunds .. AltRange_tens .. AltRange_ones))
 end
 
-function ExportScript.LaserCodeReaout(mainPanelDevice)
+function ExportScript.LaserCodeReadout(mainPanelDevice)
     local ones = round(mainPanelDevice:get_argument_value(2020) * 10)
     local tens = round(mainPanelDevice:get_argument_value(2021) * 10)
     local hundreds = round(mainPanelDevice:get_argument_value(2022) * 10)
