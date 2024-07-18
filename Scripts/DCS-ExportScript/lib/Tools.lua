@@ -123,10 +123,9 @@ function ExportScript.Tools.ProcessInput()
                 if lDeviceID == -1 then
                     -- LoSetCommand
                     local lComandID = tonumber(lCommandArgs[2])
-                    LoSetCommand(lComandID, lCommandArgs[3])
+                    LoSetCommand(lComandID)
                     if ExportScript.Config.Debug then
-                        ExportScript.Tools.WriteToLog("LoSetCommand, CommandID: " ..
-                            lComandID .. ", Value: " .. lCommandArgs[3])
+                        ExportScript.Tools.WriteToLog("LoSetCommand, CommandID: " .. lComandID)
                     end
                 elseif lDeviceID < 1000 then
                     -- DCS Modules
