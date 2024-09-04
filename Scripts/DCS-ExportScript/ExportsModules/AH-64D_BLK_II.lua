@@ -802,7 +802,7 @@ end
 function ExportScript.ScratchPad(mainPanelDevice)
 
 	-- pilot ku
-	local lScratchPadGet_pilot = ExportScript.Tools.getListIndicatorValue(15)
+	local lScratchPadGet_pilot = ExportScript.Tools.getListIndicatorValue(16)
 	local lScratchPad_pilot = ExportScript.Tools.coerce_nil_to_string(lScratchPadGet_pilot.Standby_text) -- .. lScratchPad.Scratch_PAD_Mode
 	-- https://www.tutorialspoint.com/string-gsub-function-in-lua-programming
 	lScratchPad_pilot = string.gsub(lScratchPad_pilot,':','-') -- - prevents errors from the colon in Lat/Long display
@@ -835,7 +835,7 @@ function ExportScript.ScratchPad(mainPanelDevice)
 	ExportScript.Tools.SendData(3007, lScratchPadStacked_pilot)
 
 	-- copilot ku
-	local lScratchPadGet_Copilot = ExportScript.Tools.getListIndicatorValue(14)
+	local lScratchPadGet_Copilot = ExportScript.Tools.getListIndicatorValue(15)
 	local lScratchPad_Copilot = ExportScript.Tools.coerce_nil_to_string(lScratchPadGet_Copilot.Standby_text) -- .. lScratchPad.Scratch_PAD_Mode
 	-- https://www.tutorialspoint.com/string-gsub-function-in-lua-programming
 	lScratchPad_Copilot = string.gsub(lScratchPad_Copilot,':','-') -- - prevents errors from the colon in Lat/Long display
@@ -874,7 +874,7 @@ end
   
 function ExportScript.CountermeasureReadouts(mainPanelDevice)
 	
-	local CmwsInfo_24 = ExportScript.Tools.split(list_indication(24), "%c")--this contains the formated table of the kneeboard
+	local CmwsInfo_24 = ExportScript.Tools.split(list_indication(25), "%c")--this contains the formated table of the kneeboard
 	
 	-- New way of detecting the counts, borrowed from Wizard and the F16
 	local txt_FLARES_Count

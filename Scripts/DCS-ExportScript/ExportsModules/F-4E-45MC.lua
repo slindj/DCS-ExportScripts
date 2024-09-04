@@ -202,7 +202,7 @@ ExportScript.ConfigArguments =
     [264] = "%.1f",  -- CTR_Arm_Lit
     [265] = "%.1f",  -- RI_Arm_Lit
     [266] = "%.1f",  -- RO_Arm_Lit
-    [267] = "%.1f",  -- Reticle_Depress_Knob {0, 0, 1, Change Reticle Depression (mil)}
+    [267] = "%.3f",  -- Reticle_Depress_Knob {0, 0, 1, Change Reticle Depression (mil)}
     [268] = "%.1f",  -- Reticle_Depress_100s
     [269] = "%.1f",  -- Reticle_Depress_10s
     [270] = "%.1f",  -- Reticle_Depress_1s
@@ -1227,7 +1227,7 @@ export_ids = {
     WSO_NAVCOMP_TARGET_LONG        = 10039, --WIP
     WSO_NAVCOMP_TARGET_LONG_FULL   = 10040, --WIP
 
-    -- UHF Radios
+    -- UHF Radios (Can also add Command feature seen in tacan 100074)
     PILOT_UHF_FREQ                 = 10041, --WIP
     PILOT_UHF_CHANNEL              = 10042, --WIP
     WSO_UHF_FREQ                   = 10043, --WIP
@@ -1266,7 +1266,9 @@ export_ids = {
     PILOT_FUEL_READOUT             = 10069,
     PILOT_HDG_CRS                  = 10070,
     PILOT_HSI_COMPASS              = 10071,
-    PILOT_HSI_POINTER              = 10072
+    PILOT_HSI_POINTER              = 10072,
+    PILOT_TACAN_FREQ_CMD_LGHT      = 10074,
+    WSO_TACAN_FREQ_CMD_LGHT        = 10075,
 }
 
 -- ⚪ white
@@ -1283,7 +1285,13 @@ export_ids = {
 
 -- Pointed to by ProcessIkarusDCSHighImportance
 function ExportScript.ProcessIkarusDCSConfigHighImportance(mainPanelDevice)
-
+    ExportScript.WSO_speedIndicators(mainPanelDevice)
+    ExportScript.Pilot_Gear_Status(mainPanelDevice)
+    ExportScript.Pilot_Altimeter(mainPanelDevice)
+    ExportScript.RADAR_ALTITUDE(mainPanelDevice)
+    ExportScript.ENGINE_RPM(mainPanelDevice)
+    ExportScript.VSI_INDICATION(mainPanelDevice)
+    ExportScript.AOA_INDEXER(mainPanelDevice)
 end
 
 function ExportScript.ProcessDACConfigHighImportance(mainPanelDevice)
@@ -1317,9 +1325,8 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
     ExportScript.avtr_time_indicator()
     ExportScript.VOR_ILS_frequency(mainPanelDevice)
     ExportScript.TACAN_channels(mainPanelDevice)
-    ExportScript.LaserCodeReaout(mainPanelDevice)
+    ExportScript.LaserCodeReadout(mainPanelDevice)
     ExportScript.WSO_WRCS(mainPanelDevice)
-    ExportScript.WSO_speedIndicators(mainPanelDevice)
     ExportScript.ARBCS(mainPanelDevice)
     ExportScript.UHF_radios(mainPanelDevice) -- WIP
     ExportScript.HSI(mainPanelDevice)
@@ -1327,12 +1334,6 @@ function ExportScript.ProcessIkarusDCSConfigLowImportance(mainPanelDevice)
     ExportScript.IFF(mainPanelDevice)
     ExportScript.NAVCOMP(mainPanelDevice) -- WIP
     ExportScript.Missile_Lights(mainPanelDevice)
-    ExportScript.Pilot_Gear_Status(mainPanelDevice)
-    ExportScript.Pilot_Altimeter(mainPanelDevice)
-    ExportScript.RADAR_ALTITUDE(mainPanelDevice)
-    ExportScript.ENGINE_RPM(mainPanelDevice)
-    ExportScript.VSI_INDICATION(mainPanelDevice)
-    ExportScript.AOA_INDEXER(mainPanelDevice)
     ExportScript.Pilot_Fuel_Readout(mainPanelDevice)
 
     ---------------
@@ -1515,12 +1516,6 @@ function ExportScript.Pilot_Altimeter(mainPanelDevice)
     ExportScript.Tools.SendData(export_ids.PILOT_tenthousands, altitudeWindowReadout_value3) --test]]
 end
 
--- ⚪ white
--- ⚫ black
--- 🟡 yellow
--- 🔴 red
--- 🟢 green
--- 🔵 blue
 function ExportScript.Missile_Lights(mainPanelDevice)
     local heat_left, heat_ml, heat_mr, heat_right, radar_tl, radar_tr, radar_bl, radar_br
     if mainPanelDevice:get_argument_value(284) < 0.8 then
@@ -2018,7 +2013,7 @@ function ExportScript.WSO_WRCS(mainPanelDevice)
         string.format(AltRange_hunds .. AltRange_tens .. AltRange_ones))
 end
 
-function ExportScript.LaserCodeReaout(mainPanelDevice)
+function ExportScript.LaserCodeReadout(mainPanelDevice)
     local ones = round(mainPanelDevice:get_argument_value(2020) * 10)
     local tens = round(mainPanelDevice:get_argument_value(2021) * 10)
     local hundreds = round(mainPanelDevice:get_argument_value(2022) * 10)
@@ -2131,6 +2126,16 @@ function ExportScript.TACAN_channels(mainPanelDevice)
 
     local _, tens_decimal = math.modf(tens)
     if tens_decimal > 0.91 then tens_decimal = 0 end
+    -- Pilot TACAN Command light
+    local tacan_command_PLT
+    if mainPanelDevice:get_argument_value(170) > 0 then
+        tacan_command_PLT = "🟢"
+    else
+        tacan_command_PLT = "⚫"
+    end
+    ExportScript.Tools.SendData(export_ids.PILOT_TACAN_FREQ_CMD_LGHT,
+        string.format("%.0f%.0f%.0f%s", hundreds * 10, tens_decimal * 10, ones * 10, mode) ..
+        "\n" .. tacan_command_PLT)
     ExportScript.Tools.SendData(export_ids.PILOT_TACAN_FREQUENCY,
         string.format("%.0f%.0f%.0f%s", hundreds * 10, tens_decimal * 10, ones * 10, mode))
 
@@ -2142,6 +2147,16 @@ function ExportScript.TACAN_channels(mainPanelDevice)
 
     local _, tens_decimal = math.modf(tens)
     if tens_decimal > 0.91 then tens_decimal = 0 end
+    -- WSO TACAN Command light
+    local tacan_command_WSO
+    if mainPanelDevice:get_argument_value(171) > 0 then
+        tacan_command_WSO = "🟢"
+    else
+        tacan_command_WSO = "⚫"
+    end
+    ExportScript.Tools.SendData(export_ids.WSO_TACAN_FREQ_CMD_LGHT,
+        string.format("%.0f%.0f%.0f%s", hundreds * 10, tens_decimal * 10, ones * 10, mode) ..
+        "\n" .. tacan_command_WSO)
     ExportScript.Tools.SendData(export_ids.WSO_TACAN_FREQUENCY,
         string.format("%.0f%.0f%.0f%s", hundreds * 10, tens_decimal * 10, ones * 10, mode))
 end
